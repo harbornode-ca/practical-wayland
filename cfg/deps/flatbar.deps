@@ -1,0 +1,13 @@
+fuzzel
+mako-notifier
+wl-clipboard
+network-manager 
+network-manager-tui
+iw
+libdbus-1
+libwayland-client
+libxkbcommon
+upower
+power-profiles-daemon
+btop
+calcurse
