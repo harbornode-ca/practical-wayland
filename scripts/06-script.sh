@@ -1,7 +1,7 @@
 #!/bin/bash
 #This is a temporary menu for selecting the environment to be installed.
 #Future development will not assume the installation packages with the desktop environment and the user will have choices of defaults.
-#Grouped pakages with software will be able to be review and installed. Example: "Development" "Media" "Productivity" "Utilities"
+#Grouped pakages with software will be able to be review and installed. Example: "Development" "Media" "Productivity" "Utilities
 echo "Setting up Folder Variables"
 echo
 sleep 0.5

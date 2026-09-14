@@ -1,6 +1,24 @@
 #!/bin/bash
 #This downloads Lemurs Login Manager repository, builds and installs the login manager.
 #A default config file is included, as well as a basic niri laucher script.
+cmdFail () {
+if [ $? -ne 0 ]; then
+    echo "$errMsg"
+    sleep 1
+    echo
+    echo "This script will now exit"
+    read -p "Press [ENTER] key to exit"
+    clear
+    exit 1
+else
+    echo "$sucessMsg"
+fi
+}
+#These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
+#exitStat=$?
+#errMsg="ERROR MESSAGE"
+#sucessMsg="SUCCESS MESSAGE"
+#cmdFail
 echo "Setting up Folder Variables"
 echo
 sleep 0.5
@@ -43,42 +61,18 @@ sleep 0.5
 echo
 echo "Updating APT package cache"
 sleep 0.5
-echo
-sudo apt update
-if [ $? -ne 0 ]; then
-    echo "apt package cache update failed"
-    echo "Please try running the script again"
-    sleep 1
-    echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
-    clear
-    exit 1
-else
-    echo "APT package cache updated successfully"
-    sleep 0.5
-fi
-echo
+sudo DEBIAN_FRONTEND=noninteractive apt update
+exitStat=$?
+errMsg="APT package cache update failed"
+sucessMsg="APT package cache updated successfully"
+cmdFail
 echo "Installing Lemurs dependacies"
 sleep 0.5
-echo
 sudo DEBIAN_FRONTEND=noninteractive apt install build-essential libpam0g-dev -y
-if [ $? -ne 0 ]; then
-    echo "Lemurs dependacies failed to install"
-    echo "Please try running the script again"
-    sleep 1
-    echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
-    clear
-    exit 1
-else
-    echo "Lemurs dependacies installed successfully"
-    sleep 0.5
-fi
-echo
-echo "Downloading and setting up Lemurs"
-sleep 0.5
+exitStat=$?
+errMsg="Lemurs dependacies failed to install"
+sucessMsg="Lemurs dependacies installed successfully"
+cmdFail
 echo
 echo "Cloning Lemurs Repository"
 sleep 0.5
@@ -86,36 +80,21 @@ if [ -d "$tmpDir/lemurs" ]; then
     echo "Lemurs repository already cloned. Skipping"
     sleep 0.5
 else
-    cd $tmpDir
-    git clone https://github.com/coastalwhite/lemurs.git 7151336a100e7a6266ec329d6cc356dec5c087ad
-    if [ $? -ne 0 ]; then
-        echo "Lemurs repository failed to clone"
-        echo "Please try running the script again"
-        sleep 1
-        echo
-        echo "This script will now exit"
-        read -p "Press [ENTER] key to exit"
-        clear
-        exit 1
-    else
-        echo "Lemurs repository cloned successfully"
-        sleep 0.5
-        echo "Moving files"
-        mv $tmpDir/7151336a100e7a6266ec329d6cc356dec5c087ad $tmpDir/lemurs
-        if [ $? -ne 0 ]; then
-            echo "Lemurs files failed to move"
-            echo "Please try running the script again"
-            sleep 1
-            echo
-            echo "This script will now exit"
-            read -p "Press [ENTER] key to exit"
-            clear
-            exit 1
-        else
-            echo "Lemurs files moved successfully"
-            sleep 0.5
-        fi
-    fi
+    gitURL=$(cat $cfgDir/install/git-commits.csv | grep -i lemurs | cut -d ',' -f 2)
+    gitTag=$(cat $cfgDir/install/git-commits.csv | grep -i lemurs | cut -d ',' -f 3)
+    git clone $gitURL $gitTag
+    exitStat=$?
+    errMsg="Lemurs repository failed to clone"
+    sucessMsg="Lemurs repository cloned successfully"
+    cmdFail
+    echo
+    echo "Moving files"
+    sleep 0.5
+    mv $tmpDir/7151336a100e7a6266ec329d6cc356dec5c087ad $tmpDir/lemurs
+    exitStat=$?
+    errMsg="Lemurs files failed to move"
+    sucessMsg="Lemurs files moved successfully"
+    cmdFail
 fi
 echo
 echo "Building Lemurs from source"
@@ -123,40 +102,20 @@ sleep 0.5
 echo
 cd $tmpDir/lemurs
 cargo build --release
-if [ $? -ne 0 ]; then
-    echo "Lemurs failed to build"
-    echo "Please try running the script again"
-    sleep 1
-    echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
-    clear
-    exit 1
-else
-    echo
-    echo "Lemurs built successfully"
-    sleep 0.5
-fi
+exitStat=$?
+errMsg="Lemurs failed to build"
+sucessMsg="Lemurs built successfully"
+cmdFail
 echo
 echo "Installing and setting up Lemurs"
 sleep 0.5
-echo
 echo "Installing lemurs binary from source"
 sleep 0.5
 sudo cp $tmpDir/lemurs/target/release/lemurs /usr/bin/lemurs
-if [ $? -ne 0 ]; then
-    echo "Lemurs binary failed to copy"
-    echo "Please try running the script again"
-    sleep 1
-    echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
-    clear
-    exit 1
-else
-    echo "Lemurs binary copied successfully"
-    sleep 0.5
-fi
+exitStat=$?
+errMsg="Lemurs binary failed to copy"
+sucessMsg="Lemurs binary copied successfully"
+cmdFail
 echo
 echo "Creating Lemurs configuration directories"
 for dir in /etc/lemurs/wayland /etc/lemurs/wms; do
@@ -165,89 +124,61 @@ for dir in /etc/lemurs/wayland /etc/lemurs/wms; do
         sleep 0.5
     else
         sudo mkdir -pv "$dir"
-        if [ $? -ne 0 ]; then
-            echo "Lemurs configuration directory $dir failed to create"
-            echo "Please try running the script again"
-            sleep 1
-            echo
-            echo "This script will now exit"
-            read -p "Press [ENTER] key to exit"
-            clear
-            exit 1
-        else
-            echo "Lemurs configuration directory $dir created successfully"
-            sleep 0.5
-        fi
+        exitStat=$?
+        errMsg="Lemurs configuration directory $dir failed to create"
+        sucessMsg="Lemurs configuration directory $dir created successfully"
+        cmdFail
     fi
 done
 echo
 echo "Installing Lemurs PAM module"
 sleep 0.5
 sudo cp -fv $tmpDir/lemurs/extra/lemurs.pam /etc/pam.d/lemurs
-if [ $? -ne 0 ]; then
-    echo "Lemurs PAM module failed to copy"
-    echo "Please try running the script again"
-    sleep 1
-    echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
-    clear
-    exit 1
-else
-    echo "Lemurs PAM module copied successfully"
-    sleep 0.5
-fi
+exitStat=$?
+errMsg="Lemurs PAM module failed to copy"
+sucessMsg="Lemurs PAM module copied successfully"
+cmdFail
 echo
 echo "Copying configuration files"
 sudo cp -fv $cfgDir/dotfiles/lemurs-config.toml /etc/lemurs/config.toml
-if [ $? -ne 0 ]; then
-    echo "Lemurs configuration file failed to copy"
-    echo "Please try running the script again"
-    sleep 1
-    echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
-    clear
-    exit 1
-else
-    echo "Lemurs configuration file copied successfully"
-    sleep 0.5
-fi
+exitStat=$?
+errMsg="Lemurs configuration file failed to copy"
+sucessMsg="Lemurs configuration file copied successfully"
+cmdFail
 echo
 echo "Installing Lemurs systemd service files"
 sudo cp -fv $tmpDir/lemurs/extra/lemurs.service /etc/systemd/system/lemurs.service
-if [ $? -ne 0 ]; then
-    echo "Lemurs systemd service file failed to copy"
-    echo "Please try running the script again"
-    sleep 1
-    echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
-    clear
-    exit 1
-else
-    echo "Lemurs systemd service file copied successfully"
-    sleep 0.5
-fi
+exitStat=$?
+errMsg="Lemurs systemd service file failed to copy"
+sucessMsg="Lemurs systemd service file copied successfully"
+cmdFail
 echo
 echo "Enabling Lemurs systemd service"
 sleep 0.5
 sudo systemctl daemon-reload
+exitStat=$?
+errMsg="Lemurs systemd daemon-reload failed"
+sucessMsg="Lemurs systemd daemon-reload successful"
+cmdFail
 sudo systemctl enable --now lemurs.service
-if [ $? -ne 0 ]; then
-    echo "Lemurs systemd service failed to enable"
-    echo "Please try running the script again"
-    sleep 1
-    echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
-    clear
-    exit 1
-else
-    echo "Lemurs systemd service enabled successfully"
-    sleep 0.5
-fi
+exitStat=$?
+errMsg="Lemurs systemd service failed to enable"
+sucessMsg="Lemurs systemd service enabled successfully"
+cmdFail
 echo
 echo "Lemurs has been installed and enabled successfully."
 #TODO: Add default configuration file as well as Niri as a session option
 sleep 0.5
+echo "Updating the stage file"
+echo "8" > $stageFile
+sleep 0.5
+echo "Stage file updated"
+sleep 0.5
+echo 
+echo "Lemurs has been installed and enabled successfully."
+echo "Your system has been prepared for the next stage of installation."
+echo
+read -p "Press [ENTER] key to continue..."
+clear
+exit 0
+

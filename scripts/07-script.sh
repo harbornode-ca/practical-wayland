@@ -2,7 +2,24 @@
 #This script adds the new noctalia repository and installs the Noctalia Desktop Environment stack.
 #This includes the noctalia package which is the main shell, the noctalia-greeter the login manager, 
 #umbriel which is the compositor/WM, and xdg-desktop-portal-umbriel for desktop portal support.
-echo
+cmdFail () {
+if [ $? -ne 0 ]; then
+    echo "$errMsg"
+    sleep 1
+    echo
+    echo "This script will now exit"
+    read -p "Press [ENTER] key to exit"
+    clear
+    exit 1
+else
+    echo "$sucessMsg"
+fi
+}
+#These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
+#exitStat=$?
+#errMsg="ERROR MESSAGE"
+#sucessMsg="SUCCESS MESSAGE"
+#cmdFail
 echo "Setting up Folder Variables"
 echo
 sleep 1
@@ -43,97 +60,64 @@ echo "Setting up Noctalia Repository"
 echo
 echo "Downloading keyring"
 wget -nv -O $tmpDir/nickh-archive-keyring.deb https://pkg.noctalia.dev/deb/nickh-archive-keyring.deb
-if [ -f $tmpDir/nickh-archive-keyring.deb ]; then
-    echo "Download Complete"
-    sleep 0.5
-else
-    echo "Noctalia keyring failed to download."
-    echo "Please try running the script again."
-    sleep 1
-    echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
-    clear
-    exit 1
-fi
+exitStat=$?
+errMsg="Noctalia keyring failed to download"
+sucessMsg="Noctalia keyring downloaded successfully"
+cmdFail
 echo
 echo "Installing Noctalia Keyring"
 sudo dpkg -i $tmpDir/nickh-archive-keyring.deb
-if [ $? -ne 0 ]; then
-    echo "Noctalia keyring failed to install"
-    echo "Please try running the script again"
-    sleep 1
-    echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
-    clear
-    exit 1
-else
-    echo "Keyring installed successfully"
-    sleep 0.5
-fi
+exitStat=$?
+errMsg="Noctalia keyring failed to install"
+sucessMsg="Noctalia keyring installed successfully"
+cmdFail
 echo
 echo "Downloading Noctalia APT sources file"
 sleep 0.5
 wget -nv -O $tmpDir/noctalia-unstable.sources https://pkg.noctalia.dev/deb/noctalia-unstable.sources
-if [ -f $tmpDir/noctalia-unstable.sources ]; then
-    echo "Download Complete"
-    sleep 0.5
-else
-    echo "Noctalia sources file failed to download."
-    echo "Please try running the script again."
-    sleep 1
-    echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
-    clear
-    exit 1
-fi
-echo
+exitStat=$?
+errMsg="Noctalia sources file failed to download."
+sucessMsg="Noctalia sources file downloaded successfully"
+cmdFail
 echo "Adding Noctalia APT sources file to APT sources directory"
 sleep 0.5
 mv -vf $tmpDir/noctalia-unstable.sources /etc/apt/sources.list.d/
-echo "Noctalia APT sources file added successfully"
-sleep 0.5
+exitStat=$?
+errMsg="Noctalia sources file failed to move to APT sources directory"
+sucessMsg="Noctalia sources file moved to APT sources directory successfully"
+cmdFail
 echo
 echo "Updating APT packages cache"
 echo
 sudo apt update
-if [ $? -ne 0 ]; then
-    echo "APT packages cache update failed"
-    echo "Please try running the script again"
-    sleep 1
-    echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
-    clear
-    exit 1
-else
-    echo "APT packages cache updated successfully"
+exitStat=$?
+errMsg="APT packages cache update failed"
+sucessMsg="APT packages cache updated successfully"
+cmdFail
+echo
     sleep 0.5
 fi
 echo
 echo "Installing packages from Noctalia repository"
 echo
 sudo DEBIAN_FRONTEND=noninteractive apt install noctalia noctalia-greeter umbriel xdg-desktop-portal-umbriel -y
-if [ $? -ne 0 ]; then
-    echo "Noctalia packages failed to install"
-    echo "Please try running the script again"
-    sleep 1
-    echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
-    clear
-    exit 1
-else
-    echo "Noctalia packages installed successfully"
-    sleep 0.5
-fi
+exitStat=$?
+errMsg="Noctalia packages failed to install"
+sucessMsg="Noctalia packages installed successfully"
+cmdFail
 echo
 echo "Cleaning up temporary files"
 echo
 rm -fv $tmpDir/nickh-archive-keyring.deb
+exitStat=$?
+errMsg="Noctalia keyring failed to remove"
+sucessMsg="Noctalia keyring removed successfully"
+cmdFail
 rm -fv $tmpDir/noctalia-unstable.sources
+exitStat=$?
+errMsg="Noctalia sources file failed to remove"
+sucessMsg="Noctalia sources file removed successfully"
+cmdFail
 echo "Temporary files cleaned up successfully"
 sleep 0.5
 echo

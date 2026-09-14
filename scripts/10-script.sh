@@ -7,7 +7,24 @@
 #Bluetui needs to be built from source and is not in the default APT repositories. This will automatically be done during the install process.
 #Rat commander ships as the main file manager with nemo being installed for handling GUI apps need for a GUI file manager. Mako is used as the notification daemon. and wl-clipboard for clipboard tools.
 #At the moment this script gets the bare minimum installed for a user to get started. Future releases will add: idler, lockscreen, screenshots, screenrecording, VTT through Voxtype, and more.
+cmdFail () {
+if [ $? -ne 0 ]; then
+echo "$errMsg"
+sleep 1
 echo
+echo "This script will now exit"
+read -p "Press [ENTER] key to exit"
+clear
+exit 1
+else
+    echo "$sucessMsg"
+fi
+}
+#These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
+#exitStat=$?
+#errMsg="ERROR MESSAGE"
+#sucessMsg="SUCCESS MESSAGE"
+#cmdFail
 echo "Setting up Folder Variables"
 echo
 sleep 0.5
@@ -44,3 +61,78 @@ for v in $valueList; do
     echo "Variable $varName has been imported with value $varValue"
     sleep 0.25
 done
+echo
+echo "Installing Flatbar"
+echo
+echo "Installing Flatbar APT dependancies"
+aptDep=$(cat $cfgDir/deps/flatbar.apt)
+sudo DEBIAN_FRONTEND=noninteractive apt install $aptDep -y
+exitStat=$?
+errMsg="Flatbar APT dependancies failed to install"
+sucessMsg="Flatbar APT dependancies installed successfully"
+echo
+echo "Downloading Flatbar"
+sleep 0.5
+gitURL=$(cat $cfgDir/install/git-commits.csv | grep -i flatbar | cut -d ',' -f 2)
+gitTag=$(cat $cfgDir/install/git-commits.csv | grep -i flatbar | cut -d ',' -f 3)
+if [ -d "$tmpDir/flatbar" ]; then
+    echo "Flatbar directory already exists. Skipping download"
+    sleep 0.5
+else
+    git -C "$tmpDir" clone $gitURL $gitTag
+    exitStat=$?
+    errMsg="Flatbar download failed"
+    sucessMsg="Flatbar downloaded successfully"
+    cmdFail
+fi
+echo "Moving flatbar source files into a new directory"
+sleep 0.5
+mv -v "$tmpDir/$gitTag" "$tmpDir/flatbar"
+exitStat=$?
+errMsg="Flatbar source files move failed"
+sucessMsg="Flatbar source files moved successfully"
+echo
+echo "Building flatbar from source"
+cd $tmpDir/flatbar
+cargo build --release
+exitStat=$?
+errMsg="Flatbar build failed"
+sucessMsg="Flatbar built successfully"
+cmdFail
+echo "Installing flatbar"
+echo "Setting executable permissions for Flatbar binaries"
+chmod -v +x "$tmpDir/flatbar/target/release/flatbar"
+exitStat=$?
+errMsg="Flatbar executable permission failed"
+sucessMsg="Flatbar executable permission set successfully"
+cmdFail
+chmod -v +x "$tmpDir/flatbar/target/release/flatbar-core"
+exitStat=$?
+errMsg="Flatbar-core executable permission failed"
+sucessMsg="Flatbar-core executable permission set successfully"
+cmdFail
+echo "Copying Flatbar binaries to /usr/bin"
+sudo cp -v "$tmpDir/flatbar/target/release/flatbar" "/usr/bin/flatbar"
+exitStat=$?
+errMsg="Flatbar binary copy failed"
+sucessMsg="Flatbar binary copied successfully"
+cmdFail
+sudo cp -v "$tmpDir/flatbar/target/release/flatbar-core" "/usr/bin/flatbar-core"
+exitStat=$?
+errMsg="Flatbar-core binary copy failed"
+sucessMsg="Flatbar-core binary copied successfully"
+cmdFail
+echo "Creating systemwide flatbar config directory"
+sudo mkdir -pv "/etc/flatbar"
+exitStat=$?
+errMsg="Flatbar config directory creation failed"
+sucessMsg="Flatbar config directory created successfully"
+cmdFail
+echo "Copying flatbar config to /etc/flatbar"
+sudo cp -v "$tmpDir/flatbar/extras/config.toml /etc/flatbar/config.toml"
+exitStat=$?
+errMsg="Flatbar config copy failed"
+sucessMsg="Flatbar config copied successfully"
+cmdFail
+echo
+echo "Flatbar installation completed"

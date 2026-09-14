@@ -1,7 +1,24 @@
 #!/bin/bash
 #This setups up the Danklinux Repository that contains a debian installer for niri and xwayland-sattelite 
 #which is requrired for niri to support X11 apps.
-echo
+cmdFail () {
+if [ $? -ne 0 ]; then
+    echo "$errMsg"
+    sleep 1
+    echo
+    echo "This script will now exit"
+    read -p "Press [ENTER] key to exit"
+    clear
+    exit 1
+else
+    echo "$sucessMsg"
+fi
+}
+#These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
+#exitStat=$?
+#errMsg="ERROR MESSAGE"
+#sucessMsg="SUCCESS MESSAGE"
+#cmdFail
 echo "Setting up Folder Variables"
 echo
 sleep 0.5
@@ -38,59 +55,62 @@ for v in $valueList; do
     echo "Variable $varName has been imported with value $varValue"
     sleep 0.25
 done
+
 echo
 echo "Starting niri install"
 sleep 0.5
 echo
 echo "Adding repository for Niri"
 sleep 0.5
-echo
 echo Downloading DMS-key.gpg
 wget -nv -O $tmpDir/DMS-key.gpg https://download.opensuse.org/repositories/home:AvengeMedia:danklinux/Debian_Testing/Release.key
-if [ -f $tmpDir/DMS-key.gpg ]; then
-    echo "DMS-key.gpg downloaded successfully"
-    echo "Installing key to APT keyring"
-    sleep 0.5
-    cat $tmpDir/DMS-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/DMS-key.gpg
-    if [ $? -ne 0 ]; then
-        echo "Failed to install DMS-key.gpg"
-        exit 1
-    else
-        echo "DMS-key.gpg installed successfully"
-    fi
-else
-    echo "Failed to download DMS-key.gpg"
-    exit 1
-fi
-echo
+exitStat=$?
+errMsg="DMS-key.gpg failed to download"
+sucessMsg="DMS-key.gpg downloaded successfully"
+cmdFail
+cat $tmpDir/DMS-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/DMS-key.gpg
+exitStat=$?
+errMsg="DMS-key.gpg failed to install"
+sucessMsg="DMS-key.gpg installed successfully"
 echo "Adding DMS repository to APT sources"
 sudo cp -fv $cfgDir/install-cfg/dms.sources /etc/apt/sources.list.d/dms.sources
-if [ $? -ne 0 ]; then
-    echo "Failed to add DMS repository to APT sources"
-    exit 1
-else
-    echo "DMS repository added successfully"
-    sleep 0.5
-fi
-echo
+exitStat=$?
+errMsg="Failed to add DMS repository to APT sources"
+sucessMsg="DMS repository added successfully"
+cmdFail
 echo "Updating APT package cache"
 sleep 0.5
-sudo apt update
-if [ $? -ne 0 ]; then
-    echo "Failed to update APT package cache"
-    exit 1
-else
-    echo "APT package cache updated successfully"
-    sleep 0.5
-fi
+sudo DEBIAN_FRONTEND=noninteractive apt update
+exitStat=$?
+errMsg="Failed to update APT package cache"
+sucessMsg="APT package cache updated successfully"
+cmdFail
 echo
+echo "Installing niri Dependencies"
+echo
+sleep 0.5
+niriDeps=$(cat $cfgDir/deps/niri.dep)
+sudo DEBIAN_FRONTEND=noninteractive apt install $niriDeps
+exitStat=$?
+errMsg="Niri dependencies failed to install"
+sucessMsg="Niri dependencies installed successfully"
+cmdFail
 echo "Installing Niri and Xwayland-Sattelite"
 sleep 0.5
-sudo DEBIAN_FRONTEND=noninteractive apt install niri xwayland-sattelite
-if [ $? -ne 0 ]; then
-    echo "Failed to install Niri and Xwayland-Sattelite"
-    exit 1
-else
-    echo "Niri and Xwayland-Sattelite installed successfully"
-    sleep 0.5
-fi
+sudo DEBIAN_FRONTEND=noninteractive apt install niri xwayland-sattelite -y
+exitStat=$?
+errMsg="Niri and Xwayland-Sattelite failed to install"
+sucessMsg="Niri and Xwayland-Sattelite installed successfully"
+cmdFail
+echo "Updating the stage file"
+echo "9" > $stageFile
+sleep 0.5
+echo "Stage file updated"
+sleep 0.5
+echo 
+echo "Niri has been installed and enabled successfully."
+echo "Your system has been prepared for the next stage of installation."
+echo
+read -p "Press [ENTER] key to continue..."
+clear
+exit 0

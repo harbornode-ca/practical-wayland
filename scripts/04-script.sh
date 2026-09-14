@@ -1,6 +1,24 @@
 #!/bin/bash
 #Adds i386 architecture support and updates package cache. While not required NVIDIA Drivers still have i386 support.
 #This is required for running steam. Adding does not affect performance or system stability.
+cmdFail () {
+if [ $? -ne 0 ]; then
+    echo "$errMsg"
+    sleep 1
+    echo
+    echo "This script will now exit"
+    read -p "Press [ENTER] key to exit"
+    clear
+    exit 1
+else
+    echo "$sucessMsg"
+fi
+}
+#These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
+#exitStat=$?
+#errMsg="ERROR MESSAGE"
+#sucessMsg="SUCCESS MESSAGE"
+#cmdFail
 echo "Setting up Folder Variables"
 echo
 sleep 0.5
@@ -41,27 +59,18 @@ echo
 echo "Adding i386 architecture"
 sleep 0.5
 sudo dpkg --add-architecture i386
-archChk=$(dpkg --print-foreign-architectures)
-if [ $archChk == "i386" ]; then
-    echo "i386 architecture added sucesfully"
-    sleep 0.5
-else
-    echo "i386 architecture not added"
-    echo "Please try installing i386 architecture manually"
-    Sleep 1
-    echo
-    echo "This script will now exit"
-    read -p "Press [Enter] key to exit..."
-    exit 1
-fi
+exitStat=$?
+errMsg="Failed to add i386 architecture"
+sucessMsg="i386 architecture added successfully"
+cmdFail
 echo
 echo "Updating APT package cache"
 sleep 0.5
-sudo apt update 2>&1
-echo
-echo "APT package cache updated successfully"
-sleep 0.5
-echo
+sudo DEBIAN_FRONTEND=noninteractive apt update
+exitStat=$?
+errMsg="Failed to update APT package cache"
+sucessMsg="APT package cache updated successfully"
+cmdFail
 echo "Updating the stage file"
 sleep 0.5
 echo "4" > $stageFile

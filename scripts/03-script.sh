@@ -2,6 +2,24 @@
 #Installs Rust, Cargo and Just
 #Downloads rustup.sh and installs Rust. Installs Just tool via Cargo.
 #Removes the downloaded rustup.sh file after installation.
+cmdFail () {
+if [ $? -ne 0 ]; then
+    echo "$errMsg"
+    sleep 1
+    echo
+    echo "This script will now exit"
+    read -p "Press [ENTER] key to exit"
+    clear
+    exit 1
+else
+    echo "$sucessMsg"
+fi
+}
+#These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
+#exitStat=$?
+#errMsg="ERROR MESSAGE"
+#sucessMsg="SUCCESS MESSAGE"
+#cmdFail
 echo "Setting up Folder Variables"
 echo
 sleep 0.5
@@ -40,42 +58,70 @@ for v in $valueList; do
 done
 echo
 echo "Installing Rust and Cargo"
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > $tmpDir/rustup.sh
-if [ -f $tmpDir/rustup.sh ]; then
-    chmod +x $tmpDir/rustup.sh
-    $tmpDir/rustup.sh -y
+echo
+"Checking for existing installation of Rust"
+echo
+if [ -d "$HOME/.cargo" ]; then
+    echo "Rust is already installed"
+    sleep 0.5
+    echo "Updating Rust and Cargo"
+    sleep 0.5
+    rustup update
+    exitStat=$?
+    errMsg="Failed to update Rust and Cargo"
+    sucessMsg="Rust and Cargo updated successfully"
+    cmdFail
     source $HOME/.cargo/env
-    echo
-    echo "Rust installation complete!"
+    exitStat=$?
+    errMsg="Cargo environment variable export failed"
+    sucessMsg="Cargo environment variable exported successfully"
+    cmdFail    
 else
-    echo "Rust installation failed!"
-    echo "Please try installing Rust manually"
-    Sleep 1
+    echo "Rust not installed. Starting installation."
+    sleep 0.5
+    echo "Downloading installation script."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > $tmpDir/rustup.sh
+    exitStat=$?
+    errMsg="Failed to download installation script"
+    sucessMsg="Installation script downloaded successfully"
+    cmdFail
     echo
-    echo "This script will now exit"
-    read -p "Press [Enter] key to exit..."
-    exit 1
+    echo "Setting executable permissions on installation script."
+    sleep 0.5
+    if [ -f $tmpDir/rustup.sh ]; then
+        chmod +x $tmpDir/rustup.sh
+        exitStat=$?
+        errMsg="Failed to set executable permissions on installation script"
+        sucessMsg="Installation script set to executable"
+        cmdFail    
+    fi
+    $tmpDir/rustup.sh -y
+    exitStat=$?
+    errMsg="Failed to install Rust and Cargo"
+    sucessMsg="Rust and Cargo installed successfully"
+    cmdFail
+    source $HOME/.cargo/env
+    exitStat=$?
+    errMsg="Cargo environment variable export failed"
+    sucessMsg="Cargo environment variable exported successfully"
+    cmdFail
 fi
 echo
-echo "Installing Just tool"
+echo "Installing Just using cargo"
 sleep 1
 cargo install just
-echo
-echo "Just tool installed successfully!"
-sleep 0.5
+exitStat=$?
+errMsg="Failed to install Just"
+sucessMsg="Just installed successfully"
+cmdFail
 echo 
 echo "Cleaning up temporary files"
 sleep 0.5
 rm -fv $tmpDir/rustup.sh
-if [ $? = 0 ]; then
-    echo
-    echo "Temporary files removed successfully!"
-else
-    echo
-    echo "Temporary files removal failed!"
-    echo "Please try removing them manually"
-    sleep 1
-fi
+exitStat=$?
+errMsg="Failed to remove temporary files"
+sucessMsg="Temporary files removed successfully"
+cmdFail
 echo
 echo "Updating the stage file"
 sleep 0.5
