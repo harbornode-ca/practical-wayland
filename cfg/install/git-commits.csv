@@ -1,9 +1,5 @@
 name,url,commit
 lemurs,https://github.com/coastalwhite/lemurs.git,7151336a100e7a6266ec329d6cc356dec5c087ad
-mako,https://github.com/emersion/mako.git,cce37cd3405f64eee1b07d4656b5ecbbc912b46d
-fuzzel,https://codeberg.org/dnkl/fuzzel.git,c4491417f4d716d27d24428708de565d1636d689
-fnott,https://codeberg.org/dnkl/fnott.git,700a5836cc1a626c9868a008bb9491d11b943bf5
-foot,https://codeberg.org/dnkl/foot.git,ab33c9a19d626f8d0ac0bd1adfdba21946ada948
 rat-commander,https://github.com/dividebysandwich/rat-commander.git,93771508f6216684b1211a41b3495af46f3b10c1
 bluetui,https://github.com/pythops/bluetui.git,0ac17bf8bba97c364a3e409f418356063f6b15a2
 flatbar,https://github.com/harbornode-ca/flatbar.git,557028347ed95ea5b5793c914e5ce907adc347db
