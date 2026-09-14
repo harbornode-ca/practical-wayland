@@ -1,13 +1,14 @@
 #!/bin/bash
 #
-CFG_DIR=/opt/kevrevrun
-STATUS=/opt/kevrevrun/loop.status
-LOOP=$(cat $STATUS)
-RUN=$(cat $CFG_DIR/run.cmd &)
-$RUN
-while [ $LOOP = 0 ]
+cfgDir=/opt/kevrevrun
+statusFile=/opt/kevrevrun/loop.status
+loopStatus=$(cat $statusFile)
+runCmd=$(cat $cfgDir/run.cmd)
+
+while [ $loopStatus = 0 ]
 do
+	$runCmd
 	sleep 1
-	LOOP=$(cat $STATUS)
+	loopStatus=$(cat $statusFile)
 done
 exit 0
