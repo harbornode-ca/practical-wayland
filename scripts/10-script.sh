@@ -64,7 +64,15 @@ done
 echo
 echo "Installing Flatbar"
 echo
+echo "Updating APT package cache"
+sleep 0.5
+sudo DEBIAN_FRONTEND=noninteractive apt update
+exitStat=$?
+errMsg="Failed to update APT package cache"
+sucessMsg="APT package cache updated successfully"
+cmdFail
 echo "Installing Flatbar APT dependancies"
+echo
 aptDep=$(cat $cfgDir/deps/flatbar.apt)
 sudo DEBIAN_FRONTEND=noninteractive apt install $aptDep -y
 exitStat=$?
@@ -117,11 +125,6 @@ exitStat=$?
 errMsg="Flatbar binary copy failed"
 sucessMsg="Flatbar binary copied successfully"
 cmdFail
-sudo cp -v "$tmpDir/flatbar/target/release/flatbar-core" "/usr/bin/flatbar-core"
-exitStat=$?
-errMsg="Flatbar-core binary copy failed"
-sucessMsg="Flatbar-core binary copied successfully"
-cmdFail
 echo "Creating systemwide flatbar config directory"
 sudo mkdir -pv "/etc/flatbar"
 exitStat=$?
@@ -136,3 +139,62 @@ sucessMsg="Flatbar config copied successfully"
 cmdFail
 echo
 echo "Flatbar installation completed"
+echo
+echo "Installing Foot terminal editor"
+echo
+echo "Installing Foot APT dependancies"
+aptDep=$(cat $cfgDir/deps/foot.apt)
+sudo DEBIAN_FRONTEND=noninteractive apt install $aptDep -y
+exitStat=$?
+errMsg="Foot APT dependancies failed to install"
+sucessMsg="Foot APT dependancies installed successfully"
+echo
+echo "Downloading Foot"
+sleep 0.5
+gitURL=$(cat $cfgDir/install/git-commits.csv | grep -i foot | cut -d ',' -f 2)
+gitTag=$(cat $cfgDir/install/git-commits.csv | grep -i foot | cut -d ',' -f 3)
+if [ -d "$tmpDir/foot" ]; then
+    echo "Foot directory already exists. Skipping download"
+    sleep 0.5
+else
+    git -C "$tmpDir" clone $gitURL $gitTag
+    exitStat=$?
+    errMsg="Foot download failed"
+    sucessMsg="Foot downloaded successfully"
+    cmdFail
+fi
+echo "Moving foot source files into a new directory"
+sleep 0.5
+mv -v "$tmpDir/$gitTag" "$tmpDir/foot"
+exitStat=$?
+errMsg="Foot source files move failed"
+sucessMsg="Foot source files moved successfully"
+echo
+echo "Building foot from source"
+cd $tmpDir/foot
+export CC=clang-22
+echo "Creating meson build directory"
+mkdir -pv bld/release
+exitStat=$?
+errMsg="Foot directory creation failed"
+sucessMsg="Foot directory created successfully"
+cmdFail
+echo "Configuring meson build for foot"
+meson setup --buildtype=release bld/release
+exitStat=$?
+errMsg="Foot configuration failed"
+sucessMsg="Foot configuration completed successfully"
+cmdFail
+cd $tmpDir/foot/bld/release
+echo "Building foot from source"
+ninja
+exitStat=$?
+errMsg="Foot build failed"
+sucessMsg="Foot build completed successfully"
+cmdFail
+echo "Installing foot from source"
+sudo ninja install
+exitStat=$?
+errMsg="Foot install failed"
+sucessMsg="Foot installed successfully"
+cmdFail 

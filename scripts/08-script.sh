@@ -68,7 +68,8 @@ sucessMsg="APT package cache updated successfully"
 cmdFail
 echo "Installing Lemurs dependacies"
 sleep 0.5
-sudo DEBIAN_FRONTEND=noninteractive apt install build-essential libpam0g-dev -y
+aptDeps=$(cat $cfgDir/deps/lemurs.apt)
+sudo DEBIAN_FRONTEND=noninteractive apt install $aptDeps -y
 exitStat=$?
 errMsg="Lemurs dependacies failed to install"
 sucessMsg="Lemurs dependacies installed successfully"
@@ -90,7 +91,7 @@ else
     echo
     echo "Moving files"
     sleep 0.5
-    mv $tmpDir/7151336a100e7a6266ec329d6cc356dec5c087ad $tmpDir/lemurs
+    mv "$tmpDir/$gitTag" "$tmpDir/lemurs"
     exitStat=$?
     errMsg="Lemurs files failed to move"
     sucessMsg="Lemurs files moved successfully"
@@ -181,4 +182,3 @@ echo
 read -p "Press [ENTER] key to continue..."
 clear
 exit 0
-

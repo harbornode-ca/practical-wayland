@@ -2,10 +2,13 @@ wl-clipboard
 network-manager 
 network-manager-tui
 iw
-libdbus-1
-libwayland-client
-libxkbcommon
+libdbus-1-dev
+libwayland-client0
+libwayland-cursor0
+libwayland-server0
 upower
 power-profiles-daemon
 btop
 calcurse
+libxkbcommon-dev 
+pkg-config
