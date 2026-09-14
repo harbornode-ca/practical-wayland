@@ -137,20 +137,13 @@ for v in $valueList; do
     sleep 0.25
 done
 echo 
-echo "Downloading and extracting Practical Wayland"
+echo "Downloading Practical Wayland from github"
 sleep 1
 echo
-wget -O "$tmpDir/practical-wayland.zip" "https://github.com/harbornode-ca/Practical-Wayland/archive/refs/heads/main.zip"
-if [ -f "$tmpDir/practical-wayland.zip" ]; then
+git -C "$tmpDir" clone https://github.com/harbornode-ca/practical-wayland.git
+if [ -d "$tmpDir/practical-wayland" ]; then
     echo
-    echo "File sucessfully downloaded"
-    sleep 0.5
-    echo
-    echo "Extracting files"
-    sleep 0.5
-    unzip "$tmpDir/practical-wayland.zip" -d "$tmpDir"
-    echo
-    echo "Extraction completed"
+    echo "Practical Wayland directory confirmed"
     sleep 0.5
 fi
 echo
