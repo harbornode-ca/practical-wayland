@@ -1,4 +1,7 @@
 #!/bin/bash
+#Installs Rust, Cargo and Just
+#Downloads rustup.sh and installs Rust. Installs Just tool via Cargo.
+#Removes the downloaded rustup.sh file after installation.
 echo "Setting up Folder Variables"
 echo
 sleep 0.5

@@ -1,4 +1,6 @@
 #!/bin/bash
+#This setups up the Danklinux Repository that contains a debian installer for niri and xwayland-sattelite 
+#which is requrired for niri to support X11 apps.
 echo
 echo "Setting up Folder Variables"
 echo
@@ -82,13 +84,13 @@ else
     sleep 0.5
 fi
 echo
-echo "Installing Niri"
+echo "Installing Niri and Xwayland-Sattelite"
 sleep 0.5
-sudo DEBIAN_FRONTEND=noninteractive apt install niri
+sudo DEBIAN_FRONTEND=noninteractive apt install niri xwayland-sattelite
 if [ $? -ne 0 ]; then
-    echo "Failed to install Niri"
+    echo "Failed to install Niri and Xwayland-Sattelite"
     exit 1
 else
-    echo "Niri installed successfully"
+    echo "Niri and Xwayland-Sattelite installed successfully"
     sleep 0.5
 fi

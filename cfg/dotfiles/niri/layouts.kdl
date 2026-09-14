@@ -1,0 +1,48 @@
+layout {
+	// Set gaps around windows in logical pixels.
+    gaps 5
+    // When to center a column when changing focus, options are:
+    // - "never", default behavior, focusing an off-screen column will keep at the left
+    //   or right edge of the screen.
+    // - "always", the focused column will always be centered.
+    // - "on-overflow", focusing a column will center it if it doesn't fit
+    //   together with the previously focused column.
+    center-focused-column "never"
+	// empty-workspace-above-first
+    // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
+    preset-column-widths {
+        proportion 0.25
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 0.75
+        proportion 1.0
+    }
+    preset-window-heights { 
+        proportion 0.25
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 0.75
+        proportion 1.0
+    }
+    default-column-width { proportion 0.5; }
+    focus-ring {
+        off
+        width 4
+        active-color "#ffc87f"
+        inactive-color "#505050"
+        // Color of the focus ring around windows that request your attention.
+        urgent-color "#9b0000"  
+    }
+    // You can also add a border. It's similar to the focus ring, but always visible.
+    border {
+        // Uncomment this line to disable borders.
+        on
+        width 4
+        active-color "#ffc87f"
+        inactive-color "#505050"
+        // Color of the border around windows that request your attention.
+        urgent-color "#9b0000"
+    }
+}

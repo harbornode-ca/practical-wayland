@@ -1,4 +1,6 @@
 #!/bin/bash
+#Adds i386 architecture support and updates package cache. While not required NVIDIA Drivers still have i386 support.
+#This is required for running steam. Adding does not affect performance or system stability.
 echo "Setting up Folder Variables"
 echo
 sleep 0.5

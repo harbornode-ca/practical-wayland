@@ -1,5 +1,6 @@
 #!/bin/bash
-# Adds Debian Forky repositories and updates system to Debian Forky.
+#Removes an old style Debian .list files. Removes installer generated .sources file and adds Debian Forky repositories.
+#Updates the system to Debian Forky (testing) and installs firmware packages. Exits prompting user to reboot to complete the update.
 echo "Setting up Folder Variables"
 echo
 sleep 0.5

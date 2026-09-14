@@ -1,0 +1,10 @@
+output "DP-4" {
+    mode "2560x1440@179.959"
+    position x=0 y=0
+    scale 1.0
+    transform "normal"
+    focus-at-startup
+    hot-corners {
+        bottom-right
+    }
+}

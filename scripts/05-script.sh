@@ -1,3 +1,6 @@
+#!/bin/bash
+#Identifies GPU types and installs the appropriate drivers. If running in VM it will exit without adapter.
+#Intel and AMD use the Mesa drivers and are installed via APT. NVIDIA drivers are installed through the nvidia drivers repository.
 echo "Setting up Folder Variables"
 echo
 sleep 0.5
@@ -130,6 +133,9 @@ if [ $installNVIDIA == true ]; then
     echo
     echo "NVIDIA Driver installation completed successfully"
     sleep 0.5
+    # The package is signed if secure boot it the key may need to be added via mokutil. Will try install on Nvidia system to confirm if it is needed.
+    echo
+    read -p "Press [Enter] key to continue..."
 fi
 echo
 echo "Updating the stage file"

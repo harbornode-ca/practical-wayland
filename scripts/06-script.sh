@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#This is a temporary menu for selecting the environment to be installed.
+#Future development will not assume the installation packages with the desktop environment and the user will have choices of defaults.
+#Grouped pakages with software will be able to be review and installed. Example: "Development" "Media" "Productivity" "Utilities"
 echo "Setting up Folder Variables"
 echo
 sleep 0.5
@@ -45,7 +47,7 @@ selMenu()
     echo "Please select what desktop environment you would like to install"
     sleep 0.5
     echo "1. Noctalia"
-    echo "2. Niri w/ Ashell"
+    echo "2. Niri /w Flatbar"
     echo "3. lxqt w/ niri wm"
     sleep 0.5
     read -p "Enter your choice [1-3]> " choice
@@ -67,7 +69,7 @@ case $choice in
         $scriptDir/07-script.sh
         ;;       
     2)
-        echo "You selected Niri w/ Ashell"
+        echo "You selected Niri /w Flatbar"
         echo
         echo "Updating the stage file"
         echo "6" > $stageFile
@@ -76,7 +78,7 @@ case $choice in
         echo "Stage file updated"
         sleep 0.5
         echo 
-        echo "Niri w/ Ashell will now install"
+        echo "Niri /w Flatbar will now install"
         echo 
         sleep 1
         echo

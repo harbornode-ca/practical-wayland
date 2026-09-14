@@ -1,0 +1,58 @@
+// This file contains window rules, which let you adjust behavior for individual windows. --- IGNORE ---
+// Rules for all windows
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+window-rule {
+    // This app-id regular expression will work for both:
+    // - host Firefox (app-id is "firefox")
+    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+window-rule {
+    match app-id="footclient"
+    match app-id="foot" 
+    opacity 0.9
+    background-effect {
+        xray true
+        saturation 0
+    }
+}
+// Blur the background behind pop-up menus in Nautilus.
+window-rule {
+    match app-id="nemo"
+    opacity 0.9
+    background-effect {
+	blur false
+	xray true
+	saturation 0.45
+        }
+    popups {
+        opacity 0.8
+        background-effect {
+        blur true
+	xray true
+	saturation 0.45
+        }
+   }
+}
+// Blur the background behind pop-up menus in Nautilus.
+window-rule {
+    match app-id="mousepad"
+    opacity 0.8
+    background-effect {
+	blur false
+	xray true
+	saturation 0.45
+        }
+    popups {
+        opacity 0.8
+        background-effect {
+        blur true
+	xray true
+	saturation 0.45
+        }
+   }
+}

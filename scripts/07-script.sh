@@ -1,6 +1,7 @@
 #!/bin/bash
-#This script adds the noctalia repo, updates apt, and installs 
-#noctalia, noctalia-greeter, umbriel, and xdg-desktop-portal-umbriel
+#This script adds the new noctalia repository and installs the Noctalia Desktop Environment stack.
+#This includes the noctalia package which is the main shell, the noctalia-greeter the login manager, 
+#umbriel which is the compositor/WM, and xdg-desktop-portal-umbriel for desktop portal support.
 echo
 echo "Setting up Folder Variables"
 echo

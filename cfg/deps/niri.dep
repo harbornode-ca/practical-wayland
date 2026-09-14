@@ -9,4 +9,7 @@ xdg-desktop-portal-gtk
 nemo
 network-manager
 network-manager-tui
+playerctl
+wpctl
+fuzzel
 

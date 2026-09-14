@@ -1,6 +1,6 @@
 #!/bin/bash
-#This script will install the dependacies for Niri w/ Ashell
-#with Lemurs for the Login/Display manager.
+#This downloads Lemurs Login Manager repository, builds and installs the login manager.
+#A default config file is included, as well as a basic niri laucher script.
 echo "Setting up Folder Variables"
 echo
 sleep 0.5
@@ -249,4 +249,5 @@ else
 fi
 echo
 echo "Lemurs has been installed and enabled successfully."
+#TODO: Add default configuration file as well as Niri as a session option
 sleep 0.5

@@ -1,5 +1,7 @@
 #!/bin/bash
-# Confirms and creates initial directories if missing.
+#Sets up install process. Confirms directory structure and creates necessary files/variables. Downloads the repository and places all files in there relative folders.
+#Right now the script saves the variables to /opt/kevrevrun/status/ for each script. Once the whole install process is complete exporting variables will be used where possible to avoid
+#repetative loading of variables for every script.
 echo
 echo "Confirming directory structure"
 sleep 0.5
