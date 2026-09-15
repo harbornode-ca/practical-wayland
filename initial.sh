@@ -131,7 +131,7 @@ else
 	echo
 	echo "Root access has been granted!!!"
 	echo
-	read -p "Press Enter to continue"
+	sleep 1.5
 fi
 echo
 echo "Installing Updates & Need Packages"
@@ -268,13 +268,13 @@ sleep 1
 id -u $sudoUser > $cfgDir/id.usr
 echo $sudoUser > $cfgDir/name.usr
 echo 1 > $cfgDir/status/setup.stage
-for f in "$cfgDir/id.usr" "$cfgDir/name.usr" "$cfgDir/status/setup.stage" "$cfgDir/status/loop.status"; do
+for f in "$cfgDir/id.usr" "$cfgDir/name.usr" "$cfgDir/status/setup.stage"; do
 	if [ -f  $f ]; then
 		echo
 		echo "Successfully created $f"
 		sleep 1
 	else
-		errMsg="Failed to create files"
+		errMsg="Failed to create $f"
 		prt_err
 	fi
 done
