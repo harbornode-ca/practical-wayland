@@ -57,6 +57,15 @@ done
 echo "Installing Rat Commander File Manager"
 sleep 0.5
 echo
+echo "Installing Rat Commander APT dependancies"
+sleep 0.5
+echo
+aptDep=$(cat $cfgDir/deps/rc.apt)
+sudo DEBIAN_FRONTEND=noninteractive apt install $aptDep -y
+exitStat=$?
+errMsg="Rat Commander APT dependancies failed to install"
+successMsg="Rat Commander APT dependancies installed successfully"
+cmdFail
 echo "Downloading Rat Commander"
 sleep 0.5
 gitURL=$(cat $cfgDir/install/git-commits.csv | grep -i rat-commander | cut -d ',' -f 2)

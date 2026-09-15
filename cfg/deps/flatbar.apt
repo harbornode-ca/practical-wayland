@@ -13,4 +13,3 @@ calcurse
 libxkbcommon-dev 
 pkg-config
 bluez-alsa-utils
-alsa-tools

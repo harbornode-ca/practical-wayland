@@ -73,15 +73,15 @@ exitStat=$?
 errMsg="Failed to update APT package cache"
 successMsg="APT package cache updated successfully"
 cmdFail
-echo "Installing Flatbar APT dependancies"
+echo "Installing Flatbar & BlueTUI APT dependancies"
 sleep 0.5
 echo
 aptDep=$(cat $cfgDir/deps/flatbar.apt)
 sudo DEBIAN_FRONTEND=noninteractive apt install $aptDep -y
 exitStat=$?
-errMsg="Flatbar APT dependancies failed to install"
-successMsg="Flatbar APT dependancies installed successfully"
-echo
+errMsg="Flatbar & BlueTUI APT dependancies failed to install"
+successMsg="Flatbar & BlueTUI APT dependancies installed successfully"
+cmdFail
 echo "Downloading Flatbar"
 sleep 0.5
 gitURL=$(cat $cfgDir/install/git-commits.csv | grep -i flatbar | cut -d ',' -f 2)
