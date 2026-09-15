@@ -5,7 +5,6 @@ opus-tools
 pipewire  
 lm-sensors  
 xdg-desktop-portal-gtk
-nemo
 network-manager
 network-manager-tui
 playerctl
@@ -18,3 +17,4 @@ foot-themes
 ncurses-term
 wireplumber
 xwayland-satellite
+chromium

@@ -1,0 +1,11 @@
+curl 
+dialog 
+git 
+iproute2 
+libnotify-bin 
+netcat-openbsd
+freerdp-x11
+freerdp-wayland
+crun
+podman
+podman-compose
