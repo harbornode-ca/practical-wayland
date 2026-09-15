@@ -1,4 +1,7 @@
-spawn-at-startup "noctalia"
+spawn-at-startup "flatbar"
+spawn-at-startup "mako-notifier"
+spawn-at-startup "foot --server"
+
 hotkey-overlay {
     skip-at-startup
 }

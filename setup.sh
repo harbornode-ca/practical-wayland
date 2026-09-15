@@ -105,6 +105,14 @@ stage11 () {
     sleep 1
     /opt/kevrevrun/scripts/11-script.sh
 }
+stage12 () {
+    echo "Installing WinApps"
+    sleep 1
+    /opt/kevrevrun/scripts/12-script.sh
+    if [ $? -eq 0 ]; then
+        stage13
+    fi
+}
 case $setupStg in
     1) 
         stage1
