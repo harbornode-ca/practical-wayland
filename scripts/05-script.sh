@@ -12,6 +12,7 @@ if [ $? -ne 0 ]; then
     exit 1
 else
     echo "$successMsg"
+    sleep 0.5    
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -79,6 +80,7 @@ installNVIDIA=false
 if [ -n "$intelGPU" ]; then
     echo
     echo "Intel GPU detected"
+    sleep 0.5
     echo "The following Intel GPUs detected:"
     cat $intelGPU
     sleep 1.5
@@ -86,6 +88,7 @@ if [ -n "$intelGPU" ]; then
 elif [ -n "$amdGPU" ]; then
     echo
     echo "AMD GPU detected"
+    sleep 0.5
     echo "The following AMD GPUs detected:"
     cat $amdGPU
     sleep 1.5
@@ -93,6 +96,7 @@ elif [ -n "$amdGPU" ]; then
 elif [ -n "$nvidiaGPU" ]; then
     echo
     echo "NVIDIA GPU detected"
+    sleep 0.5
     echo "The following NVIDIA GPUs detected:"
     cat $nvidiaGPU
     sleep 1.5
@@ -100,31 +104,34 @@ elif [ -n "$nvidiaGPU" ]; then
 else
     echo
     echo "No GPU detected"
+    sleep 1.5
 fi
 if [ $installIntel == true ]; then
     depIntel=$(cat /opt/kevrevrun/cfg/deps/intelgpu.apt)
     echo
     echo "Installing Intel GPU drivers"
-    sleep 1
+    sleep 0.5
     sudo DEBIAN_FRONTEND=noninteractive apt install $depIntel -y 2>&1
     exitStat=$?
     errMsg="Failed to install Intel GPU drivers"
     successMsg="Intel GPU drivers installed successfully"
     cmdFail
     echo "Intel driver installation completed successfully"
+    sleep 0.5
     read -p "Press [ENTER] key to continue..."
 fi
 if [ $installAMD == true ]; then
     depAMD=$(cat /opt/kevrevrun/cfg/deps/amdgpu.apt)
     echo
     echo "Installing AMD GPU drivers"
-    sleep 1
+    sleep 0.5
     sudo DEBIAN_FRONTEND=noninteractive apt install $depAMD -y 2>&1
     exitStat=$?
     errMsg="Failed to install AMD GPU drivers"
     successMsg="AMD GPU drivers installed successfully"
     cmdFail
     echo "AMD GPU driver installation completed successfully"
+    sleep 0.5
     read -p "Press [ENTER] key to continue..."
 fi
 if [ $installNVIDIA == true ]; then
@@ -132,7 +139,7 @@ if [ $installNVIDIA == true ]; then
     urlNVIDIA=$(cat /opt/kevrevrun/cfg/nvidia.url)
     echo
     echo "Adding Nvidia Driver Repository"
-    sleep 1
+    sleep 0.5
     wget -nv -O $tmpDir/cuda.deb $urlNVIDIA
     exitStat=$?
     errMsg="Failed to download Nvidia Driver Repository"
@@ -194,6 +201,7 @@ echo "--------------------------------------------------"
 echo "GPU driver installation complete. A reboot is required to apply changes"
 echo "Once the system reboots please run the main setup.sh script in your home directory to continue."
 echo "--------------------------------------------------"
+sleep 0.5
 read -p "Would you like to reboot now? \`[y/n]\`: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Rebooting"

@@ -11,6 +11,7 @@ clear
 exit 1
 else
     echo "$successMsg"
+    sleep 0.5
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -56,11 +57,15 @@ for v in $valueList; do
 done
 echo
 echo "Starting WinApps and WinApps installer setup..."
+sleep 0.5
 echo
 echo "Setting up user and password for WinApps installation"
+sleep 0.5
 read -p "Enter username: " RDP_USER
 read -p "Enter password: " RDP_PASS
+sleep 0.5
 echo "User and password set to $RDP_USER and $RDP_PASS"
+sleep 0.5
 sed -i \
   -e "s|^RDP_USER=.*|RDP_USER=\"${RDP_USER}\"|" \
   -e "s|^RDP_PASS=.*|RDP_PASS=\"${RDP_PASS}\"|" \
@@ -71,6 +76,7 @@ successMsg="Successfully set up user and password"
 cmdFail
 echo
 echo "Starting WinApps installation"
+sleep 0.5
 echo
 bash $cfgDir/install/winapps.sh
 exitStat=$?
@@ -79,6 +85,7 @@ successMsg="Successfully installed WinApps"
 cmdFail
 echo
 echo "Starting WinApps installer setup"
+sleep 0.5
 echo
 bash $cfgDir/install/winapps-installer.sh
 exitStat=$?
@@ -87,6 +94,7 @@ successMsg="Successfully installed WinApps installer"
 cmdFail
 echo
 echo "Installing WinApps dependancies"
+sleep 0.5
 depWinApps=$(cat $cfgDir/deps/winapps.apt)
 sudo DEBIAN_FRONTEND=noninteractive apt install $depWinApps -y
 exitStat=$?
@@ -96,8 +104,10 @@ cmdFail
 if [ -d $HOME/.config/winapps/ ]; then
     echo "WinApps config folder already exists"
     echo "Skipping WinApps config folder creation"
+    sleep 0.5
 else
     echo "Creating WinApps config folder"
+    sleep 0.5
     echo
     mkdir -p $HOME/.config/winapps/
     exitStat=$?
@@ -108,9 +118,10 @@ fi
 if [ -f $HOME/.config/winapps/winapps.conf ]; then
     echo "WinApps config file already exists"
     echo "Skipping WinApps config file creation"
+    sleep 0.5
 else
     echo "Creating WinApps config file"
-    echo
+    sleep 0.5
     cp -fv $cfgDir/install/winapps.conf $HOME/.config/winapps/
     exitStat=$?
     errMsg="Failed to copy WinApps config file"
@@ -118,6 +129,7 @@ else
     cmdFail
 fi
 echo "Setting directory permissions for WinApps config file"
+sleep 0.5
 chown $(whoami):$(whoami) ~/.config/winapps/winapps.conf
 exitStat=$?
 errMsg="Failed to set directory permissions for WinApps config file"
@@ -130,6 +142,7 @@ errMsg="Failed to set directory permissions for WinApps config file"
 successMsg="Successfully set directory permissions for WinApps config file"
 cmdFail
 echo "Setting up WinApps Variables for Podman"
+sleep 0.5
 read -p "Enter Windows Version [Default is 11]: " WIN_VERSION
 if [ -z "$WIN_VERSION" ]; then
     WIN_VERSION="11"
@@ -147,6 +160,8 @@ if [ -z "$WIN_DISK" ]; then
     WIN_DISK="128G"
 fi
 #Note that RDP_USER and RDP_PASS are not asked for because they are already set via winapps.conf.
+echo "Writting variables to WinApps compose.yaml file"
+sleep 0.5
 sed -i -E \
   -e "s|(VERSION:[[:space:]]*\")[^\"]*\"|\1${WIN_VERSION}\"|" \
   -e "s|(RAM_SIZE:[[:space:]]*\")[^\"]*\"|\1${WIN_RAM}\"|" \
@@ -162,12 +177,14 @@ if [ $? -ne 0 ]; then
     cmdFail
 fi
 echo "Copying compose.yaml to WinApps config folder"
+sleep 0.5
 sudo cp -fv $cfgDir/install/winapps-compose.yaml $HOME/.config/winapps/compose.yaml
 exitStat=$?
 errMsg="Failed to copy compose.yaml to WinApps config folder"
 successMsg="Successfully copied compose.yaml to WinApps config folder"
 cmdFail
 echo "Setting directory permissions for compose.yaml"
+sleep 0.5
 chown $(whoami):$(whoami) ~/.config/winapps/compose.yaml
 exitStat=$?
 errMsg="Failed to set directory permissions for compose.yaml"
@@ -184,6 +201,7 @@ exitStat=$?
 errMsg="Failed to start WinApps"
 successMsg="Successfully started WinApps"
 echo "Updating the stage file"
+sleep 0.5
 echo "13" > $stageFile
 sleep 0.5
 echo "Stage file updated"
@@ -196,6 +214,7 @@ echo "You should now be able to connect to WinApps in the broswer"
 echo "This script should launch the chromium browser automatically."
 echo "If not, open the browser and navigate to http://127.0.0.1:8006/"
 echo "----------------------------------------------------------------"
+sleep 0.5
 read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Continuing to next stage"

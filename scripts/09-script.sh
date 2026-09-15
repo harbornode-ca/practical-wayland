@@ -12,6 +12,7 @@ if [ $? -ne 0 ]; then
     exit 1
 else
     echo "$successMsg"
+    sleep 0.5
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -64,6 +65,7 @@ sleep 0.5
 echo Downloading DMS-key.gpg
 if [ -f /etc/apt/keyrings/DMS-key.gpg ]; then
     echo "DMS-key.gpg already exists, skipping download"
+    sleep 0.5
 else
     wget -nv -O $tmpDir/DMS-key.gpg https://download.opensuse.org/repositories/home:AvengeMedia:danklinux/Debian_Testing/Release.key
     exitStat=$?
@@ -112,8 +114,10 @@ successMsg="Niri and Xwayland-Satellite installed successfully"
 cmdFail
 if [ -d $HOME/.config/niri/ ]; then
     echo "$HOME/.config/niri/ already exists, skipping creation"
+    sleep 0.5
 else
     echo "$HOME/.config/niri/ does not exist, creating it"
+    sleep 0.5
     mkdir $HOME/.config/niri/
     exitStat=$?
     errMsg="Failed to create $HOME/.config/niri/"
@@ -129,8 +133,10 @@ if [ -f $HOME/.config/niri/config.kdl ]; then
     cmdFail
 else
     echo "$HOME/.config/niri/config.kdl does not exist, skipping removal"
+    sleep 0.5
 fi
 echo "Copying config files"
+sleep 0.5
 sudo cp -fv $cfgDir/dotfiles/niri/* $HOME/.config/niri/
 exitStat=$?
 errMsg="Failed to copy config files"
@@ -144,6 +150,7 @@ errMsg="Failed to install niri-companion"
 successMsg="niri-companion installed successfully"
 cmdFail
 echo "Updating the stage file"
+sleep 0.5
 echo "10" > $stageFile
 sleep 0.5
 echo "Stage file updated"

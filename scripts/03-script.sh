@@ -13,6 +13,7 @@ if [ $? -ne 0 ]; then
     exit 1
 else
     echo "$successMsg"
+    sleep 0.5
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -58,9 +59,10 @@ for v in $valueList; do
 done
 echo
 echo "Installing Rust and Cargo"
+sleep 0.5
 echo
-"Checking for existing installation of Rust"
-echo
+echo "Checking for existing installation of Rust"
+sleep 0.5
 if [ -d "$HOME/.cargo" ]; then
     echo "Rust is already installed"
     sleep 0.5
@@ -80,6 +82,7 @@ else
     echo "Rust not installed. Starting installation."
     sleep 0.5
     echo "Downloading installation script."
+    sleep 0.5
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > $tmpDir/rustup.sh
     exitStat=$?
     errMsg="Failed to download installation script"
@@ -108,7 +111,7 @@ else
 fi
 echo
 echo "Installing Just using cargo"
-sleep 1
+sleep 0.5
 cargo install just
 exitStat=$?
 errMsg="Failed to install Just"
@@ -133,6 +136,7 @@ echo
 echo "--------------------------------------------------"
 echo "Rust,Cargo and Just have been installed successfully."
 echo "--------------------------------------------------"
+sleep 0.5
 read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Continuing to next stage"

@@ -12,6 +12,7 @@ if [ $? -ne 0 ]; then
     exit 1
 else
     echo "$successMsg"
+    sleep 0.5
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -119,6 +120,7 @@ successMsg="Lemurs binary copied successfully"
 cmdFail
 echo
 echo "Creating Lemurs configuration directories"
+sleep 0.5
 for dir in /etc/lemurs/wayland /etc/lemurs/wms; do
     if [ -d "$dir" ]; then
         echo "Lemurs configuration directory $dir already exists. Skipping"
@@ -141,6 +143,7 @@ successMsg="Lemurs PAM module copied successfully"
 cmdFail
 echo
 echo "Copying configuration files"
+sleep 0.5
 sudo cp -fv $cfgDir/install/lemurs-config.toml /etc/lemurs/config.toml
 exitStat=$?
 errMsg="Lemurs configuration file failed to copy"
@@ -148,6 +151,7 @@ successMsg="Lemurs configuration file copied successfully"
 cmdFail
 echo
 echo "Installing Lemurs systemd service files"
+sleep 0.5
 sudo cp -fv $tmpDir/lemurs/extra/lemurs.service /etc/systemd/system/lemurs.service
 exitStat=$?
 errMsg="Lemurs systemd service file failed to copy"

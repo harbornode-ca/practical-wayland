@@ -12,6 +12,7 @@ if [ $? -ne 0 ]; then
     exit 1
 else
     echo "$successMsg"
+    sleep 0.5
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -81,6 +82,7 @@ echo
 echo "--------------------------------------------------"
 echo "i386 architchture support has been sucessfully added"
 echo "--------------------------------------------------"
+sleep 0.5
 read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Continuing to next stage"

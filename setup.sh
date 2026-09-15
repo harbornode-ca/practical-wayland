@@ -4,8 +4,8 @@ setupStg=$(cat "$stageFile")
 stage1 () {
     echo "Inintializing the install process"
     echo
-    echo "Retrieving stage 1 script..."
-    echo
+    echo "Retrieving inintialization script."
+    sleep 0.5
     wget -nv -O /opt/kevrevrun/scripts/01-script.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/01-script.sh
     if [ -f /opt/kevrevrun/scripts/01-script.sh ]; then
         echo "Script retrieved successfully."
@@ -84,33 +84,66 @@ stage7 () {
     echo "Installing Noctalia Desktop Environment"
     sleep 1
     /opt/kevrevrun/scripts/07-script.sh
+    if [ $? -eq 0 ]; then
+        stage11
+    fi
 }
 stage8 () {
     echo "Installing Lemurs Login Manager"
     sleep 1
     /opt/kevrevrun/scripts/08-script.sh
+    if [ $? -eq 0 ]; then
+        stage9
+    fi
 }
 stage9 () {
     echo "Installing Niri"
     sleep 1
     /opt/kevrevrun/scripts/09-script.sh
+    if [ $? -eq 0 ]; then
+        stage10
+    fi    
 }
 stage10 () {
     echo "Installing Flatbar & BlueTUI"
     sleep 1
     /opt/kevrevrun/scripts/10-script.sh
+    if [ $? -eq 0 ]; then
+        stage11
+    fi
 }
 stage11 () {
     echo "Installing Rat Commander - File Manger"
     sleep 1
     /opt/kevrevrun/scripts/11-script.sh
+    if [ $? -eq 0 ]; then
+        echo "12" > $stageFile
+        echo "Restarting System."
+        echo "After restart, please open the setup.sh script in your"
+        echo "home directory to continue to the next stage."
+        echo "You will have to run from the terminal, which can be found by"
+        echo "pressing Meta + Spacebar and selecting foot."
+        sleep 0.5
+        sudo reboot
+    fi
 }
 stage12 () {
     echo "Installing WinApps"
     sleep 1
     /opt/kevrevrun/scripts/12-script.sh
     if [ $? -eq 0 ]; then
-        stage13
+        echo "Setup will continue in the browser"
+        echo "Trying to start a browser for you"
+        xdg-open http://localhost:8000
+        sleep 1.5
+        echo "If the browser does not open automatically"
+        echo "Please navigate to http://localhost:8000"
+        sleep 0.5
+        echo "Thhis script will continue to run in the background"
+        echo "When you have completed the WinApps setup, please return to this terminal"
+        read -p "Press [ENTER] key to continue..."
+        echo "13" > $stageFile
+        #stage13
     fi
 }
 case $setupStg in

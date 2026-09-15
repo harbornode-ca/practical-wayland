@@ -13,6 +13,7 @@ if [ $? -ne 0 ]; then
     exit 1
 else
     echo "$successMsg"
+    sleep 0.5
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -57,8 +58,10 @@ for v in $valueList; do
     sleep 0.25
 done
 echo "Setting up Noctalia Repository"
+sleep 0.5
 echo
 echo "Downloading keyring"
+sleep 0.5
 wget -nv -O $tmpDir/nickh-archive-keyring.deb https://pkg.noctalia.dev/deb/nickh-archive-keyring.deb
 exitStat=$?
 errMsg="Noctalia keyring failed to download"
@@ -66,6 +69,7 @@ successMsg="Noctalia keyring downloaded successfully"
 cmdFail
 echo
 echo "Installing Noctalia Keyring"
+sleep 0.5
 sudo dpkg -i $tmpDir/nickh-archive-keyring.deb
 exitStat=$?
 errMsg="Noctalia keyring failed to install"
@@ -88,6 +92,7 @@ successMsg="Noctalia sources file moved to APT sources directory successfully"
 cmdFail
 echo
 echo "Updating APT packages cache"
+sleep 0.5
 echo
 sudo apt update
 exitStat=$?
@@ -98,6 +103,7 @@ echo
     sleep 0.5
 echo
 echo "Installing packages from Noctalia repository"
+sleep 0.5
 echo
 sudo DEBIAN_FRONTEND=noninteractive apt install noctalia noctalia-greeter umbriel xdg-desktop-portal-umbriel -y
 exitStat=$?
@@ -106,6 +112,7 @@ successMsg="Noctalia packages installed successfully"
 cmdFail
 echo
 echo "Cleaning up temporary files"
+sleep 0.5
 echo
 rm -fv $tmpDir/nickh-archive-keyring.deb
 exitStat=$?
@@ -129,6 +136,7 @@ echo
 echo "--------------------------------------------------"
 echo "Noctalia repository has been set up and packages have been installed successfully."
 echo "--------------------------------------------------"
+sleep 0.5
 read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Continuing to next stage"

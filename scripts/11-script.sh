@@ -10,6 +10,7 @@ clear
 exit 1
 else
     echo "$successMsg"
+    sleep 0.5
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -54,6 +55,7 @@ for v in $valueList; do
     sleep 0.25
 done
 echo "Installing Rat Commander File Manager"
+sleep 0.5
 echo
 echo "Downloading Rat Commander"
 sleep 0.5
@@ -77,20 +79,24 @@ errMsg="Rat Commander source files move failed"
 successMsg="Rat Commander source files moved successfully"
 cmdFail
 echo "Building Rat Commander from source"
+sleep 0.5
 cd $tmpDir/rat-commander
 echo "Building Rat Commander release version"
+sleep 0.5
 cargo build --release
 exitStat=$?
 errMsg="Rat Commander build failed"
 successMsg="Rat Commander build completed successfully"
 cmdFail
 echo "Installing Rat Commander"
+sleep 0.5
 sudo cp -v target/release/rat-commander /usr/bin/
 exitStat=$?
 errMsg="Rat Commander install failed"
 successMsg="Rat Commander installed successfully"
 cmdFail
 echo "Updating the stage file"
+sleep 0.5
 echo "12" > $stageFile
 sleep 0.5
 echo "Stage file updated"
@@ -99,6 +105,7 @@ echo
 echo "-----------------------------------------------------------" 
 echo "Rat Commander has been installed and enabled successfully."
 echo "-----------------------------------------------------------"
+sleep 0.5
 read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Continuing to next stage"
