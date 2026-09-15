@@ -12,13 +12,13 @@ if [ $? -ne 0 ]; then
     clear
     exit 1
 else
-    echo "$sucessMsg"
+    echo "$successMsg"
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
 #exitStat=$?
 #errMsg="ERROR MESSAGE"
-#sucessMsg="SUCCESS MESSAGE"
+#successMsg="SUCCESS MESSAGE"
 #cmdFail
 echo "Setting up Folder Variables"
 echo
@@ -62,14 +62,14 @@ echo "Downloading keyring"
 wget -nv -O $tmpDir/nickh-archive-keyring.deb https://pkg.noctalia.dev/deb/nickh-archive-keyring.deb
 exitStat=$?
 errMsg="Noctalia keyring failed to download"
-sucessMsg="Noctalia keyring downloaded successfully"
+successMsg="Noctalia keyring downloaded successfully"
 cmdFail
 echo
 echo "Installing Noctalia Keyring"
 sudo dpkg -i $tmpDir/nickh-archive-keyring.deb
 exitStat=$?
 errMsg="Noctalia keyring failed to install"
-sucessMsg="Noctalia keyring installed successfully"
+successMsg="Noctalia keyring installed successfully"
 cmdFail
 echo
 echo "Downloading Noctalia APT sources file"
@@ -77,14 +77,14 @@ sleep 0.5
 wget -nv -O $tmpDir/noctalia-unstable.sources https://pkg.noctalia.dev/deb/noctalia-unstable.sources
 exitStat=$?
 errMsg="Noctalia sources file failed to download."
-sucessMsg="Noctalia sources file downloaded successfully"
+successMsg="Noctalia sources file downloaded successfully"
 cmdFail
 echo "Adding Noctalia APT sources file to APT sources directory"
 sleep 0.5
-mv -vf $tmpDir/noctalia-unstable.sources /etc/apt/sources.list.d/
+sudo mv -vf $tmpDir/noctalia-unstable.sources /etc/apt/sources.list.d/
 exitStat=$?
 errMsg="Noctalia sources file failed to move to APT sources directory"
-sucessMsg="Noctalia sources file moved to APT sources directory successfully"
+successMsg="Noctalia sources file moved to APT sources directory successfully"
 cmdFail
 echo
 echo "Updating APT packages cache"
@@ -92,18 +92,17 @@ echo
 sudo apt update
 exitStat=$?
 errMsg="APT packages cache update failed"
-sucessMsg="APT packages cache updated successfully"
+successMsg="APT packages cache updated successfully"
 cmdFail
 echo
     sleep 0.5
-fi
 echo
 echo "Installing packages from Noctalia repository"
 echo
 sudo DEBIAN_FRONTEND=noninteractive apt install noctalia noctalia-greeter umbriel xdg-desktop-portal-umbriel -y
 exitStat=$?
 errMsg="Noctalia packages failed to install"
-sucessMsg="Noctalia packages installed successfully"
+successMsg="Noctalia packages installed successfully"
 cmdFail
 echo
 echo "Cleaning up temporary files"
@@ -111,12 +110,12 @@ echo
 rm -fv $tmpDir/nickh-archive-keyring.deb
 exitStat=$?
 errMsg="Noctalia keyring failed to remove"
-sucessMsg="Noctalia keyring removed successfully"
+successMsg="Noctalia keyring removed successfully"
 cmdFail
 rm -fv $tmpDir/noctalia-unstable.sources
 exitStat=$?
 errMsg="Noctalia sources file failed to remove"
-sucessMsg="Noctalia sources file removed successfully"
+successMsg="Noctalia sources file removed successfully"
 cmdFail
 echo "Temporary files cleaned up successfully"
 sleep 0.5

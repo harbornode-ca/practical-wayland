@@ -11,13 +11,13 @@ if [ $? -ne 0 ]; then
     clear
     exit 1
 else
-    echo "$sucessMsg"
+    echo "$successMsg"
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
 #exitStat=$?
 #errMsg="ERROR MESSAGE"
-#sucessMsg="SUCCESS MESSAGE"
+#successMsg="SUCCESS MESSAGE"
 #cmdFail
 echo "Setting up Folder Variables"
 echo
@@ -66,24 +66,24 @@ echo Downloading DMS-key.gpg
 wget -nv -O $tmpDir/DMS-key.gpg https://download.opensuse.org/repositories/home:AvengeMedia:danklinux/Debian_Testing/Release.key
 exitStat=$?
 errMsg="DMS-key.gpg failed to download"
-sucessMsg="DMS-key.gpg downloaded successfully"
+successMsg="DMS-key.gpg downloaded successfully"
 cmdFail
 cat $tmpDir/DMS-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/DMS-key.gpg
 exitStat=$?
 errMsg="DMS-key.gpg failed to install"
-sucessMsg="DMS-key.gpg installed successfully"
+successMsg="DMS-key.gpg installed successfully"
 echo "Adding DMS repository to APT sources"
 sudo cp -fv $cfgDir/install-cfg/dms.sources /etc/apt/sources.list.d/dms.sources
 exitStat=$?
 errMsg="Failed to add DMS repository to APT sources"
-sucessMsg="DMS repository added successfully"
+successMsg="DMS repository added successfully"
 cmdFail
 echo "Updating APT package cache"
 sleep 0.5
 sudo DEBIAN_FRONTEND=noninteractive apt update
 exitStat=$?
 errMsg="Failed to update APT package cache"
-sucessMsg="APT package cache updated successfully"
+successMsg="APT package cache updated successfully"
 cmdFail
 echo
 echo "Installing niri Dependencies"
@@ -93,14 +93,14 @@ aptDeps=$(cat $cfgDir/deps/niri.apt)
 sudo DEBIAN_FRONTEND=noninteractive apt install $aptDeps -y
 exitStat=$?
 errMsg="Niri dependencies failed to install"
-sucessMsg="Niri dependencies installed successfully"
+successMsg="Niri dependencies installed successfully"
 cmdFail
 echo "Installing Niri and Xwayland-Sattelite"
 sleep 0.5
 sudo DEBIAN_FRONTEND=noninteractive apt install niri xwayland-sattelite -y
 exitStat=$?
 errMsg="Niri and Xwayland-Sattelite failed to install"
-sucessMsg="Niri and Xwayland-Sattelite installed successfully"
+successMsg="Niri and Xwayland-Sattelite installed successfully"
 cmdFail
 echo "Updating the stage file"
 echo "9" > $stageFile

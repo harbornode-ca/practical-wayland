@@ -11,13 +11,13 @@ if [ $? -ne 0 ]; then
     clear
     exit 1
 else
-    echo "$sucessMsg"
+    echo "$successMsg"
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
 #exitStat=$?
 #errMsg="ERROR MESSAGE"
-#sucessMsg="SUCCESS MESSAGE"
+#successMsg="SUCCESS MESSAGE"
 #cmdFail
 echo "Setting up Folder Variables"
 echo
@@ -64,7 +64,7 @@ sleep 0.5
 sudo DEBIAN_FRONTEND=noninteractive apt update
 exitStat=$?
 errMsg="APT package cache update failed"
-sucessMsg="APT package cache updated successfully"
+successMsg="APT package cache updated successfully"
 cmdFail
 echo "Installing Lemurs dependacies"
 sleep 0.5
@@ -72,7 +72,7 @@ aptDeps=$(cat $cfgDir/deps/lemurs.apt)
 sudo DEBIAN_FRONTEND=noninteractive apt install $aptDeps -y
 exitStat=$?
 errMsg="Lemurs dependacies failed to install"
-sucessMsg="Lemurs dependacies installed successfully"
+successMsg="Lemurs dependacies installed successfully"
 cmdFail
 echo
 echo "Cloning Lemurs Repository"
@@ -83,10 +83,10 @@ if [ -d "$tmpDir/lemurs" ]; then
 else
     gitURL=$(cat $cfgDir/install/git-commits.csv | grep -i lemurs | cut -d ',' -f 2)
     gitTag=$(cat $cfgDir/install/git-commits.csv | grep -i lemurs | cut -d ',' -f 3)
-    git clone $gitURL $gitTag
+    git -C "$tmpDir" clone $gitURL $gitTag
     exitStat=$?
     errMsg="Lemurs repository failed to clone"
-    sucessMsg="Lemurs repository cloned successfully"
+    successMsg="Lemurs repository cloned successfully"
     cmdFail
     echo
     echo "Moving files"
@@ -94,7 +94,7 @@ else
     mv "$tmpDir/$gitTag" "$tmpDir/lemurs"
     exitStat=$?
     errMsg="Lemurs files failed to move"
-    sucessMsg="Lemurs files moved successfully"
+    successMsg="Lemurs files moved successfully"
     cmdFail
 fi
 echo
@@ -105,7 +105,7 @@ cd $tmpDir/lemurs
 cargo build --release
 exitStat=$?
 errMsg="Lemurs failed to build"
-sucessMsg="Lemurs built successfully"
+successMsg="Lemurs built successfully"
 cmdFail
 echo
 echo "Installing and setting up Lemurs"
@@ -115,7 +115,7 @@ sleep 0.5
 sudo cp $tmpDir/lemurs/target/release/lemurs /usr/bin/lemurs
 exitStat=$?
 errMsg="Lemurs binary failed to copy"
-sucessMsg="Lemurs binary copied successfully"
+successMsg="Lemurs binary copied successfully"
 cmdFail
 echo
 echo "Creating Lemurs configuration directories"
@@ -127,7 +127,7 @@ for dir in /etc/lemurs/wayland /etc/lemurs/wms; do
         sudo mkdir -pv "$dir"
         exitStat=$?
         errMsg="Lemurs configuration directory $dir failed to create"
-        sucessMsg="Lemurs configuration directory $dir created successfully"
+        successMsg="Lemurs configuration directory $dir created successfully"
         cmdFail
     fi
 done
@@ -137,21 +137,21 @@ sleep 0.5
 sudo cp -fv $tmpDir/lemurs/extra/lemurs.pam /etc/pam.d/lemurs
 exitStat=$?
 errMsg="Lemurs PAM module failed to copy"
-sucessMsg="Lemurs PAM module copied successfully"
+successMsg="Lemurs PAM module copied successfully"
 cmdFail
 echo
 echo "Copying configuration files"
-sudo cp -fv $cfgDir/dotfiles/lemurs-config.toml /etc/lemurs/config.toml
+sudo cp -fv $cfgDir/install/lemurs-config.toml /etc/lemurs/config.toml
 exitStat=$?
 errMsg="Lemurs configuration file failed to copy"
-sucessMsg="Lemurs configuration file copied successfully"
+successMsg="Lemurs configuration file copied successfully"
 cmdFail
 echo
 echo "Installing Lemurs systemd service files"
 sudo cp -fv $tmpDir/lemurs/extra/lemurs.service /etc/systemd/system/lemurs.service
 exitStat=$?
 errMsg="Lemurs systemd service file failed to copy"
-sucessMsg="Lemurs systemd service file copied successfully"
+successMsg="Lemurs systemd service file copied successfully"
 cmdFail
 echo
 echo "Enabling Lemurs systemd service"
@@ -159,12 +159,12 @@ sleep 0.5
 sudo systemctl daemon-reload
 exitStat=$?
 errMsg="Lemurs systemd daemon-reload failed"
-sucessMsg="Lemurs systemd daemon-reload successful"
+successMsg="Lemurs systemd daemon-reload successful"
 cmdFail
 sudo systemctl enable --now lemurs.service
 exitStat=$?
 errMsg="Lemurs systemd service failed to enable"
-sucessMsg="Lemurs systemd service enabled successfully"
+successMsg="Lemurs systemd service enabled successfully"
 cmdFail
 echo
 echo "Lemurs has been installed and enabled successfully."

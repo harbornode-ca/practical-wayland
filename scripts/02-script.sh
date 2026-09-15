@@ -11,13 +11,13 @@ if [ $? -ne 0 ]; then
     clear
     exit 1
 else
-    echo "$sucessMsg"
+    echo "$successMsg"
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
 #exitStat=$?
 #errMsg="ERROR MESSAGE"
-#sucessMsg="SUCCESS MESSAGE"
+#successMsg="SUCCESS MESSAGE"
 #cmdFail
 echo "Setting up Folder Variables"
 echo
@@ -64,7 +64,7 @@ for r in $oldRepos; do
     sudo rm -fv $r
     exitStat=$?
     errMsg="Removing $r failed"
-    sucessMsg="Removed $r successfully"
+    successMsg="Removed $r successfully"
     cmdFail    
 done
 echo "Removed old APT sources files"
@@ -74,7 +74,7 @@ if [ -f /etc/apt/sources.list.d/debian.sources ]; then
     sudo rm -fv /etc/apt/sources.list.d/debian.sources
     exitStat=$?
     errMsg="Debian installer generated source file removal failed"
-    sucessMsg="Debian installer generated source file removed successfully"
+    successMsg="Debian installer generated source file removed successfully"
     cmdFail    
 else
     echo "No installer generated modernized source file detected."
@@ -87,7 +87,7 @@ echo
 sudo cp -fv "$cfgDir/debian-sources/enabledForky.sources" "/etc/apt/sources.list.d/forky.sources"
 exitStat=$?
 errMsg="Copying Forky sources to /etc/apt/sources.list.d/ failed"
-sucessMsg="Copying Forky sources to /etc/apt/sources.list.d/ completed successfully"
+successMsg="Copying Forky sources to /etc/apt/sources.list.d/ completed successfully"
 cmdFail    
 echo
 echo "Updating APT package cache"
@@ -101,7 +101,7 @@ if [ $chkUpgrades != 0 ]; then
     sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
     exitStat=$?
     errMsg="APT upgrade failed"
-    sucessMsg="APT upgrade completed successfully"
+    successMsg="APT upgrade completed successfully"
     cmdFail    
 else
     echo "There are no updates available."

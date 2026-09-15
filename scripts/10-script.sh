@@ -17,13 +17,13 @@ read -p "Press [ENTER] key to exit"
 clear
 exit 1
 else
-    echo "$sucessMsg"
+    echo "$successMsg"
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
 #exitStat=$?
 #errMsg="ERROR MESSAGE"
-#sucessMsg="SUCCESS MESSAGE"
+#successMsg="SUCCESS MESSAGE"
 #cmdFail
 echo "Setting up Folder Variables"
 echo
@@ -69,7 +69,7 @@ sleep 0.5
 sudo DEBIAN_FRONTEND=noninteractive apt update
 exitStat=$?
 errMsg="Failed to update APT package cache"
-sucessMsg="APT package cache updated successfully"
+successMsg="APT package cache updated successfully"
 cmdFail
 echo "Installing Flatbar APT dependancies"
 echo
@@ -77,7 +77,7 @@ aptDep=$(cat $cfgDir/deps/flatbar.apt)
 sudo DEBIAN_FRONTEND=noninteractive apt install $aptDep -y
 exitStat=$?
 errMsg="Flatbar APT dependancies failed to install"
-sucessMsg="Flatbar APT dependancies installed successfully"
+successMsg="Flatbar APT dependancies installed successfully"
 echo
 echo "Downloading Flatbar"
 sleep 0.5
@@ -90,7 +90,7 @@ else
     git -C "$tmpDir" clone $gitURL $gitTag
     exitStat=$?
     errMsg="Flatbar download failed"
-    sucessMsg="Flatbar downloaded successfully"
+    successMsg="Flatbar downloaded successfully"
     cmdFail
 fi
 echo "Moving flatbar source files into a new directory"
@@ -98,103 +98,134 @@ sleep 0.5
 mv -v "$tmpDir/$gitTag" "$tmpDir/flatbar"
 exitStat=$?
 errMsg="Flatbar source files move failed"
-sucessMsg="Flatbar source files moved successfully"
+successMsg="Flatbar source files moved successfully"
 echo
 echo "Building flatbar from source"
 cd $tmpDir/flatbar
 cargo build --release
 exitStat=$?
 errMsg="Flatbar build failed"
-sucessMsg="Flatbar built successfully"
+successMsg="Flatbar built successfully"
 cmdFail
 echo "Installing flatbar"
 echo "Setting executable permissions for Flatbar binaries"
 chmod -v +x "$tmpDir/flatbar/target/release/flatbar"
 exitStat=$?
 errMsg="Flatbar executable permission failed"
-sucessMsg="Flatbar executable permission set successfully"
+successMsg="Flatbar executable permission set successfully"
 cmdFail
 chmod -v +x "$tmpDir/flatbar/target/release/flatbar-core"
 exitStat=$?
 errMsg="Flatbar-core executable permission failed"
-sucessMsg="Flatbar-core executable permission set successfully"
+successMsg="Flatbar-core executable permission set successfully"
 cmdFail
 echo "Copying Flatbar binaries to /usr/bin"
 sudo cp -v "$tmpDir/flatbar/target/release/flatbar" "/usr/bin/flatbar"
 exitStat=$?
 errMsg="Flatbar binary copy failed"
-sucessMsg="Flatbar binary copied successfully"
+successMsg="Flatbar binary copied successfully"
 cmdFail
 echo "Creating systemwide flatbar config directory"
 sudo mkdir -pv "/etc/flatbar"
 exitStat=$?
 errMsg="Flatbar config directory creation failed"
-sucessMsg="Flatbar config directory created successfully"
+successMsg="Flatbar config directory created successfully"
 cmdFail
 echo "Copying flatbar config to /etc/flatbar"
 sudo cp -v "$tmpDir/flatbar/extras/config.toml /etc/flatbar/config.toml"
 exitStat=$?
 errMsg="Flatbar config copy failed"
-sucessMsg="Flatbar config copied successfully"
+successMsg="Flatbar config copied successfully"
 cmdFail
 echo
 echo "Flatbar installation completed"
 echo
-echo "Installing Foot terminal editor"
+echo "Installing BlueTUI Bluetooth GUI"
 echo
-echo "Installing Foot APT dependancies"
-aptDep=$(cat $cfgDir/deps/foot.apt)
-sudo DEBIAN_FRONTEND=noninteractive apt install $aptDep -y
-exitStat=$?
-errMsg="Foot APT dependancies failed to install"
-sucessMsg="Foot APT dependancies installed successfully"
-echo
-echo "Downloading Foot"
+echo "Downloading BlueTUI"
 sleep 0.5
-gitURL=$(cat $cfgDir/install/git-commits.csv | grep -i foot | cut -d ',' -f 2)
-gitTag=$(cat $cfgDir/install/git-commits.csv | grep -i foot | cut -d ',' -f 3)
-if [ -d "$tmpDir/foot" ]; then
-    echo "Foot directory already exists. Skipping download"
+gitURL=$(cat $cfgDir/install/git-commits.csv | grep -i bluetui | cut -d ',' -f 2)
+gitTag=$(cat $cfgDir/install/git-commits.csv | grep -i bluetui | cut -d ',' -f 3)
+if [ -d "$tmpDir/bluetui" ]; then
+    echo "BlueTUI directory already exists. Skipping download"
     sleep 0.5
 else
     git -C "$tmpDir" clone $gitURL $gitTag
     exitStat=$?
-    errMsg="Foot download failed"
-    sucessMsg="Foot downloaded successfully"
+    errMsg="BlueTUI download failed"
+    successMsg="BlueTUI downloaded successfully"
     cmdFail
 fi
-echo "Moving foot source files into a new directory"
+echo "Moving Bluetui source files into a new directory"
 sleep 0.5
-mv -v "$tmpDir/$gitTag" "$tmpDir/foot"
+mv -v "$tmpDir/$gitTag" "$tmpDir/bluetui"
 exitStat=$?
-errMsg="Foot source files move failed"
-sucessMsg="Foot source files moved successfully"
+errMsg="BlueTUI source files move failed"
+successMsg="BlueTUI source files moved successfully"
+cmdFail
+echo "Building Bluetui from source"
+cd $tmpDir/bluetui
+echo "Building Bluetui release version"
+cargo build --release
+exitStat=$?
+errMsg="BlueTUI build failed"
+successMsg="BlueTUI build completed successfully"
+cmdFail
+echo "Installing Bluetui"
+sudo cp -v target/release/bluetui /usr/bin/
+exitStat=$?
+errMsg="BlueTUI install failed"
+successMsg="BlueTUI installed successfully"
+cmdFail
 echo
-echo "Building foot from source"
-cd $tmpDir/foot
-export CC=clang-22
-echo "Creating meson build directory"
-mkdir -pv bld/release
+echo "BlueTUI installation completed"
+
+echo "Installing Rat Commander File Manager"
+echo
+echo "Downloading Rat Commander"
+sleep 0.5
+gitURL=$(cat $cfgDir/install/git-commits.csv | grep -i rat-commander | cut -d ',' -f 2)
+gitTag=$(cat $cfgDir/install/git-commits.csv | grep -i rat-commander | cut -d ',' -f 3)
+if [ -d "$tmpDir/rat-commander" ]; then
+    echo "Rat Commander directory already exists. Skipping download"
+    sleep 0.5
+else
+    git -C "$tmpDir" clone $gitURL $gitTag
+    exitStat=$?
+    errMsg="Rat Commander download failed"
+    successMsg="Rat Commander downloaded successfully"
+    cmdFail
+fi
+echo "Moving Rat Commander source files into a new directory"
+sleep 0.5
+mv -v "$tmpDir/$gitTag" "$tmpDir/rat-commander"
 exitStat=$?
-errMsg="Foot directory creation failed"
-sucessMsg="Foot directory created successfully"
+errMsg="Rat Commander source files move failed"
+successMsg="Rat Commander source files moved successfully"
 cmdFail
-echo "Configuring meson build for foot"
-meson setup --buildtype=release bld/release
+echo "Building Rat Commander from source"
+cd $tmpDir/rat-commander
+echo "Building Rat Commander release version"
+cargo build --release
 exitStat=$?
-errMsg="Foot configuration failed"
-sucessMsg="Foot configuration completed successfully"
+errMsg="Rat Commander build failed"
+successMsg="Rat Commander build completed successfully"
 cmdFail
-cd $tmpDir/foot/bld/release
-echo "Building foot from source"
-ninja
+echo "Installing Rat Commander"
+sudo cp -v target/release/rat-commander /usr/bin/
 exitStat=$?
-errMsg="Foot build failed"
-sucessMsg="Foot build completed successfully"
+errMsg="Rat Commander install failed"
+successMsg="Rat Commander installed successfully"
 cmdFail
-echo "Installing foot from source"
-sudo ninja install
-exitStat=$?
-errMsg="Foot install failed"
-sucessMsg="Foot installed successfully"
-cmdFail 
+echo "Updating the stage file"
+echo "10" > $stageFile
+sleep 0.5
+echo "Stage file updated"
+sleep 0.5
+echo 
+echo "Flatbar, BlueTUI, and Rat Commander have been installed and enabled successfully."
+echo "Your system has been prepared for the next stage of installation."
+echo
+read -p "Press [ENTER] key to continue..."
+clear
+exit 0

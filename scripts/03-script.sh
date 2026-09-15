@@ -12,13 +12,13 @@ if [ $? -ne 0 ]; then
     clear
     exit 1
 else
-    echo "$sucessMsg"
+    echo "$successMsg"
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
 #exitStat=$?
 #errMsg="ERROR MESSAGE"
-#sucessMsg="SUCCESS MESSAGE"
+#successMsg="SUCCESS MESSAGE"
 #cmdFail
 echo "Setting up Folder Variables"
 echo
@@ -69,12 +69,12 @@ if [ -d "$HOME/.cargo" ]; then
     rustup update
     exitStat=$?
     errMsg="Failed to update Rust and Cargo"
-    sucessMsg="Rust and Cargo updated successfully"
+    successMsg="Rust and Cargo updated successfully"
     cmdFail
     source $HOME/.cargo/env
     exitStat=$?
     errMsg="Cargo environment variable export failed"
-    sucessMsg="Cargo environment variable exported successfully"
+    successMsg="Cargo environment variable exported successfully"
     cmdFail    
 else
     echo "Rust not installed. Starting installation."
@@ -83,7 +83,7 @@ else
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > $tmpDir/rustup.sh
     exitStat=$?
     errMsg="Failed to download installation script"
-    sucessMsg="Installation script downloaded successfully"
+    successMsg="Installation script downloaded successfully"
     cmdFail
     echo
     echo "Setting executable permissions on installation script."
@@ -92,18 +92,18 @@ else
         chmod +x $tmpDir/rustup.sh
         exitStat=$?
         errMsg="Failed to set executable permissions on installation script"
-        sucessMsg="Installation script set to executable"
+        successMsg="Installation script set to executable"
         cmdFail    
     fi
     $tmpDir/rustup.sh -y
     exitStat=$?
     errMsg="Failed to install Rust and Cargo"
-    sucessMsg="Rust and Cargo installed successfully"
+    successMsg="Rust and Cargo installed successfully"
     cmdFail
     source $HOME/.cargo/env
     exitStat=$?
     errMsg="Cargo environment variable export failed"
-    sucessMsg="Cargo environment variable exported successfully"
+    successMsg="Cargo environment variable exported successfully"
     cmdFail
 fi
 echo
@@ -112,7 +112,7 @@ sleep 1
 cargo install just
 exitStat=$?
 errMsg="Failed to install Just"
-sucessMsg="Just installed successfully"
+successMsg="Just installed successfully"
 cmdFail
 echo 
 echo "Cleaning up temporary files"
@@ -120,7 +120,7 @@ sleep 0.5
 rm -fv $tmpDir/rustup.sh
 exitStat=$?
 errMsg="Failed to remove temporary files"
-sucessMsg="Temporary files removed successfully"
+successMsg="Temporary files removed successfully"
 cmdFail
 echo
 echo "Updating the stage file"

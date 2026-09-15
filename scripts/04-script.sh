@@ -11,13 +11,13 @@ if [ $? -ne 0 ]; then
     clear
     exit 1
 else
-    echo "$sucessMsg"
+    echo "$successMsg"
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
 #exitStat=$?
 #errMsg="ERROR MESSAGE"
-#sucessMsg="SUCCESS MESSAGE"
+#successMsg="SUCCESS MESSAGE"
 #cmdFail
 echo "Setting up Folder Variables"
 echo
@@ -61,7 +61,7 @@ sleep 0.5
 sudo dpkg --add-architecture i386
 exitStat=$?
 errMsg="Failed to add i386 architecture"
-sucessMsg="i386 architecture added successfully"
+successMsg="i386 architecture added successfully"
 cmdFail
 echo
 echo "Updating APT package cache"
@@ -69,7 +69,7 @@ sleep 0.5
 sudo DEBIAN_FRONTEND=noninteractive apt update
 exitStat=$?
 errMsg="Failed to update APT package cache"
-sucessMsg="APT package cache updated successfully"
+successMsg="APT package cache updated successfully"
 cmdFail
 echo "Updating the stage file"
 sleep 0.5

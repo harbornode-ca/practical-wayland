@@ -161,18 +161,15 @@ echo
 for f in $destFldr; do
     srcFldr=$(echo $f | cut -d '/' -f 4)
     echo "Copying files to folder $f"
-    cp -Rv $tmpDir/practical-wayland-main/$srcFldr/* $f
+    cp -Rv $tmpDir/practical-wayland/$srcFldr/* $f
     sleep 0.5
 done
 echo
 echo "Cleaning up temporary files"
 sleep 0.5
 echo
-echo "Removing ZIP File"
-rm -fv "$tmpDir/practical-wayland.zip"
-sleep 0.5
 echo "Removing temporary extraction folder"
-rm -rvf "$tmpDir/practical-wayland-main"
+rm -rvf "$tmpDir/practical-wayland"
 sleep 0.5
 echo
 echo "Temporary files removed"
@@ -188,5 +185,5 @@ echo
 echo "The initial setup has completed."
 echo "Your system has been prepared for the next stage of installation."
 echo
-read -p "Press [Enter] key to continue..."
+read -p "Press [ENTER] key to continue..."
 clear
