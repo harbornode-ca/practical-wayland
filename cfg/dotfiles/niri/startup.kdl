@@ -1,6 +1,7 @@
 spawn-at-startup "flatbar"
 spawn-at-startup "mako-notifier"
 spawn-at-startup "foot --server"
+spawn-at-startup "mate-polkit"
 
 hotkey-overlay {
     skip-at-startup
