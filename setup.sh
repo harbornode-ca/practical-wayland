@@ -1,6 +1,10 @@
 #!/bin/bash
 stageFile="/opt/kevrevrun/status/setup.stage"
 setupStg=$(cat "$stageFile")
+chk_stage () {
+setupStg=$(cat "$stageFile")
+setup_stage
+}
 stage1 () {
     echo "Inintializing the install process"
     echo
@@ -33,7 +37,7 @@ stage3 () {
     sleep 1
     /opt/kevrevrun/scripts/03-script.sh
     if [ $? -eq 0 ]; then
-        stage4
+        chk_stage
     fi
 }
 stage4 () {
@@ -41,7 +45,7 @@ stage4 () {
     sleep 1
     /opt/kevrevrun/scripts/04-script.sh
     if [ $? -eq 0 ]; then
-        stage5
+        chk_stage
     fi
 }
 stage5 () {
@@ -85,7 +89,7 @@ stage7 () {
     sleep 1
     /opt/kevrevrun/scripts/07-script.sh
     if [ $? -eq 0 ]; then
-        stage11
+        chk_stage
     fi
 }
 stage8 () {
@@ -93,7 +97,7 @@ stage8 () {
     sleep 1
     /opt/kevrevrun/scripts/08-script.sh
     if [ $? -eq 0 ]; then
-        stage9
+        chk_stage
     fi
 }
 stage9 () {
@@ -101,16 +105,18 @@ stage9 () {
     sleep 1
     /opt/kevrevrun/scripts/09-script.sh
     if [ $? -eq 0 ]; then
-        stage10
-    fi    
+        chk_stage
+    fi
+    chk_stage
 }
 stage10 () {
     echo "Installing Flatbar & BlueTUI"
     sleep 1
     /opt/kevrevrun/scripts/10-script.sh
     if [ $? -eq 0 ]; then
-        stage11
+        chk_stage
     fi
+    chk_stage
 }
 stage11 () {
     echo "Installing Rat Commander - File Manger"
@@ -126,6 +132,7 @@ stage11 () {
         sleep 0.5
         sudo reboot
     fi
+    chk_stage
 }
 stage12 () {
     echo "Installing WinApps"
@@ -145,7 +152,9 @@ stage12 () {
         echo "13" > $stageFile
         #stage13
     fi
+    chk_stage
 }
+setup_stage () {
 case $setupStg in
     1) 
         stage1
@@ -243,3 +252,5 @@ case $setupStg in
         exit 1
         ;;
 esac
+}
+setup_stage

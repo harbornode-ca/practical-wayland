@@ -267,8 +267,7 @@ echo "Saving some information for the next steps of the installation..."
 sleep 1
 id -u $sudoUser > $cfgDir/id.usr
 echo $sudoUser > $cfgDir/name.usr
-echo 0 > $cfgDir/status/setup.stage
-echo 0 > $cfgDir/status/loop.status
+echo 1 > $cfgDir/status/setup.stage
 for f in "$cfgDir/id.usr" "$cfgDir/name.usr" "$cfgDir/status/setup.stage" "$cfgDir/status/loop.status"; do
 	if [ -f  $f ]; then
 		echo
