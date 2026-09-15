@@ -125,15 +125,22 @@ cmdFail
 echo
 echo "Updating the stage file"
 sleep 0.5
-echo "3" > $stageFile
+echo "4" > $stageFile
 sleep 0.5
 echo "Stage file updated"
 sleep 0.5
-echo 
-echo "Rust,Cargo and Just have been installed successfully."
-echo "Your system has been prepared for the next stage of installation."
-sleep 1
 echo
-read -p "Press [Enter] key to continue..."
-clear
-exit 0
+echo "--------------------------------------------------"
+echo "Rust,Cargo and Just have been installed successfully."
+echo "Continuing to next stage?"
+echo "--------------------------------------------------"
+read -p "[y/n]" cont
+if [[ $cont =~ ^[Yy]$ ]]; then
+    echo "Continuing to next stage"
+    sleep 1
+    exit 0
+else
+    echo "Aborting installation"
+    sleep 1
+    exit 1
+fi

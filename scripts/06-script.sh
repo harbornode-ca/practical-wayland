@@ -40,8 +40,7 @@ for v in $valueList; do
 done
 # This is a temporary selection  menu for what desktop environment to install a permanent
 # selection menu will be implimented in a future release
-selMenu()
-{
+selMenu() {
     clear
     echo
     echo "Please select what desktop environment you would like to install"
@@ -52,18 +51,68 @@ selMenu()
     sleep 0.5
     read -p "Enter your choice [1-3]> " choice
 }
+echo "confirming selection files exists"
+if [ -f $selDE ]; then
+    echo "Selection file confirmed"
+    if [ $selDEValue -gt 0 ]; then
+        case $setDE in
+            1)
+                echo "Noctalia"
+                ;;       
+            2)
+                echo "Niri /w Flatbar"
+                ;;
+            3)
+                echo "lxqt w/ niri wm"
+                ;;
+        esac
+        echo
+        echo "It appears you have already selected an environment."
+        echo "Your selected installation is $setDE"
+        sleep 0.5
+        echo "Would you like to keep this selection?"
+        read -p "[y/n]" keep
+        if [ $keep = "y" ]; then
+            echo "Keeping selection"
+            sleep 1
+            choice=$selDEValue
+        else
+            echo "Changing selection"
+            sleep 1
+            selMenu
+        fi
+    else
+        echo "Selection file has value 0"
+        sleep 1
+        selMenu
+    fi
+else
+    echo "Selection file not found"
+    sleep 0.25
+    echo "Creating selection file"
+    sleep 0.5
+    echo "0" > $selDE
+    echo "Selection file created"
+    sleep 0.5
+fi
 case $choice in
     1)
         echo "You selected Noctalia"
+        sleep 0.5
         echo
         echo "Updating the stage file"
-        echo "6" > $stageFile
         sleep 0.5
-        echo 
+        echo "7" > $stageFile
         echo "Stage file updated"
         sleep 0.5
+        echo "setting environment selection"
+        sleep 0.5
+        echo "1" > $statusDir/selDE.status
+        sleep 0.5
+        echo "Environment selection updated"
+        sleep 0.5
         echo 
-        echo "Noctalia will now install"
+        echo "Installing Noctalia"
         sleep 1
         echo
         $scriptDir/07-script.sh
@@ -72,13 +121,17 @@ case $choice in
         echo "You selected Niri /w Flatbar"
         echo
         echo "Updating the stage file"
-        echo "6" > $stageFile
         sleep 0.5
-        echo 
+        echo "8" > $stageFile
         echo "Stage file updated"
         sleep 0.5
+        echo "setting environment selection"
+        sleep 0.5
+        echo "2" > $statusDir/selDE.status
+        echo "Environment selection updated"
+        sleep 0.5
         echo 
-        echo "Niri /w Flatbar will now install"
+        echo "Installing Niri /w Flatbar"
         echo 
         sleep 1
         echo
@@ -87,16 +140,19 @@ case $choice in
     3)
         echo "You selected lxqt w/ niri wm"
         echo
-        echo "Updating the stage file"
-        echo "6" > $stageFile
-        sleep 0.5
-        echo 
-        echo "Stage file updated"
-        sleep 0.5
-        echo 
-        echo "lxqt w/ niri wm will now install"
-        echo 
-        sleep 1
+        #echo "Updating the stage file"
+        #echo "6" > $stageFile
+        #echo "Stage file updated"
+        #sleep 0.5
+        #echo "setting environment selection"
+        #sleep 0.5
+        #echo "3" > $statusDir/selDE.status
+        #echo "Environment selection updated"
+        #sleep 0.5
+        #echo 
+        #echo "Installing lxqt w/ niri wm"
+        #echo 
+        #sleep 1
         #Script not yet Implimented
         echo
         echo "Installation script not yet implimented"

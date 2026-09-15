@@ -119,12 +119,12 @@ successMsg="Noctalia sources file removed successfully"
 cmdFail
 echo "Temporary files cleaned up successfully"
 sleep 0.5
-echo
-echo "Updating the stage file for stage 8!"
-echo "7" > $stageFile
-sleep 0.5
-echo "Stage file updated"
-sleep 0.5
+#echo
+#echo "Updating the stage file"
+#echo "100" > $stageFile
+#sleep 0.5
+#echo "Stage file updated"
+#sleep 0.5
 echo 
 echo "Noctalia repository has been set up and packages have been installed successfully."
 echo "Your system has been prepared for the next stage of installation."

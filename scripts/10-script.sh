@@ -217,11 +217,11 @@ exitStat=$?
 errMsg="Rat Commander install failed"
 successMsg="Rat Commander installed successfully"
 cmdFail
-echo "Updating the stage file"
-echo "10" > $stageFile
-sleep 0.5
-echo "Stage file updated"
-sleep 0.5
+#echo "Updating the stage file"
+#echo "100" > $stageFile
+#sleep 0.5
+#echo "Stage file updated"
+#sleep 0.5
 echo 
 echo "Flatbar, BlueTUI, and Rat Commander have been installed and enabled successfully."
 echo "Your system has been prepared for the next stage of installation."

@@ -171,7 +171,7 @@ echo "Lemurs has been installed and enabled successfully."
 #TODO: Add default configuration file as well as Niri as a session option
 sleep 0.5
 echo "Updating the stage file"
-echo "8" > $stageFile
+echo "9" > $stageFile
 sleep 0.5
 echo "Stage file updated"
 sleep 0.5

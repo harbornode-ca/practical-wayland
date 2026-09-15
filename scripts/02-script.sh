@@ -113,7 +113,7 @@ fi
 echo
 echo "Updating the stage file"
 sleep 0.5
-echo "2" > $stageFile
+echo "3" > $stageFile
 sleep 0.5
 echo "Stage file updated"
 sleep 0.5

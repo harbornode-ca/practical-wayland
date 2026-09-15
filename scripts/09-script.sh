@@ -144,7 +144,7 @@ errMsg="Failed to install niri-companion"
 successMsg="niri-companion installed successfully"
 cmdFail
 echo "Updating the stage file"
-echo "9" > $stageFile
+echo "10" > $stageFile
 sleep 0.5
 echo "Stage file updated"
 sleep 0.5

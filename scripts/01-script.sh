@@ -39,10 +39,6 @@ for file in "/opt/kevrevrun/id.usr" "/opt/kevrevrun/name.usr" "/opt/kevrevrun/st
             echo "0" > $file
             echo "Repaired $file"
             sleep 0.5
-        elif [ $file = "/opt/kevrevrun/status/loop.status" ]; then
-            echo "0" > $file
-            echo "Repaired $file"
-            sleep 0.5
         elif [ $file = "/opt/kevrevrun/install.dir" ]; then
             echo "$HOME" > $file
             echo "Repaired $file"
@@ -88,9 +84,12 @@ echo
 echo "Creating Setup Variables...Files"
 sleep 0.5
 cat << 'EOF' > /opt/kevrevrun/status/files.list
+stgUsr,/opt/kevrevrun/id.usr
+stgUsrN,/opt/kevrevrun/name.usr
+installerDir,/opt/kevrevrun/setup.dir
 stageFile,/opt/kevrevrun/status/setup.stage
-statusFile,/opt/kevrevrun/status/loop.status
 mainLog,/opt/kevrevrun/logs/main.log
+selDE,/opt/kevrevrun/status/selDE.status
 EOF
 echo
 echo "Setup variables saved to files.list"
@@ -114,16 +113,33 @@ echo
 echo "Creating Setup Variables...Values"
 sleep 0.5
 cat << 'EOF' > /opt/kevrevrun/status/values.list
-loopStat,/opt/kevrevrun/status/loop.status
-nowStep,/opt/kevrevrun/status/setup.stage
+setupStage,/opt/kevrevrun/status/setup.stage
 usrId,/opt/kevrevrun/id.usr
 usrName,/opt/kevrevrun/name.usr
-setupDir,/opt/kevrevrun/install.dir
+setupDir,/opt/kevrevrun/setup.dir
+selDEValue,/opt/kevrevrun/status/selDE.status
 EOF
 echo
 echo "Setup variables saved to values.list"
 sleep 0.5
 # Reads the values from the files in values.list
+echo Confirming Setup Variables
+echo
+while IFS=',' read -r varName fileName ; do
+    if [ -f $fileName ]; then
+        echo
+        echo "File $fileName confirmed"
+    else
+        echo
+        echo "Error: $fileName not found"
+        sleep 0.25
+        echo "Creating missing file"
+        sleep 0.5
+        echo "0" > $fileName
+        echo "Missing file $fileName created"
+        sleep 0.5
+fi
+done < "/opt/kevrevrun/status/files.list"
 echo
 echo "Reading and Exporting All Setup Variables"
 sleep 0.5
@@ -177,13 +193,22 @@ sleep 0.5
 echo 
 echo "Updating the stage file"
 sleep 0.5
-echo "1" > $stageFile
+echo "2" > $stageFile
 sleep 0.5
 echo "Stage file updated"
 sleep 0.5
-echo 
-echo "The initial setup has completed."
-echo "Your system has been prepared for the next stage of installation."
 echo
-read -p "Press [ENTER] key to continue..."
-clear
+echo "--------------------------------------------------"
+echo "Initial setup complete."
+echo "Continuing to next stage?"
+echo "--------------------------------------------------"
+read -p "[y/n]" cont
+if [[ $cont =~ ^[Yy]$ ]]; then
+    echo "Continuing to next stage"
+    sleep 1
+    exit 0
+else
+    echo "Aborting installation"
+    sleep 1
+    exit 1
+fi
