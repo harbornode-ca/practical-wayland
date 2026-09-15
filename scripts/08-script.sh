@@ -168,8 +168,22 @@ successMsg="Lemurs systemd service enabled successfully"
 cmdFail
 echo
 echo "Lemurs has been installed and enabled successfully."
-#TODO: Add default configuration file as well as Niri as a session option
 sleep 0.5
+echo "Adding Niri startup file to /etc/lemurs/wayland directory"
+sleep 0.5
+sudo cp -fv $cfgDir/install/run-niri.sh /etc/lemurs/wayland/run-niri.sh
+exitStat=$?
+errMsg="Niri startup file failed to copy"
+successMsg="Niri startup file copied successfully"
+cmdFail
+echo "Setting execute permissions on Niri startup file"
+sleep 0.5
+sudo chmod +x /etc/lemurs/wayland/run-niri.sh
+exitStat=$?
+errMsg="Niri startup file failed to set execute permissions"
+successMsg="Niri startup file set execute permissions successfully"
+cmdFail
+echo
 echo "Updating the stage file"
 echo "9" > $stageFile
 sleep 0.5
