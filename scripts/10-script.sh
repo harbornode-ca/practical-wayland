@@ -190,14 +190,15 @@ echo "--------------------------------------------------"
 echo "Flatbar and BlueTUI have been installed successfully."
 echo "You can continue with the setup process by running the 
 echo "main setup.sh script in your home directory."
-echo "--------------------------------------------------"
-read -p "Do you want to continue to the next stage? [y/n]" cont
+read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
+echo "-----------------------------------------------------------"
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Continuing to next stage"
     sleep 1
     exit 0
 else
-    echo "Exiting script. Please run the main setup.sh script in your home directory to continue."
+    echo "Exiting script. Please run the main setup.sh script in your"
+    echo "home directory to continue."
     sleep 1
     exit 1
 fi
