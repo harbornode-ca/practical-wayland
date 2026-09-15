@@ -55,7 +55,6 @@ for v in $valueList; do
     echo "Variable $varName has been imported with value $varValue"
     sleep 0.25
 done
-
 echo
 echo "Starting niri install"
 sleep 0.5
@@ -63,17 +62,26 @@ echo
 echo "Adding repository for Niri"
 sleep 0.5
 echo Downloading DMS-key.gpg
-wget -nv -O $tmpDir/DMS-key.gpg https://download.opensuse.org/repositories/home:AvengeMedia:danklinux/Debian_Testing/Release.key
-exitStat=$?
-errMsg="DMS-key.gpg failed to download"
-successMsg="DMS-key.gpg downloaded successfully"
-cmdFail
-cat $tmpDir/DMS-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/DMS-key.gpg
-exitStat=$?
-errMsg="DMS-key.gpg failed to install"
-successMsg="DMS-key.gpg installed successfully"
+if [ -f /etc/apt/keyrings/DMS-key.gpg ]; then
+    echo "DMS-key.gpg already exists, skipping download"
+else
+    wget -nv -O $tmpDir/DMS-key.gpg https://download.opensuse.org/repositories/home:AvengeMedia:danklinux/Debian_Testing/Release.key
+    exitStat=$?
+    errMsg="DMS-key.gpg failed to download"
+    successMsg="DMS-key.gpg downloaded successfully"
+    cmdFail
+fi
+if [ -f /etc/apt/keyrings/DMS-key.gpg ]; then
+    echo "DMS-key.gpg already installed, skipping"
+else
+    cat $tmpDir/DMS-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/DMS-key.gpg
+    exitStat=$?
+    errMsg="DMS-key.gpg failed to install"
+    successMsg="DMS-key.gpg installed successfully"
+    cmdFail
+fi
 echo "Adding DMS repository to APT sources"
-sudo cp -fv $cfgDir/install-cfg/dms.sources /etc/apt/sources.list.d/dms.sources
+sudo cp -fv $cfgDir/install/dms.sources /etc/apt/sources.list.d/dms.sources
 exitStat=$?
 errMsg="Failed to add DMS repository to APT sources"
 successMsg="DMS repository added successfully"
@@ -95,12 +103,45 @@ exitStat=$?
 errMsg="Niri dependencies failed to install"
 successMsg="Niri dependencies installed successfully"
 cmdFail
-echo "Installing Niri and Xwayland-Sattelite"
+echo "Installing Niri and Xwayland-Satellite"
 sleep 0.5
-sudo DEBIAN_FRONTEND=noninteractive apt install niri xwayland-sattelite -y
+sudo DEBIAN_FRONTEND=noninteractive apt install niri xwayland-satellite --no-install-recommends -y
 exitStat=$?
-errMsg="Niri and Xwayland-Sattelite failed to install"
-successMsg="Niri and Xwayland-Sattelite installed successfully"
+errMsg="Niri and Xwayland-Satellite failed to install"
+successMsg="Niri and Xwayland-Satellite installed successfully"
+cmdFail
+if [ -d $HOME/.config/niri/ ]; then
+    echo "$HOME/.config/niri/ already exists, skipping creation"
+else
+    echo "$HOME/.config/niri/ does not exist, creating it"
+    mkdir $HOME/.config/niri/
+    exitStat=$?
+    errMsg="Failed to create $HOME/.config/niri/"
+    successMsg="$HOME/.config/niri/ created successfully"
+    cmdFail
+fi
+if [ -f $HOME/.config/niri/config.kdl ]; then
+    echo "Removing default config file"
+    rm -fv $HOME/.config/niri/config.kdl
+    exitStat=$?
+    errMsg="Failed to remove default config file"
+    successMsg="Default config file removed successfully"
+    cmdFail
+else
+    echo "$HOME/.config/niri/config.kdl does not exist, skipping removal"
+fi
+echo "Copying config files"
+sudo cp -fv $cfgDir/dotfiles/niri/* $HOME/.config/niri/
+exitStat=$?
+errMsg="Failed to copy config files"
+successMsg="Config files copied successfully"
+cmdFail
+echo "Installing niri-companion"
+sleep 0.5
+sudo DEBIAN_FRONTEND=noninteractive apt install niri-companion --no-install-recommends -y
+exitStat=$?
+errMsg="Failed to install niri-companion"
+successMsg="niri-companion installed successfully"
 cmdFail
 echo "Updating the stage file"
 echo "9" > $stageFile
