@@ -190,21 +190,18 @@ sleep 0.5
 echo "Stage file updated"
 sleep 0.5
 echo 
-echo "GPU driver installation complete. A reboot is required to apply changes"
-echo "Once the system reboots please run the main setup.sh script in your home directory to continue."
 echo "--------------------------------------------------"
 echo "GPU driver installation complete. A reboot is required to apply changes"
 echo "Once the system reboots please run the main setup.sh script in your home directory to continue."
-echo "Ready to reboot?"
 echo "--------------------------------------------------"
-read -p "[y/n]" cont
+read -p "Would you like to reboot now? \`[y/n]\`: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Rebooting"
     sleep 1
     clear
     sudo reboot
 else
-    echo "Aborting installation"
+    echo "Please reboot manually to apply changes"
     sleep 1
     exit 1
 fi

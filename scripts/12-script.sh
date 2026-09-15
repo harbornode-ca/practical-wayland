@@ -197,7 +197,6 @@ echo "This script should launch the chromium browser automatically."
 echo "If not, open the browser and navigate to http://127.0.0.1:8006/"
 echo "----------------------------------------------------------------"
 read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
-echo "-----------------------------------------------------------"
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Continuing to next stage"
     sleep 1
@@ -208,4 +207,3 @@ else
     sleep 1
     exit 1
 fi
-exit 0

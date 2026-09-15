@@ -126,9 +126,17 @@ sleep 0.5
 echo "Stage file updated"
 sleep 0.5
 echo 
+echo "--------------------------------------------------"
 echo "Noctalia repository has been set up and packages have been installed successfully."
-echo "Your system has been prepared for the next stage of installation."
-echo
-read -p "Press [ENTER] key to continue..."
-clear
-exit 0
+echo "--------------------------------------------------"
+read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
+if [[ $cont =~ ^[Yy]$ ]]; then
+    echo "Continuing to next stage"
+    sleep 1
+    exit 0
+else
+    echo "Exiting script. Please run the main setup.sh script in your"
+    echo "home directory to continue."
+    sleep 1
+    exit 1
+fi

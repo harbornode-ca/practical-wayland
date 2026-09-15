@@ -120,14 +120,17 @@ sleep 0.5
 echo
 echo "--------------------------------------------------"
 echo "Upgrade process completed!"
-echo "The system has been updated to Debian Forky. A reboot will complete the update process."
-echo "You can continue with the setup process by running the main setup.sh script in your home directory."
+echo "The system has been updated to Debian Forky." 
+echo "A reboot is required to complete the update process."
 echo "--------------------------------------------------"
-read -p "Do you want to reboot now? [y/n]" cont
+read -p "Would you like to reboot now? \`[y/n]\`: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
+    echo "Rebooting"
+    sleep 1
+    clear
     sudo reboot
-    exit 0
 else
-    echo "Exiting script. Please reboot manually to continue with setup."
+    echo "Please reboot manually to apply changes"
+    sleep 1
     exit 1
 fi

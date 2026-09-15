@@ -80,15 +80,15 @@ sleep 0.5
 echo
 echo "--------------------------------------------------"
 echo "i386 architchture support has been sucessfully added"
-echo "Do you want to continue to the next stage?"
 echo "--------------------------------------------------"
-read -p "[y/n]" cont
+read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Continuing to next stage"
     sleep 1
     exit 0
 else
-    echo "Exiting script. Please run the main setup.sh script in your home directory to continue."
+    echo "Exiting script. Please run the main setup.sh script in your"
+    echo "home directory to continue."
     sleep 1
     exit 1
 fi

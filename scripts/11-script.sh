@@ -98,8 +98,8 @@ sleep 0.5
 echo
 echo "-----------------------------------------------------------" 
 echo "Rat Commander has been installed and enabled successfully."
-read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
 echo "-----------------------------------------------------------"
+read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Continuing to next stage"
     sleep 1

@@ -178,7 +178,6 @@ sleep 0.5
 echo 
 echo "--------------------------------------------------"
 echo "Lemurs has been installed and enabled successfully."
-echo "Your system has been prepared for the next stage of installation."
 echo "--------------------------------------------------"
 read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
@@ -190,3 +189,4 @@ else
     echo "home directory to continue."
     sleep 1
     exit 1
+fi
