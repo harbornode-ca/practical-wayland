@@ -1,5 +1,22 @@
 #!/bin/bash
+cmdFail () {
+if [ $? -ne 0 ]; then
+echo "$errMsg"
+sleep 1
 echo
+echo "This script will now exit"
+read -p "Press [ENTER] key to exit"
+clear
+exit 1
+else
+    echo "$successMsg"
+fi
+}
+#These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
+#exitStat=$?
+#errMsg="ERROR MESSAGE"
+#successMsg="SUCCESS MESSAGE"
+#cmdFail
 echo "Setting up Folder Variables"
 echo
 sleep 0.5

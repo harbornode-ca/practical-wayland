@@ -118,12 +118,16 @@ sleep 0.5
 echo "Stage file updated"
 sleep 0.5
 echo
+echo "--------------------------------------------------"
 echo "Upgrade process completed!"
 echo "The system has been updated to Debian Forky. A reboot will complete the update process."
-echo "Once the system reboots please run the main setup.sh script in your home directory to continue."
-sleep 1
-echo
-read -p "Press [Enter] key when ready to reboot..."
-clear
-#reboot
-exit 0
+echo "You can continue with the setup process by running the main setup.sh script in your home directory."
+echo "--------------------------------------------------"
+read -p "Do you want to reboot now? [y/n]" cont
+if [[ $cont =~ ^[Yy]$ ]]; then
+    sudo reboot
+    exit 0
+else
+    echo "Exiting script. Please reboot manually to continue with setup."
+    exit 1
+fi

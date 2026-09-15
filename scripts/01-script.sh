@@ -200,7 +200,7 @@ sleep 0.5
 echo
 echo "--------------------------------------------------"
 echo "Initial setup complete."
-echo "Continuing to next stage?"
+echo "Do you want to continue to the next stage?"
 echo "--------------------------------------------------"
 read -p "[y/n]" cont
 if [[ $cont =~ ^[Yy]$ ]]; then

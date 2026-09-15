@@ -179,53 +179,24 @@ successMsg="BlueTUI installed successfully"
 cmdFail
 echo
 echo "BlueTUI installation completed"
-
-echo "Installing Rat Commander File Manager"
 echo
-echo "Downloading Rat Commander"
+echo "Updating the stage file"
+echo "11" > $stageFile
 sleep 0.5
-gitURL=$(cat $cfgDir/install/git-commits.csv | grep -i rat-commander | cut -d ',' -f 2)
-gitTag=$(cat $cfgDir/install/git-commits.csv | grep -i rat-commander | cut -d ',' -f 3)
-if [ -d "$tmpDir/rat-commander" ]; then
-    echo "Rat Commander directory already exists. Skipping download"
-    sleep 0.5
+echo "Stage file updated"
+sleep 0.5
+echo
+echo "--------------------------------------------------"
+echo "Flatbar and BlueTUI have been installed successfully."
+echo "You can continue with the setup process by running the main setup.sh script in your home directory."
+echo "--------------------------------------------------"
+read -p "Do you want to continue to the next stage? [y/n]" cont
+if [[ $cont =~ ^[Yy]$ ]]; then
+    echo "Continuing to next stage"
+    sleep 1
+    exit 0
 else
-    git -C "$tmpDir" clone $gitURL $gitTag
-    exitStat=$?
-    errMsg="Rat Commander download failed"
-    successMsg="Rat Commander downloaded successfully"
-    cmdFail
+    echo "Exiting script. Please run the main setup.sh script in your home directory to continue."
+    sleep 1
+    exit 1
 fi
-echo "Moving Rat Commander source files into a new directory"
-sleep 0.5
-mv -v "$tmpDir/$gitTag" "$tmpDir/rat-commander"
-exitStat=$?
-errMsg="Rat Commander source files move failed"
-successMsg="Rat Commander source files moved successfully"
-cmdFail
-echo "Building Rat Commander from source"
-cd $tmpDir/rat-commander
-echo "Building Rat Commander release version"
-cargo build --release
-exitStat=$?
-errMsg="Rat Commander build failed"
-successMsg="Rat Commander build completed successfully"
-cmdFail
-echo "Installing Rat Commander"
-sudo cp -v target/release/rat-commander /usr/bin/
-exitStat=$?
-errMsg="Rat Commander install failed"
-successMsg="Rat Commander installed successfully"
-cmdFail
-#echo "Updating the stage file"
-#echo "100" > $stageFile
-#sleep 0.5
-#echo "Stage file updated"
-#sleep 0.5
-echo 
-echo "Flatbar, BlueTUI, and Rat Commander have been installed and enabled successfully."
-echo "Your system has been prepared for the next stage of installation."
-echo
-read -p "Press [ENTER] key to continue..."
-clear
-exit 0

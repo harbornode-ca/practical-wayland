@@ -132,7 +132,7 @@ sleep 0.5
 echo
 echo "--------------------------------------------------"
 echo "Rust,Cargo and Just have been installed successfully."
-echo "Continuing to next stage?"
+echo "Do you want to continue to the next stage?"
 echo "--------------------------------------------------"
 read -p "[y/n]" cont
 if [[ $cont =~ ^[Yy]$ ]]; then
@@ -140,7 +140,7 @@ if [[ $cont =~ ^[Yy]$ ]]; then
     sleep 1
     exit 0
 else
-    echo "Aborting installation"
+    echo "Exiting script. Please run the main setup.sh script in your home directory to continue."
     sleep 1
     exit 1
 fi

@@ -2,7 +2,7 @@
 stageFile="/opt/kevrevrun/status/setup.stage"
 setupStg=$(cat "$stageFile")
 stage1 () {
-    echo "Beginning stage 1 of the install process"
+    echo "Inintializing the install process"
     echo
     echo "Retrieving stage 1 script..."
     echo
@@ -24,96 +24,181 @@ stage1 () {
     fi
 }
 stage2 () {
-    echo "Beginning stage 2 of the install process"
+    echo "Updating the System"
     sleep 1
-    echo "Running stage 2 script..."
-    sleep 0.5
     /opt/kevrevrun/scripts/02-script.sh
 }
 stage3 () {
-    echo "Beginning stage 3 of the install process"
+    echo "Installing Rust"
     sleep 1
-    echo "Running stage 3 script..."
-    sleep 0.5
     /opt/kevrevrun/scripts/03-script.sh
     if [ $? -eq 0 ]; then
         stage4
     fi
 }
 stage4 () {
-    echo "Beginning stage 4 of the install process"
+    echo "Adding i386 architecture to the system"
     sleep 1
-    echo "Running stage 4 script..."
-    sleep 0.5
     /opt/kevrevrun/scripts/04-script.sh
     if [ $? -eq 0 ]; then
         stage5
     fi
 }
 stage5 () {
-    echo "Beginning stage 5 of the install process"
+    echo "Installing GPU Drivers"
     sleep 1
-    echo "Running stage 5 script..."
-    sleep 0.5
     /opt/kevrevrun/scripts/05-script.sh
 }
 stage6 () {
-    echo "Beginning stage 6 of the install process"
+    echo "Selecting the Desktop Environment"
     sleep 1
-    echo "Running stage 6 script..."
-    sleep 0.5
     /opt/kevrevrun/scripts/06-script.sh
     if [ $? -eq 0 ]; then
-        stage7
+        case $setDEValue in
+        1)  
+            echo "7" > $stageFile
+            echo "Starting Noctalia installer..."
+            sleep 1
+            stage7
+            ;;
+        2)  
+            echo "8" > $stageFile
+            echo "Starting Lemurs Login Manager installer..."
+            sleep 1
+            stage8
+            ;;
+        3)  
+            echo "not yet implimented"
+            read -p "Press [Enter] key to try again"
+            stage6
+            ;;
+        *)  
+            echo "Invalid choice"
+            read -p "Press [Enter] key to try again"
+            stage6
+            ;;
+        esac
     fi
 }
+stage7 () {
+    echo "Installing Noctalia Desktop Environment"
+    sleep 1
+    /opt/kevrevrun/scripts/07-script.sh
+}
+stage8 () {
+    echo "Installing Lemurs Login Manager"
+    sleep 1
+    /opt/kevrevrun/scripts/08-script.sh
+}
+stage9 () {
+    echo "Installing Niri"
+    sleep 1
+    /opt/kevrevrun/scripts/09-script.sh
+}
+stage10 () {
+    echo "Installing Flatbar & BlueTUI"
+    sleep 1
+    /opt/kevrevrun/scripts/10-script.sh
+}
+stage11 () {
+    echo "Installing Rat Commander - File Manger"
+    sleep 1
+    /opt/kevrevrun/scripts/11-script.sh
+}
 case $setupStg in
-    "1")
-    stage1
+    1) 
+        stage1
         ;;
-    "2")
-    stage2
+    2) 
+        stage2
         ;;
-    "3")
-    stage3
+    3) 
+        stage3
         ;;
-    "4")
-    stage4
+    4) 
+        stage4
         ;;
-    "5")
-    stage5
+    5) 
+        stage5
         ;;
-    "6")
-    stage6
+    6) 
+        stage6
         ;;
-    "7")
-    stage7
+    7) 
+        stage7
         ;;
-    "8")
-    stage8
+    8) 
+        stage8
         ;;
-    "9")
-    stage9
+    9) 
+        stage9
         ;;
-    "10")
-    stage10
+    10) 
+        stage10
         ;;
-    "11")
-    stage11
+    11) 
+        stage11
         ;;
-    "100")
-    echo "PLACE HOLDER"
-    echo "THIS SHOULD NOT BE A SET OPTION!"
-    echo "IF YOU ARE SEEING THIS THEN SOMETHING WENT WRONG!"
-    echo
-    read -p "Press [Enter] key to exit..."
-    clear
-    exit 1
-    ;;
-    *)
-    echo "The setup.stage file is corrupted."
-    echo "Restting the setup.stage file to stage 1"
-    echo "1" > $setupFile
-    clear
-    exit 1
+    12) 
+        stage12
+        ;;
+    13) 
+        stage13
+        ;;
+    14) 
+        stage14
+        ;;
+    15) 
+        stage15
+        ;;
+    16) 
+        stage16
+        ;;
+    17) 
+        stage17
+        ;;
+    18) 
+        stage18
+        ;;
+    19) 
+        stage19
+        ;;
+    20) 
+        stage20
+        ;;
+    21) 
+        stage21
+        ;;
+    22) 
+        stage22
+        ;;
+    23) 
+        stage23
+        ;;
+    24) 
+        stage24
+        ;;
+    25) 
+        stage25
+        ;;
+    26) 
+        stage26
+        ;;
+    27) 
+        stage27
+        ;;
+    28) 
+        stage28
+        ;;
+    29) 
+        stage29
+        ;;
+    30) 
+        stage30
+        ;;
+    *) 
+        echo "Invalid stage"
+        read -p "Press [Enter] key to exit..."
+        exit 1
+        ;;
 esac

@@ -102,11 +102,6 @@ case $choice in
         echo
         echo "Updating the stage file"
         sleep 0.5
-        echo "7" > $stageFile
-        echo "Stage file updated"
-        sleep 0.5
-        echo "setting environment selection"
-        sleep 0.5
         echo "1" > $statusDir/selDE.status
         sleep 0.5
         echo "Environment selection updated"
@@ -120,11 +115,6 @@ case $choice in
     2)
         echo "You selected Niri /w Flatbar"
         echo
-        echo "Updating the stage file"
-        sleep 0.5
-        echo "8" > $stageFile
-        echo "Stage file updated"
-        sleep 0.5
         echo "setting environment selection"
         sleep 0.5
         echo "2" > $statusDir/selDE.status
