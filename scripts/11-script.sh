@@ -63,7 +63,7 @@ successMsg="Rat Commander build completed successfully"
 cmdFail
 echo "Installing Rat Commander"
 sleep 0.5
-sudo cp -v target/release/rat-commander /usr/bin/
+sudo cp -v $tmpDir/rat-commander/target/release/rc /usr/bin/rc
 exitStat=$?
 errMsg="Rat Commander install failed"
 successMsg="Rat Commander installed successfully"

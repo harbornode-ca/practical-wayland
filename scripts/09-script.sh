@@ -100,7 +100,7 @@ else
 fi
 echo "Copying config files"
 sleep 0.5
-sudo cp -fv $cfgDir/dotfiles/niri/* $HOME/.config/niri/
+cp -fv $cfgDir/dotfiles/niri/* $HOME/.config/niri/
 exitStat=$?
 errMsg="Failed to copy config files"
 successMsg="Config files copied successfully"
