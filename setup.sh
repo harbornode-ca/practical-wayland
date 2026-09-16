@@ -100,30 +100,7 @@ stage6 () {
     sleep 1
     /opt/kevrevrun/scripts/06-script.sh
     if [ $? -eq 0 ]; then
-        case $setDEValue in
-        1)  
-            echo "7" > $stageFile
-            echo "Starting Noctalia installer..."
-            sleep 1
-            stage7
-            ;;
-        2)  
-            echo "8" > $stageFile
-            echo "Starting Lemurs Login Manager installer..."
-            sleep 1
-            stage8
-            ;;
-        3)  
-            echo "not yet implimented"
-            read -p "Press [Enter] key to try again"
-            stage6
-            ;;
-        *)  
-            echo "Invalid choice"
-            read -p "Press [Enter] key to try again"
-            stage6
-            ;;
-        esac
+        chk_stage
     fi
 }
 stage7 () {

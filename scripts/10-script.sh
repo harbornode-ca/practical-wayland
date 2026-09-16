@@ -104,7 +104,7 @@ successMsg="Flatbar config directory created successfully"
 cmdFail
 echo "Copying flatbar config to /etc/flatbar"
 sleep 0.5
-sudo cp -v "$tmpDir/flatbar/extras/config.toml /etc/flatbar/config.toml"
+sudo cp -fv "$tmpDir/flatbar/extras/config.toml" "/etc/flatbar/config.toml"
 exitStat=$?
 errMsg="Flatbar config copy failed"
 successMsg="Flatbar config copied successfully"
