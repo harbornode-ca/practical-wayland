@@ -186,10 +186,10 @@ for f in $destFldr; do
 done
 echo
 echo "Cleaning up temporary files"
-sleep 1
+sleep 1.5
 echo
 echo "Removing temporary extraction folder"
-sleep 0.5
+sleep 1.5
 rm -rvf "$tmpDir/practical-wayland"
 sleep 0.5
 echo
