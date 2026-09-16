@@ -66,6 +66,10 @@ stage1 () {
     fi
 }
 stage2 () {
+    echo "Loading Variables"
+    sleep 1
+    loadVars
+    echo
     echo "Updating the System"
     sleep 1
     /opt/kevrevrun/scripts/02-script.sh
