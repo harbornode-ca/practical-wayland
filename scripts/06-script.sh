@@ -12,8 +12,18 @@ selMenu() {
     echo "Please select what desktop environment you would like to install"
     sleep 0.5
     echo "1. Noctalia"
-    echo "2. Niri /w Flatbar"
+    # Noctalia Umbreil does not install a workable Desktop Environment currently
+    # from APT packages. Adding Niri to the package while Umbriel is further developed.
+    echo "2. Niri /w Ashell Status Bar"
+    # Theming needs to be worked on DMS repository is unreliable and does not actively match 
+    # Debian packages as well as having constant issue with has verification errors.
+    # Niri is going to be build from source.
+    # Ashell downloadable deb package does not install correctly and will need to be built from source.
     echo "3. lxqt w/ niri wm"
+    # LXQT need to be setup properly and tested.
+    # Niri is going to be build from source. But LXQT packages will be pulled from Debian Packages.
+    # Will need a preconfigured lxqt-session file first run so that it selects niri as its compositor. 
+    # Niri will need GTK - QT5/6 bridges. Use the beeze theme to get a base look.
     sleep 0.5
     read -p "Enter your choice [1-3]> " choice
     run_choice
