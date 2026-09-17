@@ -18,6 +18,8 @@ fi
 #errMsg="ERROR MESSAGE"
 #successMsg="SUCCESS MESSAGE"
 #cmdFail
+#**Rat Commander is being moved to optional software. After more testing the file manager
+#needs work before becoming a core componet. It is showing progress though.**
 echo "Installing Rat Commander File Manager"
 sleep 0.5
 echo

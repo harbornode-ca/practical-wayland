@@ -19,6 +19,10 @@ fi
 #errMsg="ERROR MESSAGE"
 #successMsg="SUCCESS MESSAGE"
 #cmdFail
+#**This needs to become and optional set as some computers will not have resources to 
+#allocate for a windows installation. Will look into automatically checking resources and 
+#making a recommendation based on results. Also look in to allowing a user to specify a remote
+#Dockur Windows instanace**
 echo "Starting WinApps and WinApps installer setup..."
 sleep 0.5
 echo

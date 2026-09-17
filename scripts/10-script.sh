@@ -26,7 +26,10 @@ fi
 #errMsg="ERROR MESSAGE"
 #successMsg="SUCCESS MESSAGE"
 #cmdFail
-#**Add in Ashell build from source.**
+
+#**Add in new script for Ashell build from source.**
+#**BlueTUI is not needed for bluetooth management and will be added as an optional software package.**
+#**Move this script to a new folder for optional software installation.**
 echo "Installing BlueTUI Bluetooth GUI"
 sleep 0.5
 echo "Downloading BlueTUI"
