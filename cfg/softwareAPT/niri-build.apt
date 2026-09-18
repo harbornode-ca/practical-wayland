@@ -9,12 +9,11 @@ libinput-dev
 libdbus-1-dev
 libdisplay-info-dev
 libegl-dev
-libegl1-mesa-dev
 libgegl-dev
 libseat-dev
-libpipewire-0.3-dev 
+libpipewire-0.3-dev
 libpango1.0-dev
-libsystemd-dev 
+libsystemd-dev
 systemd-dev
 libfftw3-dev
 xdg-desktop-portal-gtk
