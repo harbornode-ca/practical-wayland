@@ -33,25 +33,7 @@ exitStat=$?
 errMsg="Failed to update APT package cache"
 successMsg="APT package cache updated successfully"
 cmdFail
-echo "Updating the stage file"
-sleep 0.5
-echo "5" > $stageFile
-sleep 0.5
-echo "Stage file updated"
-sleep 0.5
-echo
 echo "--------------------------------------------------"
 echo "i386 architchture support has been sucessfully added"
 echo "--------------------------------------------------"
-sleep 0.5
-read -p "Do you want to continue to the next stage? \[y/n]\: " cont
-if [[ $cont =~ ^[Yy]$ ]]; then
-    echo "Continuing to next stage"
-    sleep 1
-    exit 0
-else
-    echo "Exiting script. Please run the main setup.sh script in your"
-    echo "home directory to continue."
-    sleep 1
-    exit 1
-fi
+sleep 1

@@ -214,13 +214,6 @@ sudo podman-compose --file ~/.config/winapps/compose.yaml up -d
 exitStat=$?
 errMsg="Failed to start WinApps"
 successMsg="Successfully started WinApps"
-echo "Updating the stage file"
-sleep 0.5
-echo "13" > $stageFile
-sleep 0.5
-echo "Stage file updated"
-sleep 0.5
-echo
 cmdFail
 echo
 echo "----------------------------------------------------------------"
@@ -228,15 +221,4 @@ echo "You should now be able to connect to WinApps in the broswer"
 echo "This script should launch the chromium browser automatically."
 echo "If not, open the browser and navigate to http://127.0.0.1:8006/"
 echo "----------------------------------------------------------------"
-sleep 0.5
-read -p "Do you want to continue to the next stage? \[y/n]\: " cont
-if [[ $cont =~ ^[Yy]$ ]]; then
-    echo "Continuing to next stage"
-    sleep 1
-    exit 0
-else
-    echo "Exiting script. Please run the main setup.sh script in your"
-    echo "home directory to continue."
-    sleep 1
-    exit 1
-fi
+sleep 1

@@ -191,29 +191,8 @@ echo
 echo "Removing temporary extraction folder"
 sleep 1.5
 rm -rvf "$tmpDir/practical-wayland"
-sleep 0.5
-echo
-echo "Temporary files removed"
-sleep 1
-echo 
-echo "Updating the stage file"
-sleep 1
-echo "2" > $stageFile
-sleep 0.5
-echo "Stage file updated"
-sleep 0.5
 echo
 echo "--------------------------------------------------"
 echo "Initial setup complete."
 echo "--------------------------------------------------"
-read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
-if [[ $cont =~ ^[Yy]$ ]]; then
-    echo "Continuing to next stage"
-    sleep 1
-    exit 0
-else
-    echo "Exiting script. Please run the main setup.sh script in your"
-    echo "home directory to continue."
-    sleep 1
-    exit 1
-fi
+sleep 1

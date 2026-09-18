@@ -72,25 +72,9 @@ exitStat=$?
 errMsg="Rat Commander install failed"
 successMsg="Rat Commander installed successfully"
 cmdFail
-echo "Updating the stage file"
-sleep 0.5
-echo "12" > $stageFile
-sleep 0.5
-echo "Stage file updated"
-sleep 0.5
+sleep 1
 echo
 echo "-----------------------------------------------------------" 
 echo "Rat Commander has been installed and enabled successfully."
 echo "-----------------------------------------------------------"
-sleep 0.5
-read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
-if [[ $cont =~ ^[Yy]$ ]]; then
-    echo "Continuing to next stage"
-    sleep 1
-    exit 0
-else
-    echo "Exiting script. Please run the main setup.sh script in your"
-    echo "home directory to continue."
-    sleep 1
-    exit 1
-fi
+sleep 1

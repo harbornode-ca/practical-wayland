@@ -74,26 +74,9 @@ else
     sleep 0.5
 fi
 echo
-echo "Updating the stage file"
-sleep 0.5
-echo "3" > $stageFile
-sleep 0.5
-echo "Stage file updated"
-sleep 0.5
-echo
 echo "--------------------------------------------------"
 echo "Upgrade process completed!"
 echo "The system has been updated to Debian Forky." 
 echo "A reboot is required to complete the update process."
 echo "--------------------------------------------------"
-read -p "Would you like to reboot now? \[y/n]\: " cont
-if [[ $cont =~ ^[Yy]$ ]]; then
-    echo "Rebooting"
-    sleep 1
-    clear
-    sudo reboot
-else
-    echo "Please reboot manually to apply changes"
-    sleep 1
-    exit 1
-fi
+sleep 1

@@ -51,20 +51,12 @@ while IFS="," read -r src dest; do
     successMsg="Copied $src to $dest"
     cmdFail
 done < "$cfgDir/install/niri-install.csv"
-# **Add niri build from source here**
-# **Add new script for Xwayland-satellite in new script it is a requirement
+echo
+echo "Completed copying niri files"
+sleep 1
+# **Add new nscript for Xwayland-satellite in new script it is a requirement
 # for both niri and Umbriel to function properly**
 echo "--------------------------------------------------"
 echo "Niri has been installed and enabled successfully."
 echo "--------------------------------------------------"
-read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
-if [[ $cont =~ ^[Yy]$ ]]; then
-    echo "Continuing to next stage"
-    sleep 1
-    exit 0
-else
-    echo "Exiting script. Please run the main setup.sh script in your"
-    echo "home directory to continue."
-    sleep 1
-    exit 1
-fi
+sleep 1

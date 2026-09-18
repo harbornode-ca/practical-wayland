@@ -151,26 +151,9 @@ if [ $installNVIDIA == true ]; then
     echo
     read -p "Press [Enter] key to continue..."
 fi
-echo
-echo "Updating the stage file"
-echo "6" > $stageFile
-sleep 0.5
-echo "Stage file updated"
-sleep 0.5
 echo 
 echo "--------------------------------------------------"
 echo "GPU driver installation complete. A reboot is required to apply changes"
 echo "Once the system reboots please run the main setup.sh script in your home directory to continue."
 echo "--------------------------------------------------"
-sleep 0.5
-read -p "Would you like to reboot now? \[y/n]\: " cont
-if [[ $cont =~ ^[Yy]$ ]]; then
-    echo "Rebooting"
-    sleep 1
-    clear
-    sudo reboot
-else
-    echo "Please reboot manually to apply changes"
-    sleep 1
-    exit 1
-fi
+sleep 1
