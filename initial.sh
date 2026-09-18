@@ -1,7 +1,4 @@
 #!/bin/bash
-
-debVerID=$(cat /opt/kevrevrun/installerInfo/debian.id)
-debVerName=$(cat /opt/kevrevrun/installerInfo/debian.name)
 cfgDir=/opt/kevrevrun
 setupDir=$PWD
 echo $setupDir > $cfgDir/setup.dir
@@ -278,8 +275,6 @@ sleep 1
 id -u $sudoUser > $cfgDir/id.usr
 echo $sudoUser > $cfgDir/name.usr
 echo 1 > $cfgDir/status/setup.stage
-echo $debVerName > $cfgDir/debian.name
-echo $debVerID > $cfgDir/debian.id
 echo 
 for f in "$cfgDir/id.usr" "$cfgDir/name.usr" "$cfgDir/status/setup.stage"; do
 	if [ -f  $f ]; then
