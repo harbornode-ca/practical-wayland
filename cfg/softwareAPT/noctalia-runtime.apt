@@ -1,13 +1,3 @@
-# Niri Base Dependancies
-
-**This file contains a list of the files required to install niri without any recommend dependancies**
-
-*This is the bare minimum required to get niri running. You will need to add more packages depending on your needs*
-
-## Debian Forky Packages
-
-### Libraries
-
 fontconfig-config
 libabsl20260526
 libasound2-data
@@ -90,15 +80,24 @@ fontconfig
 libinput-bin
 fonts-dejavu-core
 fonts-dejavu-mono
-
-### Command Line
-
-fontconfig
-libinput-bin
-xwayland-satellite
-
-### GUI
-
-fonts-dejavu-core
-fonts-dejavu-mono
-
+playerctl
+network-manager
+network-manager-tui
+pipewire
+pipewire-alsa
+bluez
+bluez-alsa-utils
+bluez-firmware
+bluez-tools
+fonts-font-awesome
+fonts-nerd-symbols
+lm-sensors
+wireplumber
+ncurses-term
+mousepad
+alacritty
+nemo
+nemo-fileroller
+nemo-gtkhash
+nemo-compare
+nemo-font-manager

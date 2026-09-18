@@ -7,6 +7,10 @@ foot-themes
 ncurses-term
 mousepad
 nemo
+nemo-fileroller
+nemo-gtkhash
+nemo-compare
+nemo-font-manager
 mate-polkit
 mate-polkit-bin
 playerctl
