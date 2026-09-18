@@ -30,7 +30,7 @@ successMsg="APT package cache updated successfully"
 cmdFail
 echo "Installing Lemurs dependacies"
 sleep 0.5
-aptDeps=$(cat $cfgDir/deps/lemurs.apt)
+aptDeps=$(cat $swAptDir/lemurs.apt)
 sudo DEBIAN_FRONTEND=noninteractive apt install $aptDeps -y
 exitStat=$?
 errMsg="Lemurs dependacies failed to install"

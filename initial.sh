@@ -1,7 +1,7 @@
 #!/bin/bash
 
-debVerName="Forky"
-debVerID="forky"
+debVerID=$(cat /opt/kevrevrun/installerInfo/debian.id)
+debVerName=$(cat /opt/kevrevrun/installerInfo/debian.name)
 cfgDir=/opt/kevrevrun
 setupDir=$PWD
 echo $setupDir > $cfgDir/setup.dir
