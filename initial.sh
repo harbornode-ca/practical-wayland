@@ -1,7 +1,10 @@
 #!/bin/bash
+
+debVerName="Forky"
+debVerID="forky"
 cfgDir=/opt/kevrevrun
-installDir=$PWD
-echo $installDir > $cfgDir/install.dir
+setupDir=$PWD
+echo $setupDir > $cfgDir/setup.dir
 banner () {
 echo
 echo "---------------------------------------------------------------------------"
@@ -239,9 +242,15 @@ for f in "cfg" "status" "scripts" "tmp" "logs"; do
 	fi
 done
 echo
+echo "Setting setup directory as /home/$sudoUser"
+sleep 1
+echo "$setupDir" > $setupDirFile
+echo "$setupDir" is now set as setup directory
+sleep 1
+echo
 echo "Downloading script to continue setup..."
 sleep 1
-wget -nv -O "/home/$sudoUser/setup.sh" "https://github.com/harbornode-ca/practical-wayland/raw/refs/heads/main/setup.sh" 2>&1
+wget -nv -O "$setupDir/setup.sh" "https://github.com/harbornode-ca/practical-wayland/raw/refs/heads/main/setup.sh" 2>&1
 exit=$?
 if [ "$exit" != "0" ]; then
 	errMsg="Script failed to download"
@@ -253,7 +262,8 @@ fi
 echo
 echo "Setting file permissions..."
 sleep 1
-chown -v $sudoUser:$sudoUser /home/$sudoUser/setup.sh && chmod -v +x /home/$sudoUser/setup.sh 2>&1
+chown -v $sudoUser:$sudoUser $setupDir/setup.sh
+chmod -v +x $setupDir/setup.sh 2>&1
 exit=$?
 if [ $exit != 0 ]; then
 	errMsg="Failed to set file/folder permissions"
@@ -268,6 +278,9 @@ sleep 1
 id -u $sudoUser > $cfgDir/id.usr
 echo $sudoUser > $cfgDir/name.usr
 echo 1 > $cfgDir/status/setup.stage
+echo $debVerName > $cfgDir/debian.name
+echo $debVerID > $cfgDir/debian.id
+echo 
 for f in "$cfgDir/id.usr" "$cfgDir/name.usr" "$cfgDir/status/setup.stage"; do
 	if [ -f  $f ]; then
 		echo

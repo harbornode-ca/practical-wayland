@@ -85,10 +85,12 @@ sleep 1
 cat << 'EOF' > /opt/kevrevrun/status/files.list
 stgUsr,/opt/kevrevrun/id.usr
 stgUsrN,/opt/kevrevrun/name.usr
-installerDir,/opt/kevrevrun/setup.dir
+setupDirFile,/opt/kevrevrun/setup.dir
 stageFile,/opt/kevrevrun/status/setup.stage
 mainLog,/opt/kevrevrun/logs/main.log
 selDE,/opt/kevrevrun/status/selDE.status
+debNameFile,/opt/kevrevrun/debian.name
+debIdFile,/opt/kevrevrun/debian.id
 EOF
 echo
 echo "Setup variables saved to files.list"
@@ -117,6 +119,8 @@ usrId,/opt/kevrevrun/id.usr
 usrName,/opt/kevrevrun/name.usr
 setupDir,/opt/kevrevrun/setup.dir
 selDEValue,/opt/kevrevrun/status/selDE.status
+debVerID,/opt/kevrevrun/debian.id
+debVerName,/opt/kevrevrun/debian.name
 EOF
 echo
 echo "Setup variables have been saved to values.list"
