@@ -43,8 +43,8 @@ if [ -d "$tmpDir/lemurs" ]; then
     echo "Lemurs repository already cloned. Skipping"
     sleep 0.5
 else
-    gitURL=$(cat $cfgDir/install/git-commits.csv | grep -i lemurs | cut -d ',' -f 2)
-    gitTag=$(cat $cfgDir/install/git-commits.csv | grep -i lemurs | cut -d ',' -f 3)
+    gitURL=$(cat $installDir/git-commits.csv | grep -i lemurs | cut -d ',' -f 2)
+    gitTag=$(cat $installDir/git-commits.csv | grep -i lemurs | cut -d ',' -f 3)
     git clone $gitURL $tmpDir/lemurs
     exitStat=$?
     errMsg="Lemurs repository failed to clone"
@@ -103,7 +103,7 @@ cmdFail
 echo
 echo "Copying configuration files"
 sleep 1
-sudo cp -fv $cfgDir/install/lemurs-config.toml /etc/lemurs/config.toml
+sudo cp -fv $installDir/lemurs-config.toml /etc/lemurs/config.toml
 exitStat=$?
 errMsg="Lemurs configuration file failed to copy"
 successMsg="Lemurs configuration file copied successfully"

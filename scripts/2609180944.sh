@@ -50,7 +50,7 @@ while IFS="," read -r src dest; do
     errMsg="Failed to copy $src to $dest"
     successMsg="Copied $src to $dest"
     cmdFail
-done < "$cfgDir/install/niri-install.csv"
+done < "$installDir/niri-install.csv"
 echo
 echo "Completed copying niri files"
 sleep 1

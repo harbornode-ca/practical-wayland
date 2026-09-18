@@ -59,7 +59,9 @@ statusDir,/opt/kevrevrun/status
 scriptDir,/opt/kevrevrun/scripts
 cfgDir,/opt/kevrevrun/cfg
 tmpDir,/opt/kevrevrun/tmp
-logDir,/opt/kevrevrun/logs
+installDir,/opt/kevrevrun/cfg/installInfo
+swAptDir,/opt/kevrevrun/cfg/softwareApt
+themeDir,/opt/kevrevrun/cfg/systemTheme
 EOF
 echo
 echo "Setup variables have been saved to folders.list"

@@ -74,20 +74,12 @@ sleep 1.5
 sed -i \
   -e "s|^RDP_USER=.*|RDP_USER=\"${RDP_USER}\"|" \
   -e "s|^RDP_PASS=.*|RDP_PASS=\"${RDP_PASS}\"|" \
-  /home/kevin/practical-wayland/cfg/install/winapps.conf
+  $installDir/winapps.conf
 exitStat=$?
 errMsg="Failed to set up user and password"
 successMsg="Successfully applied user and password to config file"
 cmdFail
 echo
-echo "Starting WinApps installation"
-sleep 0.5
-echo
-bash $cfgDir/install/winapps.sh
-exitStat=$?
-errMsg="Failed to install WinApps"
-successMsg="Successfully installed WinApps"
-cmdFail
 echo "Installing WinApps dependancies"
 sleep 1
 depWinApps=$(cat $cfgDir/deps/winapps.apt)
@@ -118,7 +110,7 @@ if [ -f $HOME/.config/winapps/winapps.conf ]; then
     if [[ $overwrite =~ ^[Yy]$ ]]; then
         echo "Replacing user WinApps config file"
         sleep 1
-        cp -fv $cfgDir/install/winapps.conf $HOME/.config/winapps/
+        cp -fv $installDir/winapps.conf $HOME/.config/winapps/
         exitStat=$?
         errMsg="Failed to replace user WinApps config file"
         successMsg="Successfully replaced user WinApps config file"
@@ -130,7 +122,7 @@ if [ -f $HOME/.config/winapps/winapps.conf ]; then
 else
     echo "Creating WinApps config file"
     sleep 1
-    cp -fv $cfgDir/install/winapps.conf $HOME/.config/winapps/
+    cp -fv $installDir/winapps.conf $HOME/.config/winapps/
     exitStat=$?
     errMsg="Failed to copy WinApps config file"
     successMsg="Successfully copied WinApps config folder"
@@ -138,14 +130,14 @@ else
 fi
 echo "Setting directory permissions for WinApps config file"
 sleep 1
-chown $(whoami):$(whoami) ~/.config/winapps/winapps.conf
+chown $usrName:$usrName ~/.config/winapps/winapps.conf
 exitStat=$?
 errMsg="Failed to set directory permissions for WinApps config file"
 successMsg="Successfully set directory permissions for WinApps config file"
 cmdFail
 echo "Setting permissions for WinApps config file"
 sleep 1
-chmod 600 ~/.config/winapps/winapps.conf
+chmod 600 $HOME/.config/winapps/winapps.conf
 exitStat=$?
 errMsg="Failed to set directory permissions for WinApps config file"
 successMsg="Successfully set directory permissions for WinApps config file"
@@ -179,7 +171,7 @@ sed -i -E \
   -e "s|(DISK_SIZE:[[:space:]]*\")[^\"]*\"|\1${WIN_DISK}\"|" \
   -e "s|(USERNAME:[[:space:]]*\")[^\"]*\"|\1${RDP_USER}\"|" \
   -e "s|(PASSWORD:[[:space:]]*\")[^\"]*\"|\1${RDP_PASS}\"|" \
-  /home/kevin/practical-wayland/cfg/install/winapps-compose.yaml
+  $installDir/winapps-compose.yaml
 if [ $? -ne 0 ]; then
     exitStat=$?
     errMsg="Failed to update WinApps Variables for Podman"
@@ -189,14 +181,14 @@ fi
 echo
 echo "Copying compose.yaml to WinApps config folder"
 sleep 1
-sudo cp -fv $cfgDir/install/winapps-compose.yaml $HOME/.config/winapps/compose.yaml
+sudo cp -fv $installDir/winapps-compose.yaml $HOME/.config/winapps/compose.yaml
 exitStat=$?
 errMsg="Failed to copy compose.yaml to WinApps config folder"
 successMsg="Successfully copied compose.yaml to WinApps config folder"
 cmdFail
 echo "Setting user ownership for compose.yaml"
 sleep 1
-chown -v $(whoami):$(whoami) ~/.config/winapps/compose.yaml
+chown $usrName:$usrName $HOME/.config/winapps/compose.yaml
 exitStat=$?
 errMsg="Failed to set user ownership for compose.yaml"
 successMsg="Successfully set user ownership for compose.yaml"

@@ -32,8 +32,8 @@ successMsg="Rat Commander APT dependancies installed successfully"
 cmdFail
 echo "Downloading Rat Commander"
 sleep 0.5
-gitURL=$(cat $cfgDir/install/git-commits.csv | grep -i rat-commander | cut -d ',' -f 2)
-gitTag=$(cat $cfgDir/install/git-commits.csv | grep -i rat-commander | cut -d ',' -f 3)
+gitURL=$(cat $installDir/git-commits.csv | grep -i rat-commander | cut -d ',' -f 2)
+gitTag=$(cat $installDir/git-commits.csv | grep -i rat-commander | cut -d ',' -f 3)
 echo "Pulling latest stable commit $gitTag"
 if [ -d "$tmpDir/rat-commander" ]; then
     echo "Rat Commander directory already exists."
