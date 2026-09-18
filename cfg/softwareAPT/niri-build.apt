@@ -16,4 +16,5 @@ libpipewire-0.3-dev
 libpango1.0-dev
 libsystemd-dev 
 systemd-dev
+libfftw3-dev
 xdg-desktop-portal-gtk
