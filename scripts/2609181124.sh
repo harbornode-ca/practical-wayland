@@ -82,7 +82,7 @@ cmdFail
 echo
 echo "Installing WinApps dependancies"
 sleep 1
-depWinApps=$(cat $cfgDir/deps/winapps.apt)
+depWinApps=$(cat $swAptDir/winapps.apt)
 sudo DEBIAN_FRONTEND=noninteractive apt install $depWinApps -y
 exitStat=$?
 errMsg="Failed to install WinApps dependancies"

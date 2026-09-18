@@ -68,7 +68,7 @@ else
     sleep 1.5
 fi
 if [ $installIntel == true ]; then
-    depIntel=$(cat /opt/kevrevrun/cfg/deps/intelgpu.apt)
+    depIntel=$(cat $swAptDir/intelgpu.apt)
     echo
     echo "Installing Intel GPU drivers"
     sleep 0.5
@@ -82,7 +82,7 @@ if [ $installIntel == true ]; then
     read -p "Press [ENTER] key to continue..."
 fi
 if [ $installAMD == true ]; then
-    depAMD=$(cat /opt/kevrevrun/cfg/deps/amdgpu.apt)
+    depAMD=$(cat $swAptDir/amdgpu.apt)
     echo
     echo "Installing AMD GPU drivers"
     sleep 0.5
@@ -96,8 +96,8 @@ if [ $installAMD == true ]; then
     read -p "Press [ENTER] key to continue..."
 fi
 if [ $installNVIDIA == true ]; then
-    depNVIDIA=$(cat /opt/kevrevrun/cfg/deps/nvidia.apt)
-    urlNVIDIA=$(cat /opt/kevrevrun/cfg/nvidia.url)
+    depNVIDIA=$(cat $swAptDir/nvidia.apt)
+    urlNVIDIA=$(cat $swAptDir/nvidia.url)
     echo
     echo "Adding Nvidia Driver Repository"
     sleep 0.5

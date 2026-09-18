@@ -33,7 +33,7 @@ echo
 echo "Installing niri Dependencies"
 echo
 sleep 0.5
-aptDeps=$(cat $cfgDir/deps/niri-build.apt)
+aptDeps=$(cat $swAptDir/niri-build.apt)
 sudo DEBIAN_FRONTEND=noninteractive apt install $aptDeps -y
 exitStat=$?
 errMsg="Niri dependencies failed to install"

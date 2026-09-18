@@ -24,7 +24,7 @@ echo
 echo "Installing Rat Commander APT dependancies"
 sleep 0.5
 echo
-aptDep=$(cat $cfgDir/deps/rc.apt)
+aptDep=$(cat $swAptDir/rc.apt)
 sudo DEBIAN_FRONTEND=noninteractive apt install $aptDep -y
 exitStat=$?
 errMsg="Rat Commander APT dependancies failed to install"
