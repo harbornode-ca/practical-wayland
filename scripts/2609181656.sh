@@ -14,6 +14,19 @@ fi
 }
 echo "Installing Xwayland Satellite"
 sleep 1
+echo
+echo "Setting environment variables for C compiler"
+export CC=clang
+exitStat=$?
+errMsg="C compiler failed to set to clang"
+successMsg="C compiler set successfully to clang"
+cmdFail
+export CXX=clang++
+exitStat=$?
+errMsg="C++ compiler failed to set to clang++"
+successMsg="C++ compiler set successfully to clang++"
+cmdFail
+echo
 echo "Installing APT dependencies for Xwayland Satellite"
 sleep 1
 aptDeps=$(cat $swAptDir/xwayland-satellite.apt)
