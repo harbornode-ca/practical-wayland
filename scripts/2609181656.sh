@@ -35,6 +35,18 @@ exitStat=$?
 errMsg="Xwayland Satellite dependencies failed to install"
 successMsg="Xwayland Satellite dependencies installed successfully"
 cmdFail
+echo "Building dump-xsettings"
+scons dump-xsettings
+exitStat=$?
+errMsg="Failed to build dump-xsettings"
+successMsg="dump-xsettings built successfully"
+cmdFail
+echo "Building xsettingsd"
+scons xsettingsd
+exitStat=$?
+errMsg="Failed to build xsettingsd"
+successMsg="xsettingsd built successfully"
+cmdFail
 echo
 echo "Cloning Xwayland Satellite repository"
 sleep 1
@@ -56,3 +68,36 @@ else
     successMsg="xwayland-satellite repository checkout tag successfully"
     cmdFail
 fi
+echo
+echo "Creating build directory for Xwayland Satellite"
+sleep 1
+mkdir build
+exitStat=$?
+errMsg="Failed to create build directory"
+successMsg="Build directory created successfully"
+cmdFail
+echo
+echo "Configuring Xwayland Satellite build"
+sleep 1
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=/usr
+exitStat=$?
+errMsg="Failed to configure build"
+successMsg="Build configured successfully"
+cmdFail
+echo
+echo "Compiling Xwayland Satellite"
+sleep 1
+make
+exitStat=$?
+errMsg="Failed to compile"
+successMsg="Build compiled successfully"
+cmdFail
+echo
+echo "Installing Xwayland Satellite"
+sleep 1
+sudo make install
+exitStat=$?
+errMsg="Failed to install"
+successMsg="Installation successful"
+cmdFail
