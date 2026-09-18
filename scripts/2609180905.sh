@@ -2,8 +2,7 @@
 #Installs Rust, Cargo and Just
 #Downloads rustup.sh and installs Rust. Installs Just tool via Cargo.
 #Removes the downloaded rustup.sh file after installation.
-cmdFail () {
-if [ $? -ne 0 ]; then
+if [ $exitStat -ne 0 ]; then
     echo "$errMsg"
     sleep 1
     echo
@@ -13,7 +12,6 @@ if [ $? -ne 0 ]; then
     exit 1
 else
     echo "$successMsg"
-    sleep 0.5
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -80,6 +78,12 @@ exitStat=$?
 errMsg="Failed to install Just"
 successMsg="Just installed successfully"
 cmdFail
+echo "Installing Just to /usr/local/sbin for sudo use"
+sudo cp $HOME/.cargo/bin/just /usr/local/sbin/just
+exitStat=$?
+errMsg="Failed to copy Just to /usr/local/sbin"
+successMsg="Just copied to /usr/local/sbin successfully"
+cmdFail
 echo 
 echo "Cleaning up temporary files"
 sleep 0.5
@@ -100,7 +104,7 @@ echo "--------------------------------------------------"
 echo "Rust,Cargo and Just have been installed successfully."
 echo "--------------------------------------------------"
 sleep 0.5
-read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
+read -p "Do you want to continue to the next stage? \[y/n]\: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Continuing to next stage"
     sleep 1

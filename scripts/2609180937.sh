@@ -1,8 +1,7 @@
 #!/bin/bash
 #This downloads Lemurs Login Manager repository, builds and installs the login manager.
-#A default config file is included, as well as a basic niri laucher script.
 cmdFail () {
-if [ $? -ne 0 ]; then
+if [ $exitStat -ne 0 ]; then
     echo "$errMsg"
     sleep 1
     echo
@@ -12,7 +11,6 @@ if [ $? -ne 0 ]; then
     exit 1
 else
     echo "$successMsg"
-    sleep 0.5
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -47,33 +45,31 @@ if [ -d "$tmpDir/lemurs" ]; then
 else
     gitURL=$(cat $cfgDir/install/git-commits.csv | grep -i lemurs | cut -d ',' -f 2)
     gitTag=$(cat $cfgDir/install/git-commits.csv | grep -i lemurs | cut -d ',' -f 3)
-    git -C "$tmpDir" clone $gitURL $gitTag
+    git clone $gitURL $tmpDir/lemurs
     exitStat=$?
     errMsg="Lemurs repository failed to clone"
     successMsg="Lemurs repository cloned successfully"
     cmdFail
-    echo
-    echo "Moving files"
-    sleep 0.5
-    mv "$tmpDir/$gitTag" "$tmpDir/lemurs"
+    cd $tmpDir/lemurs
+    git checkout $gitTag
     exitStat=$?
-    errMsg="Lemurs files failed to move"
-    successMsg="Lemurs files moved successfully"
+    errMsg="Lemurs repository failed to checkout tag"
+    successMsg="Lemurs repository checkout tag successfully"
     cmdFail
 fi
 echo
 echo "Building Lemurs from source"
 sleep 0.5
-echo
 cd $tmpDir/lemurs
 cargo build --release
 exitStat=$?
+sleep 1
 errMsg="Lemurs failed to build"
 successMsg="Lemurs built successfully"
 cmdFail
 echo
 echo "Installing and setting up Lemurs"
-sleep 0.5
+sleep 1
 echo "Installing lemurs binary from source"
 sleep 0.5
 sudo cp $tmpDir/lemurs/target/release/lemurs /usr/bin/lemurs
@@ -83,11 +79,11 @@ successMsg="Lemurs binary copied successfully"
 cmdFail
 echo
 echo "Creating Lemurs configuration directories"
-sleep 0.5
+sleep 1
 for dir in /etc/lemurs/wayland /etc/lemurs/wms; do
     if [ -d "$dir" ]; then
         echo "Lemurs configuration directory $dir already exists. Skipping"
-        sleep 0.5
+        sleep 1
     else
         sudo mkdir -pv "$dir"
         exitStat=$?
@@ -98,7 +94,7 @@ for dir in /etc/lemurs/wayland /etc/lemurs/wms; do
 done
 echo
 echo "Installing Lemurs PAM module"
-sleep 0.5
+sleep 1
 sudo cp -fv $tmpDir/lemurs/extra/lemurs.pam /etc/pam.d/lemurs
 exitStat=$?
 errMsg="Lemurs PAM module failed to copy"
@@ -106,7 +102,7 @@ successMsg="Lemurs PAM module copied successfully"
 cmdFail
 echo
 echo "Copying configuration files"
-sleep 0.5
+sleep 1
 sudo cp -fv $cfgDir/install/lemurs-config.toml /etc/lemurs/config.toml
 exitStat=$?
 errMsg="Lemurs configuration file failed to copy"
@@ -114,7 +110,7 @@ successMsg="Lemurs configuration file copied successfully"
 cmdFail
 echo
 echo "Installing Lemurs systemd service files"
-sleep 0.5
+sleep 1
 sudo cp -fv $tmpDir/lemurs/extra/lemurs.service /etc/systemd/system/lemurs.service
 exitStat=$?
 errMsg="Lemurs systemd service file failed to copy"
@@ -122,7 +118,7 @@ successMsg="Lemurs systemd service file copied successfully"
 cmdFail
 echo
 echo "Enabling Lemurs systemd service"
-sleep 0.5
+sleep 1
 sudo systemctl daemon-reload
 exitStat=$?
 errMsg="Lemurs systemd daemon-reload failed"
@@ -135,21 +131,7 @@ successMsg="Lemurs systemd service enabled successfully"
 cmdFail
 echo
 echo "Lemurs has been installed and enabled successfully."
-sleep 0.5
-echo "Adding Niri startup file to /etc/lemurs/wayland directory"
-sleep 0.5
-sudo cp -fv $cfgDir/install/run-niri.sh /etc/lemurs/wayland/run-niri.sh
-exitStat=$?
-errMsg="Niri startup file failed to copy"
-successMsg="Niri startup file copied successfully"
-cmdFail
-echo "Setting execute permissions on Niri startup file"
-sleep 0.5
-sudo chmod +x /etc/lemurs/wayland/run-niri.sh
-exitStat=$?
-errMsg="Niri startup file failed to set execute permissions"
-successMsg="Niri startup file set execute permissions successfully"
-cmdFail
+sleep 1.5
 echo
 echo "Updating the stage file"
 echo "9" > $stageFile
@@ -160,7 +142,7 @@ echo
 echo "--------------------------------------------------"
 echo "Lemurs has been installed and enabled successfully."
 echo "--------------------------------------------------"
-read -p "Do you want to continue to the next stage? \`[y/n]\`: " cont
+read -p "Do you want to continue to the next stage? \[y/n]\: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Continuing to next stage"
     sleep 1

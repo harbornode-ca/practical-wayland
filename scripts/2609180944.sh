@@ -1,8 +1,9 @@
 #!/bin/bash
 #This setups up the Danklinux Repository that contains a debian installer for niri and xwayland-sattelite 
 #which is requrired for niri to support X11 apps.
+#!/bin/bash
 cmdFail () {
-if [ $? -ne 0 ]; then
+if [ $exitStat -ne 0 ]; then
     echo "$errMsg"
     sleep 1
     echo
@@ -12,7 +13,6 @@ if [ $? -ne 0 ]; then
     exit 1
 else
     echo "$successMsg"
-    sleep 0.5
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -33,12 +33,24 @@ echo
 echo "Installing niri Dependencies"
 echo
 sleep 0.5
-aptDeps=$(cat $cfgDir/deps/niri.apt)
+aptDeps=$(cat $cfgDir/deps/niri-build.apt)
 sudo DEBIAN_FRONTEND=noninteractive apt install $aptDeps -y
 exitStat=$?
 errMsg="Niri dependencies failed to install"
 successMsg="Niri dependencies installed successfully"
 cmdFail
+git clone https://github.com/niri-wm/niri.git $tmpDir/niri
+cd $tmpDir/niri
+git checkout ee8a04bbaa9a20c53b9544cdd098ff54d8c509b4
+cd $tmpDir/niri
+cargo build --release
+while IFS="," read -r src dest; do
+    sudo cp -fv $tmpDir/niri/$src $dest
+    exitStat=$?
+    errMsg="Failed to copy $src to $dest"
+    successMsg="Copied $src to $dest"
+    cmdFail
+done < "$cfgDir/install/niri-install.csv"
 # **Add niri build from source here**
 # **Add new script for Xwayland-satellite in new script it is a requirement
 # for both niri and Umbriel to function properly**

@@ -1,16 +1,14 @@
 #!/bin/bash
-cmdFail () {
-if [ $? -ne 0 ]; then
-echo "$errMsg"
-sleep 1
-echo
-echo "This script will now exit"
-read -p "Press [ENTER] key to exit"
-clear
-exit 1
+if [ $exitStat -ne 0 ]; then
+    echo "$errMsg"
+    sleep 1
+    echo
+    echo "This script will now exit"
+    read -p "Press [ENTER] key to exit"
+    clear
+    exit 1
 else
     echo "$successMsg"
-    sleep 0.5
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -36,23 +34,27 @@ echo "Downloading Rat Commander"
 sleep 0.5
 gitURL=$(cat $cfgDir/install/git-commits.csv | grep -i rat-commander | cut -d ',' -f 2)
 gitTag=$(cat $cfgDir/install/git-commits.csv | grep -i rat-commander | cut -d ',' -f 3)
+echo "Pulling latest stable commit $gitTag"
 if [ -d "$tmpDir/rat-commander" ]; then
-    echo "Rat Commander directory already exists. Skipping download"
+    echo "Rat Commander directory already exists."
     sleep 0.5
+    echo "Skipping download"
 else
-    git -C "$tmpDir" clone $gitURL $gitTag
+    echo "Grabbing Rat Commander from Github"
+    sleep 0.5
+    git clone $gitURL $tmpDir/rat-commander
     exitStat=$?
     errMsg="Rat Commander download failed"
     successMsg="Rat Commander downloaded successfully"
     cmdFail
+    echo "Checking out latest stable commit"
+    sleep 0.5
+    git checkout $gitTag
+    exitStat=$?
+    errMsg="Rat Commander tag checkout failed"
+    successMsg="Rat Commander tag checkout completed successfully"
+    cmdFail
 fi
-echo "Moving Rat Commander source files into a new directory"
-sleep 0.5
-mv -v "$tmpDir/$gitTag" "$tmpDir/rat-commander"
-exitStat=$?
-errMsg="Rat Commander source files move failed"
-successMsg="Rat Commander source files moved successfully"
-cmdFail
 echo "Building Rat Commander from source"
 sleep 0.5
 cd $tmpDir/rat-commander
@@ -65,7 +67,7 @@ successMsg="Rat Commander build completed successfully"
 cmdFail
 echo "Installing Rat Commander"
 sleep 0.5
-sudo cp -v $tmpDir/rat-commander/target/release/rc /usr/bin/rc
+sudo cp -fv $tmpDir/rat-commander/target/release/rc /usr/bin/rc
 exitStat=$?
 errMsg="Rat Commander install failed"
 successMsg="Rat Commander installed successfully"

@@ -2,7 +2,7 @@
 #Removes an old style Debian .list files. Removes installer generated .sources file and adds Debian Forky repositories.
 #Updates the system to Debian Forky (testing) and installs firmware packages. Exits prompting user to reboot to complete the update.
 cmdFail () {
-if [ $? -ne 0 ]; then
+if [ $exitStat -ne 0 ]; then
     echo "$errMsg"
     sleep 1
     echo
@@ -12,7 +12,6 @@ if [ $? -ne 0 ]; then
     exit 1
 else
     echo "$successMsg"
-    sleep 0.5
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -87,7 +86,7 @@ echo "Upgrade process completed!"
 echo "The system has been updated to Debian Forky." 
 echo "A reboot is required to complete the update process."
 echo "--------------------------------------------------"
-read -p "Would you like to reboot now? \`[y/n]\`: " cont
+read -p "Would you like to reboot now? \[y/n]\: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Rebooting"
     sleep 1

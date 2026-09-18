@@ -1,72 +1,124 @@
-## Scripts Directory
+# Scripts Directory
+
+---
 
 This folder contains module files for installing and setting up various features of the Practical Wayland environments.
 *These files are not intended to be run independently.*
 
-### Installation Scripts
+---
 
-#### 00-script.sh`
- *(For future development)*
-*A loop monitoring script that checks `/opt/kevrevrun/loop.status` and waits until a background task completes.*
+## Installation Scripts
 
-#### `01-script.sh`
+### 2609180902.sh
 
-**Sets up system directory structures, initializes environment variables, downloads the Practical Wayland repository, and places files into `/opt/kevrevrun`.**
+**Initializes the installation environment**
+* Creates `/opt/kevrevrun` directory structure
+* Exports the folder, file, and status variables
+* Downloads the Practical Wayland repository
+* Places files in the correct folders
 
-#### 02-script.sh
+### 2609180904.sh
 
-**Configures Debian Forky (testing) APT repositories and upgrades the system to Debian Forky.**
+**Updates system to Debian Forky and installs base packages**
+* Updates system to Debian Forky (testing)
+* Installs base packages required for the installation scripts
+* After update and install is complete, the system will reboot
 
-#### `03-script.sh`
 
-**Installs Rust, Cargo, and Just development tools into the user's home directory.**
+### 2609180905.sh
 
-*Just will need to be installed from debian repos for installation scripts to work when calling sudo*
-*Software is compiled by the user and sudo is only called to move the files according the justfile where needed.* 
+**Installs Rust and development tools**
+* Installs Rust and Cargo from rustup
+* Installs Just using cargo
+* Adds Just to /usr/local/sbin so it can be used by sudo
+* Removes temporary files
 
-#### `04-script.sh`
-**Adds `i386` architecture support via `dpkg` (required for 32-bit software like Steam and NVIDIA components) and updates the APT package cache.**
 
-*Need to add the option to skip the addition of the i386 architecture. Adding the architecture does not affect performance or stability on its own*
-*It is supported by Mesa and Nvidia drivers and is required for some use of some software like steam*
+### 2909180912.sh
 
-#### `05-script.sh`
-**Detects GPU hardware (Intel, AMD, NVIDIA) using `lspci`, installs corresponding graphics drivers, and prompts for a system reboot upon completion.**
+**Adds i386 32-bit architecture to the system**
+* Adds i386 architecture support via dpkg (required for 32-bit software like Steam and NVIDIA components)
+* Updates the APT package cache
 
-*Will install drivers for all detected hardware.*
-*A prompt will be added for installing support for legacy GPUs. Logic will be added in the future.*
+### 2909180913.sh
 
-#### `06-script.sh`
+**Installs GPU drivers**
+* Detects GPU hardware (Intel, AMD, NVIDIA) using `lspci`
+* Installs corresponding graphics drivers
+* After install the system will reboot
 
-**Displays an interactive menu allowing the user to select which desktop environment to install.**
+### 2609180915.sh
 
-*Currently supported by this script is:*
+**Simple CLI Interactive Script for Selecting Desktop Environment**
+
+* This script allows the user to select which desktop environment to install
+* Currently supported by this script is:
     - *Noctalia V5* Includes the full notallia stack and is installed from the Noctalia Debian Testing repository
     - *Niri with Flatbar* Includes the niri compositor and flatbar status bar. Portal is provided by xdg-desktop-portal-gtk. Lemurs handles login and launching the desktop environment.
     - *LXQT with Niri* Includes the lxqt desktop environment and the niri compositor. Portal is provided by xdg-desktop-portal-gtk. Lemurs handles login and launching the desktop environment. 
 
-#### `07-script.sh`
+### 2609180916.sh
 
-**Sets up the Noctalia APT repository and installs the Noctalia Desktop Environment stack (`noctalia`, `noctalia-greeter`, `umbriel`, and `xdg-desktop-portal-umbriel`).**
+**Adds Noctalia APT repository to the system and installs the Noctalia Desktop Environment stack**
+* Adds Noctalia APT repository to the system
+* Updates APT package cache
+* Installs Noctalia packages
+    - *noctalia* - Desktop environment
+    - *noctalia-greeter* - Login manager
+    - *umbriel* - Wayland compositor
+    - *xdg-desktop-portal-umbriel* - Desktop portal support
+* Removes temporary files
 
-#### `08-script.sh`
+*The Umbriel compositor is currently experimental and is not production ready*
+*Niri is installed along with Umbriel due to the current status of Umbriel issues*
+*The Noctalia greeter will allow you switch between Umbriel and Niri for your testing pleasure*
 
-**Downloads, compiles from source via Cargo, installs, and configures the Lemurs login manager alongside its PAM module and session files.**
+### 2609180937.sh
 
-#### `09-script.sh`
+**Compiles and Installs Lemurs Login Manager from Source**
+* Downloads the current GitLab source for Lemurs
+* Checks out the tagged commit from gitlab.com/kevrevan/lemurs
+* Compiles Lemurs from source using Cargo
+* Installs Lemurs
+    - Copies the lemurs binary to /usr/bin/lemurs
+    - Installs systemd files
+        - Install Lemurs PAM Moduel
+        - Installs Lemurs default configuration file
+        - Installs Lemurs systemd service
+* Enables and starts the lemurs.service
+* Removes temporary files
 
-**Adds the Danklinux (DMS) APT repository and installs the `niri` Wayland compositor and `xwayland-satellite`.**
+### 2609180944.sh
 
-*This repository currently supplies the `niri` Wayland compositor, `xwayland-satellite` package and calls required dependancies*
-*This will be replaced with a source build of niri and xwayland-satellite if the repository becomes unreliable.*
+**Compiles and Installs Niri Wayland Compositor from Source**
+* Downloads and builds niri from GitLab repositories
+* Checks out latest stable niri commit
+* Installs required dependencies for building niri
+* Compiles niri from source using cargo
+* Installs niri
+    - Installs niri binaries
+    - Installs Wayland session
+    - Installs xdg portal with GTK backend
+    - Installs systemd services
+* Removes temporary files
 
-#### `10-script.sh`
+### 2609181116.sh
 
-**Installs Flatbar and supporting software. Sets up default configuration files for Flatbar.**
+**Installs BlueTUI Bluetooth GUI**
+* Builds BlueTUI from crates.io
+* Installs BlueTUI to /usr/bin/bluetui
 
-*(Work in progress)*
+### 2609181123.sh
 
----
+**Installs Rat Commander File Manager**
+* Installs Rat Commander from source
+* Installs Rat Commander to /usr/bin/rc
+
+### 2609181124.sh
+
+**Installs WinApps Powered by Dockur**
+
+
 
 ### Dev Tools Directory (`dev-tools/`)
 

@@ -1,8 +1,7 @@
 #!/bin/bash
 #Identifies GPU types and installs the appropriate drivers. If running in VM it will exit without adapter.
 #Intel and AMD use the Mesa drivers and are installed via APT. NVIDIA drivers are installed through the nvidia drivers repository.
-cmdFail () {
-if [ $? -ne 0 ]; then
+if [ $exitStat -ne 0 ]; then
     echo "$errMsg"
     sleep 1
     echo
@@ -12,7 +11,6 @@ if [ $? -ne 0 ]; then
     exit 1
 else
     echo "$successMsg"
-    sleep 0.5    
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -27,16 +25,25 @@ exitStat=$?
 errMsg="Error on Intel GPU check"
 successMsg="Intel GPU check passed"
 cmdFail
+echo "The following Intel GPU adapters were detected"
+lspci | grep -i vga | grep -i "Intel"
+read -p "Press [ENTER] key to continue..."
 amdGPU=$(lspci | grep -i vga | grep -i "AMD")
 exitStat=$?
 errMsg="Error on AMD GPU check"
 successMsg="AMD GPU check passed"
 cmdFail
+echo "The following AMD GPU adapters were detected"
+lspci | grep -i vga | grep -i "AMD"
+read -p "Press [ENTER] key to continue..."
 nvidiaGPU=$(lspci | grep -i vga | grep -i "NVIDIA")
 exitStat=$?
 errMsg="Error on NVIDIA GPU check"
 successMsg="NVIDIA GPU check passed"
 cmdFail
+echo "The following NVIDIA GPU adapters were detected"
+lspci | grep -i vga | grep -i "NVIDIA"
+read -p "Press [ENTER] key to continue..."
 installIntel=false
 installAMD=false
 installNVIDIA=false
@@ -44,25 +51,16 @@ if [ -n "$intelGPU" ]; then
     echo
     echo "Intel GPU detected"
     sleep 0.5
-    echo "The following Intel GPUs detected:"
-    cat $intelGPU
-    sleep 1.5
     installIntel=true
 elif [ -n "$amdGPU" ]; then
     echo
     echo "AMD GPU detected"
     sleep 0.5
-    echo "The following AMD GPUs detected:"
-    cat $amdGPU
-    sleep 1.5
     installAMD=true
 elif [ -n "$nvidiaGPU" ]; then
     echo
     echo "NVIDIA GPU detected"
     sleep 0.5
-    echo "The following NVIDIA GPUs detected:"
-    cat $nvidiaGPU
-    sleep 1.5
     installNVIDIA=true
 else
     echo
@@ -165,7 +163,7 @@ echo "GPU driver installation complete. A reboot is required to apply changes"
 echo "Once the system reboots please run the main setup.sh script in your home directory to continue."
 echo "--------------------------------------------------"
 sleep 0.5
-read -p "Would you like to reboot now? \`[y/n]\`: " cont
+read -p "Would you like to reboot now? \[y/n]\: " cont
 if [[ $cont =~ ^[Yy]$ ]]; then
     echo "Rebooting"
     sleep 1

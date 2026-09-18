@@ -7,5 +7,3 @@ netcat-openbsd
 freerdp-x11
 freerdp-wayland
 crun
-podman
-podman-compose

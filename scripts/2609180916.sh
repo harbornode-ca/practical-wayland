@@ -3,7 +3,7 @@
 #This includes the noctalia package which is the main shell, the noctalia-greeter the login manager, 
 #umbriel which is the compositor/WM, and xdg-desktop-portal-umbriel for desktop portal support.
 cmdFail () {
-if [ $? -ne 0 ]; then
+if [ $exitStat -ne 0 ]; then
     echo "$errMsg"
     sleep 1
     echo
@@ -13,7 +13,6 @@ if [ $? -ne 0 ]; then
     exit 1
 else
     echo "$successMsg"
-    sleep 0.5
 fi
 }
 #These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
@@ -64,7 +63,7 @@ errMsg="APT packages cache update failed"
 successMsg="APT packages cache updated successfully"
 cmdFail
 echo
-    sleep 0.5
+sleep 0.5
 echo
 echo "Installing packages from Noctalia repository"
 sleep 0.5
