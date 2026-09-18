@@ -1,6 +1,20 @@
 #!/bin/bash
+curID=$(cat /opt/kevrevrun/cfg/install/current.id)
 stageFile="/opt/kevrevrun/status/setup.stage"
 setupStg=$(cat "$stageFile")
+cmdFail () {
+if [ $exitStat -ne 0 ]; then
+    echo "$errMsg"
+    sleep 1
+    echo
+    echo "This script will now exit"
+    read -p "Press [ENTER] key to exit"
+    clear
+    exit 1
+else
+    echo "$successMsg"
+fi
+}
 chk_stage () {
 setupStg=$(cat "$stageFile")
 setup_stage
@@ -45,24 +59,42 @@ done
 }
 stage1 () {
     echo "Inintializing the install process"
+    sleep 1.5
     echo
     echo "Retrieving inintialization script."
-    sleep 0.5
-    wget -nv -O /opt/kevrevrun/scripts/01-script.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/01-script.sh
-    if [ -f /opt/kevrevrun/scripts/01-script.sh ]; then
-        echo "Script retrieved successfully."
-        sleep 0.5
-        chmod -v +x /opt/kevrevrun/scripts/01-script.sh
-        echo "Running script..."
-        sleep 0.5
-        /opt/kevrevrun/scripts/01-script.sh
+    sleep 1
+    wget -nv -O /opt/kevrevrun/scripts/2609180902.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/2609180902.sh
+    exitStat=$?
+    errMsg="Script download failed."
+    successMsg="Script downloaded successfully"
+    cmdFail
+    echo
+    echo "Running script..."
+    sleep 1
+    chmod -v +x /opt/kevrevrun/scripts/2609180902.sh
+    exitStat=$?
+    errMsg="Setup Initialization script failed to run."
+    successMsg="Setup Initialization script ran successfully"
+    cmdFail
+    echo
+    echo "Next steps are to add the APT sources and upgrade the system to Debian $curID."
+    read -p "Do you want to continue with the upgrade? \[Y/N] >\ " nextStep
+    if [ $nextStep =~ ^[Yy]$ ]; then
+        echo
+        echo "Adding APT Sources and upgrading to Debian $curID..."
+        echo
+        sleep 1
+        echo "2" > $stageFile
+        chk_stage
     else
-        echo "Script retrieval failed."
-        read -p "Press [Enter] key to exit..."
+        echo
+        echo "Exit cancelled by user."
+        echo "When you want to continue, please run"
+        echo "$PWD/setup.sh"
+        echo
+        echo "This script will now exit."
+        sleep 1
         exit 1
-    fi
-    if [ $? -eq 0 ]; then
-        stage2
     fi
 }
 stage2 () {
@@ -70,108 +102,63 @@ stage2 () {
     sleep 1
     loadVars
     echo
-    echo "Updating the System"
+    echo "Starting system update process..."
     sleep 1
-    /opt/kevrevrun/scripts/02-script.sh
+    /opt/kevrevrun/scripts/2609180906.sh
+    exitStat=$? 
+    errMsg="System update script failed to run."
+    successMsg="System update script ran successfully"
+    cmdFail
+    echo
+    echo "The system requires a reboot to complete the upgrade process."
+    echo "After the reboot, please run '$PWD/setup.sh' to continue the installation process"
+    echo "The next step is to install Rustup."
+    read -p "Are you ready to reboot the system? \[Y/N] >\ " nextStep
+    if [ $nextStep =~ ^[Yy]$ ]; then
+        echo
+        echo "Rebooting system..."
+        echo
+        sleep 1
+        echo "3" > $stageFile
+        sudo reboot
+    else
+        echo
+        echo "Please restart your system before running the script again."
+        echo "When you want to continue, please run $PWD/setup.sh"
+        echo
+        read -p "Press [ENTER] key to exit"
+        clear
+        exit 1
+    fi
 }
 stage3 () {
-    echo "Installing Rust"
+    echo "Starting Rust installation..."
     sleep 1
-    /opt/kevrevrun/scripts/03-script.sh
-    if [ $? -eq 0 ]; then
+    /opt/kevrevrun/scripts/2609180910.sh
+    exitStat=$?
+    errMsg="Rust installation script failed to run."
+    successMsg="Rust installed and script ran successfully"
+    cmdFail
+    echo
+    echo "The next step is to add i386 architecture to the system"
+    read -p "Do you want to continue? \[Y/N] >\ " nextStep
+    if [ $nextStep =~ ^[Yy]$ ]; then
+        echo
+        echo "Adding i386 architecture..."
+        echo
+        sleep 1
+        echo "4" > $stageFile
         chk_stage
+    else
+        echo
+        echo "Exit cancelled by user."
+        echo "When you want to continue, please run"
+        echo "$PWD/setup.sh"
+        echo
+        echo "This script will now exit."
+        sleep 1
+        exit 1
     fi
-}
-stage4 () {
-    echo "Adding i386 architecture to the system"
-    sleep 1
-    /opt/kevrevrun/scripts/04-script.sh
-    if [ $? -eq 0 ]; then
-        chk_stage
-    fi
-}
-stage5 () {
-    echo "Installing GPU Drivers"
-    sleep 1
-    /opt/kevrevrun/scripts/05-script.sh
-}
-stage6 () {
-    echo "Selecting the Desktop Environment"
-    sleep 1
-    /opt/kevrevrun/scripts/06-script.sh
-    if [ $? -eq 0 ]; then
-        chk_stage
-    fi
-}
-stage7 () {
-    echo "Installing Noctalia Desktop Environment"
-    sleep 1
-    /opt/kevrevrun/scripts/07-script.sh
-    if [ $? -eq 0 ]; then
-        chk_stage
-    fi
-}
-stage8 () {
-    echo "Installing Lemurs Login Manager"
-    sleep 1
-    /opt/kevrevrun/scripts/08-script.sh
-    if [ $? -eq 0 ]; then
-        chk_stage
-    fi
-}
-stage9 () {
-    echo "Installing Niri"
-    sleep 1
-    /opt/kevrevrun/scripts/09-script.sh
-    if [ $? -eq 0 ]; then
-        chk_stage
-    fi
-    chk_stage
-}
-stage10 () {
-    echo "Installing Flatbar & BlueTUI"
-    sleep 1
-    /opt/kevrevrun/scripts/10-script.sh
-    if [ $? -eq 0 ]; then
-        chk_stage
-    fi
-    chk_stage
-}
-stage11 () {
-    echo "Installing Rat Commander - File Manger"
-    sleep 1
-    /opt/kevrevrun/scripts/11-script.sh
-    if [ $? -eq 0 ]; then
-        echo "12" > $stageFile
-        echo "Restarting System."
-        echo "After restart, please open the setup.sh script in your"
-        echo "home directory to continue to the next stage."
-        echo "You will have to run from the terminal, which can be found by"
-        echo "pressing Meta + Spacebar and selecting foot."
-        sleep 0.5
-        sudo reboot
-    fi
-    chk_stage
-}
-stage12 () {
-    echo "Installing WinApps"
-    sleep 1
-    /opt/kevrevrun/scripts/12-script.sh
-    if [ $? -eq 0 ]; then
-        echo "Setup will continue in the browser"
-        echo "Trying to start a browser for you"
-        xdg-open http://localhost:8000
-        sleep 1.5
-        echo "If the browser does not open automatically"
-        echo "Please navigate to http://localhost:8000"
-        sleep 0.5
-        echo "Thhis script will continue to run in the background"
-        echo "When you have completed the WinApps setup, please return to this terminal"
-        read -p "Press [ENTER] key to continue..."
-        echo "13" > $stageFile
-        #stage13
-    fi
-    chk_stage
 }
 setup_stage () {
 case $setupStg in
