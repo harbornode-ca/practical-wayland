@@ -22,7 +22,7 @@ done
 echo
 echo "Checking file structure"
 sleep 1
-for file in "/opt/kevrevrun/id.usr" "/opt/kevrevrun/name.usr" "/opt/kevrevrun/status/setup.stage" "/opt/kevrevrun/status/loop.status" "/opt/kevrevrun/install.dir"; do
+for file in "/opt/kevrevrun/id.usr" "/opt/kevrevrun/name.usr" "/opt/kevrevrun/status/setup.stage" "/opt/kevrevrun/status/loop.status" "/opt/kevrevrun/setup.dir"; do
     if [ ! -f $file ]; then
         echo
         echo "The file - $file - was not found"
@@ -38,7 +38,7 @@ for file in "/opt/kevrevrun/id.usr" "/opt/kevrevrun/name.usr" "/opt/kevrevrun/st
             echo "0" > $file
             echo "Repaired $file"
             sleep 0.5
-        elif [ $file = "/opt/kevrevrun/install.dir" ]; then
+        elif [ $file = "/opt/kevrevrun/setup.dir" ]; then
             echo "$HOME" > $file
             echo "Repaired $file"
             sleep 0.5
