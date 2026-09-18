@@ -1,0 +1,3 @@
+/etc/fonts/conf.d/70-no-bitmaps-and-emoji.conf
+/etc/fonts/conf.d/70-no-bitmaps.conf
+/etc/fonts/conf.d/70-no-bitmaps-except-emoji.conf
