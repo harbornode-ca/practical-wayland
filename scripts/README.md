@@ -117,8 +117,25 @@ This folder contains module files for installing and setting up various features
 ### 2609181124.sh
 
 **Installs WinApps Powered by Dockur**
+* Checks for Podman
+* Installs Podman and Podman-Compose if required
+* Creates configuration files for WinApps
+* Starts podman container for WinApps
 
+### 2609181622.sh
 
+**Installs fontconfig files for bitmap font support**
+* Removes existing fontconfig files
+* Adds new fontconfig files
+* Updates font cache
+
+### 2609181656.sh
+
+**Installs Xwayland Satellite**
+* Builds xwayland-satellite from source (Github)
+* Installs xwayland-satellite to /usr/bin/xwayland-satellite
+* Creates configuration files for Xwayland Satellite
+* Removes temporary files
 
 ### Dev Tools Directory (`dev-tools/`)
 
