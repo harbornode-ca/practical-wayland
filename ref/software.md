@@ -1,48 +1,154 @@
 # Software List
 
-nemo
-podman
-podman-compose
-mousepad
-btop
-fastfetch
-git
-gh
-waydroid
-waydroid-tools
-foot
-inkscape
-obs-studio
+A list of installed and optionally installable software on the system. 
 
+**FUTURE RELEASE** - There will be scripts to manage installation and updating of software that is not available from the debian repositories. These scripts will likely be similar to the ones in the software_installers directory but with improvements and bug fixes.
 
+---
+
+## Debian Main Repository
+
+1. :penguin: **Nemo**
+    - *File manager for GNOME desktop environment*
+    - *Package* - nemo
+2. :penguin: **Podman**
+    - *Container engine for running containers*
+    - *Package* - podman
+3. :penguin: **Podman-compose**
+    - *Compose tool for podman*
+    - *Package* - podman-compose
+4. :penguin: **Mousepad**
+    - *Lightweight text editor*
+    - *Package* - mousepad
+5. :penguin: **Btop**
+    - *Resource monitor*
+    - *Package* - btop
+6. :penguin: **Fastfetch**
+    - *System information utility*
+    - *Package* - fastfetch
+7. :penguin: **Git**
+    - *Version control system*
+    - *Package* - git
+8. :penguin: **GitHub CLI**
+    - *GitHub command-line interface*
+    - *Package* - gh
+9. :penguin: **Waydroid**
+    - *Container-based Android system*
+    - *Package* - waydroid
+10. :penguin: **Waydroid Tools**
+    - *Tools for Waydroid*
+    - *Package* - waydroid
+11. :penguin: **Foot**
+    - *Wayland terminal emulator*
+    - *Package* - foot, foot-extra-terminfo, foot-terminfo, foot-themes, ncurses-term
+12. :penguin: **Inkscape**
+    - *Vector graphics editor*
+    - *Package* - inkscape
+13. :penguin: **OBS Studio**
+    - *Screen recording and streaming software*
+    - *Package* - obs-studio
+
+---
 
 ## Debian Packaged Software
-1. [] **Voxtype** https://github.com/peteonrails/voxtype/releases/download/v1.0.1/voxtype_1.0.1-1_amd64.deb
-2. [] **Pake** https://github.com/tw93/Pake/releases/download/V3.16.3/DeepSeek_x86_64.deb
-3. [] **Markpad** https://github.com/sftwrdotdev/Markpad/releases/download/v2.7.6/Markpad_2.7.6_amd64.deb
-4. [] **SideX** https://github.com/Sidenai/sidex/releases/download/v0.1.2/SideX_0.1.2_amd64.deb
-5. [] **Lapce** https://github.com/lapce/lapce/releases/download/v0.4.6/lapce.debian.bookworm.amd64.deb
-6. [] **Dive** https://github.com/wagoodman/dive/releases/download/v0.13.1/dive_0.13.1_linux_amd64.deb
+1. :snowman: **Voxtype** - 
+    - *AI Voice Typing*
+    - *Current Stable 09/19/2026* - https://github.com/peteonrails/voxtype/releases/download/v1.0.1/voxtype_1.0.1-1_amd64.deb
+2. :snowman: **Pake** - 
+    - *Convert websites into desktop apps*
+    - *Current Stable 09/19/2026* - https://github.com/tw93/Pake/releases/download/V3.16.3/DeepSeek_x86_64.deb
+3. :snowman: **Markpad** - 
+    - *A beautiful, fast, and functional Markdown editor for Linux.*
+    - *Current Stable 09/19/2026* - https://github.com/sftwrdotdev/Markpad/releases/download/v2.7.6/Markpad_2.7.6_amd64.deb
+4. :snowman: **SideX** - 
+    - *VSCode built with Tauri*
+    - *Current Stable 09/19/2026* - https://github.com/Sidenai/sidex/releases/download/v0.1.2/SideX_0.1.2_amd64.deb
+5. :snowman: **Lapce** - 
+    - *Lightning-fast and Powerful Code Editor written in Rust*
+    - *Current Stable 09/19/2026* - https://github.com/lapce/lapce/releases/download/v0.4.6/lapce.debian.bookworm.amd64.deb
+6. :snowman: **Dive** - 
+    - *Tool for exploring the contents of Docker image layers*
+    - *Current Stable 09/19/2026* - https://github.com/wagoodman/dive/releases/download/v0.13.1/dive_0.13.1_linux_amd64.deb
+7. :snowman: **Opencode Desktop** 
+    - *AI-powered cross-platform IDE GUI for Linux*
+    - *Current Stable 09/19/2026* - https://opencode.ai/download/stable/linux-x64-deb
 
-
+---
 
 ## Source Build Software
-1. [] **eget Package Manager** go install github.com/zyedidia/eget@latest
-go install github.com/jesseduffield/lazydocker@latest
+1. [] **eget Package Manager** - https://github.com/zyedidia/eget
+    - *Install* - `go install github.com/zyedidia/eget@latest`
+2. [] **lazydocker** - https://github.com/jesseduffield/lazydocker
+    - *Install* - `go install github.com/jesseduffield/lazydocker@latest`
+3. [] **LazySpotify** - https://github.com/dubeyKartikay/lazyspotify
+    - *Binary patched library in lazy-spotify.url. Needs to be configured in lazy-spotify config*
+    - *Install* - 
+        ```
+        git clone https://github.com/dubeyKartikay/lazyspotify.git
+        cd lazyspotify
+        make build
+        ```
+4. [] **Mods** - https://github.com/panjie/mods
+    - *Install* - go install github.com/panjie/mods@latest
+### Tarball Binaries
+1. [] **LazyGit** - https://github.com/jesseduffield/lazygit
+    - Lates 09/19/2026: https://github.com/jesseduffield/lazygit/releases/download/v0.65.1/lazygit_0.65.1_linux_x86_64.tar.gz
+
+---
+
+##  Cargo Installable
+1. [] **Hazelnut** 
+    - *Terminal-based automated file organizer inspired by Hazel. Watch folders and organize files with rules.*
+    - *Install* - `cargo install hazelnut`
+2. [] **Binstall** 
+    - *Tool to help you install cargo-binstall*
+    - *Install* - `cargo install cargo-binstall`
+3. [] **Podlet Podman Quadlet tool** 
+    - *Tool for creating quadlets from docker compose or docker run commands*
+    - *Install* - `cargo install podlet`
+
+---
+
+## Cargo Binstallable
+1. [] **Fresh IDE** 
+    - *AI-powered code editor*
+    - *Install* - `cargo binstall fresh-editor`
+
+---
+
+## uv Installable
+1. [] **OpenViking** - https://github.com/volcengine/OpenViking
+    - *Install Info* - https://docs.openviking.ai/en/getting-started/02-quickstart
+
+---
 
 
-## Cargo Installable
-1. [] **Hazelnut** cargo install hazelnut
-2. [] **Binstall** cargo install cargo-binstall
-3. [] **Fresh IDE** cargo binstall fresh-editor
-4. [] **Podlet Podman Quadlet tool** cargo install podlet
+## Bash Installer
+1. [] **Opencode Terminal IDE** - https://opencode.ai
+    - *Install* - `curl -fsSL https://opencode.ai/v2/install | bash`
 
+---
 
-## Needs Work
-1. [] **LazySpotify** https://github.com/dubeyKartikay/lazyspotify
-2. [] **OpenViking** https://github.com/volcengine/OpenViking
-3. [] **Soup** https://github.com/MakazhanAlpamys/Soup
-4. [] **Opencode** https://opencode.ai/download
-5. [] **Hermes Agent** https://github.com/NousResearch/hermes-agent
-6. [] **Chez Moi** https://github.com/twpayne/chezmoi
-7. [] **Chez Nav** https://github.com/djetelina/cheznav
+## Charmbracelet Repository
+*Installable using APT after adding charmbracelet repository*
+1. [] **VHS** - https://github.com/charmbracelet/vhs
+    - *Record terminal sessions as GIFs*
+    - *Package Name* - vhs
+2. [] **Soft Serve** - https://github.com/charmbracelet/soft-serve
+    - *Git server that runs in your terminal*
+    - *Package Name* - softserve
+3. [] **Skate** - https://github.com/charmbracelet/skate
+    - *A personal key-value store*
+    - *Package Name* - skate
+4. [] **Pop** - https://github.com/charmbracelet/pop
+    - *Mail app for your terminal*
+    - *Package Name* - pop
+5. [] **Glow** - https://github.com/charmbracelet/glow
+    - *Markdown viewer*
+    - *Package Name* - glow
+6. [] **Freeze** - https://github.com/charmbracelet/freeze
+    - *Generate images of code and terminal output.*
+    - *Package Name* - freeze
+7. [] **Crush** - https://github.com/charmbracelet/crush
+    - *Glamorous agentic coding for all*
+    - *Package Name* - crush
