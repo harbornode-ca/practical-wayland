@@ -1,5 +1,0 @@
-Types: deb
-URIs: https://download.opensuse.org/repositories/home:/AvengeMedia:/danklinux/Debian_Testing/
-Suites: /
-Components:
-Signed-By: /etc/apt/keyrings/DMS-key.gpg
