@@ -2,7 +2,7 @@
 
 A practical installer for Wayland environments on Debian.
 
-Targets Debian Forky (testing), see `cfg/installerInfo/debian.id`. Installs one of three Wayland setups with GPU drivers, login manager, and Wayland session files.
+Targets Debian Forky (testing), see `cfg/installerInfo/debian.id`. Installs Wayland setups with GPU drivers, login manager, and Wayland session files.
 
 ## Requirements
 
@@ -31,13 +31,12 @@ State is tracked in `/opt/kevrevrun/status/setup.stage`. Re-run `setup.sh` after
 
 ## Desktop choices
 
-Selected by `scripts/2609180915.sh`:
+No selector menu remains (`scripts/2609180915.sh` was removed). Desktops are installed by individual modules in `scripts/`:
 
-1. Noctalia (`noctalia`, `noctalia-greeter`, `umbriel`, `xdg-desktop-portal-umbriel`).
-2. Niri with status bar (Niri compositor, `xdg-desktop-portal-gtk`, Lemurs login manager).
-3. LXQt with Niri WM.
+1. Noctalia via `scripts/2609180916.sh` (`noctalia`, `noctalia-greeter`, `umbriel`, `xdg-desktop-portal-umbriel`).
+2. Niri from source via `scripts/2609180944.sh` (build deps from `niri-build.apt`, files per `niri-install.csv`), with X11 support via `scripts/2609181656.sh` (Xwayland Satellite).
 
-Umbriel is experimental; Niri is installed alongside it for testing.
+Umbriel is experimental; Niri is installed alongside it for testing (`scripts/2609180916.sh:5-6`). Lemurs login manager is a separate from-source build (`scripts/2609180937.sh`). There is currently no LXQt module.
 
 ## Repository layout
 

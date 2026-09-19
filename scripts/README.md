@@ -47,15 +47,6 @@ GPU drivers.
 - NVIDIA: downloads the CUDA keyring from the URL in `$installDir/nvidia.url`, installs it with `dpkg -i`, updates APT, installs `$swAptDir/gpuNVIDIA.apt`, then installs `nvidia-open` (`scripts/2609180913.sh:98-153`).
 - If no adapter matches it prints "No GPU detected" and continues to the completion message; it does not exit early. End message says a reboot is required.
 
-### 2609180915.sh
-
-Desktop environment selector (temporary menu).
-
-- Menu offers `1. Noctalia`, `2. Niri /w Ashell Status Bar`, `3. lxqt w/ niri wm` (`scripts/2609180915.sh:14-22`).
-- Stored label for option 2 is `Niri /w Flatbar`, not `Ashell` (`scripts/2609180915.sh:42`, `100-108`). Keep this naming mismatch in mind when reading logs.
-- Selection is stored in `/opt/kevrevrun/status/selDE.status`.
-- Known discrepancies: choices 1 and 2 invoke `$scriptDir/07-script.sh` and `$scriptDir/08-script.sh`, which are not in this directory; option 3 is commented out and re-prompts with "Installation script not yet implimented".
-
 ### 2609180916.sh
 
 Noctalia stack.
