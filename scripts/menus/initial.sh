@@ -148,7 +148,7 @@ if [ $chkUpdates = 1 ]; then
 	echo "Updates are available."
 	sleep 1
 	echo "Installing updates"
-	apt upgrade -y
+	DEBIAN_FRONTEND=noninteractive apt upgrade -y
 	exitStat=$?
 	errMsg="Failed to install updates"
 	successMsg="Update prcoess has completed sucessfully"
@@ -161,7 +161,7 @@ fi
 echo
 echo "Running apt to install packages..."
 echo
-apt install sudo fonts-font-awesome unzip git tmux gpg wget curl build-essential whiptail firmware-linux firmware-linux-nonfree -y 2>&1
+DEBIAN_FRONTEND=noninteractive apt install sudo fonts-font-awesome unzip git tmux gpg wget curl build-essential whiptail firmware-linux firmware-linux-nonfree -y 2>&1
 exitStat=$?
 errMsg="Failed to install packages"
 successMsg="Package installation has completed sucessfully"
@@ -209,28 +209,27 @@ sleep 1
 echo
 echo "Downloading script to continue setup..."
 sleep 1
-wget -nv -O "$setupDir/setup.sh" "https://github.com/harbornode-ca/practical-wayland/raw/refs/heads/main/setup.sh" 2>&1
-exit=$?
-if [ "$exit" != "0" ]; then
-	errMsg="Script failed to download"
-else
-	echo
-	echo "Script downloaded sucessfully"
-	sleep 1
-fi
+wget -nv -O "$setupDir/setup.sh" "https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609180902.sh" 2>&1
+exitStat=$?
+errMsg="Failed to download setup script"
+successMsg="Setup script downloaded sucessfully"
+cmdFail
 echo
 echo "Setting file permissions..."
 sleep 1
+echo "Setting file ownership..."
 chown -v $sudoUser:$sudoUser $setupDir/setup.sh
+exitStat=$?
+errMsg="Failed to set file ownership"
+successMsg="File ownership applied sucessfully"
+cmdFail
+echo
+echo "Setting execute permissions..."
 chmod -v +x $setupDir/setup.sh 2>&1
-exit=$?
-if [ $exit != 0 ]; then
-	errMsg="Failed to set file/folder permissions"
-	prt_err
-else
-	echo
-	echo "Sucessfully applied file permisssions"
-fi
+exitStat=$?
+errMsg="Failed to set execute permissions"
+successMsg="Execute permissions applied sucessfully"
+cmdFail
 echo
 echo "Saving some information for the next steps of the installation..."
 sleep 1
@@ -254,29 +253,17 @@ sleep 1
 echo
 echo "Setting up user file permissions"
 sleep 1
-echo
 echo "Getting user details"
 sleep 1
 usrName=$sudoUser
 usrID=$(cat /etc/passwd | grep $usrName | cut -d ":" -f 3)
-sleep 1
-echo
-echo "Setting file permissions"
-echo
+echo "Setting directory permissions for $usrName..."
 sleep 1
 chown -Rv $usrName:$usrName "$cfgDir"
-usrOwner=$(ls -ld $cfgDir | cut -d " " -f 3)
-usrGroup=$(ls -ld $cfgDir | cut -d " " -f 4)
-if [ $usrOwner = $usrName ]; then
-	if [ $usrGroup = $usrName ]; then
-		echo
-		echo "File permission have been properly set"
-		sleep 1
-	else
-		errMsg="Failed to set file permissions"
-		prt_err
-	fi
-fi
+exitStat=$?
+errMsg="Failed to set directory permissions"
+successMsg="Directory permissions applied sucessfully"
+cmdFail
 echo
 echo "Installing Charmbracelet Gum Tool"
 echo
@@ -285,52 +272,50 @@ sleep 1
 gumUrl="https://github.com/charmbracelet/gum/releases/download/v0.17.0/gum_0.17.0_amd64.deb"
 gumDeb="gum_0.17.0_amd64.deb"
 wget -nv -O /tmp/$gumDeb $gumUrl 2>&1
-exit=$?
-if [ ! -f /tmp/$gumDeb ]; then
-        errMsg="Download Failed!"
-        prt_err
-else
-	echo
-    echo "Download was sucessful!"
-    sleep 1
-fi
-# Installing Gum .deb file using apt
-echo
+exitStat=$?
+errMsg="Download failed"
+successMsg="Download was sucessful"
+cmdFail
 echo "Installing Gum..."
-apt install /tmp/$gumDeb -y --allow-downgrades 2>&1
-exit=$?
-if [ $exit != 0 ]; then
-        errMsg="Gum installed failed"
-        prt_err
-else
-        echo
-        echo "The Gum package has been sucessfully installed"
-fi
+DEBIAN_FRONTEND=noninteractive apt install /tmp/$gumDeb -y --allow-downgrades 2>&1
+exitStat=$?
+errMsg="Gum installed failed"
+successMsg="Gum installed sucessfully"
+cmdFail
 echo
-echo "Setup Complete!"
+echo "Initial Setup Completed!"
 echo
 read -p "Press Enter to continue"
 clear
 banner
 echo
-echo "Setup Completed"
+echo "Initial Setup Completed"
 sleep 1
 echo
-echo "*** IMPORTANT ***"
-echo
-echo "[Instructions]"
-echo "- The setup.sh files has been added to the home directory of $sudoUser"
-echo "- A reboot is required to continue setup"
-echo "- Log in as $sudoUser when system restarts"
-echo "- Run sudo setup.sh from $sudoUser home directory"
-echo
-echo
+echo "*------------------*"
+echo "   IMPORTANT"
+echo "*------------------*"
 sleep 1
+echo
+echo "*-------------------------*"
+echo "  Next Installation Step"
+echo "*-------------------------*"
+sleep 1
+echo 
+echo "A setup.sh file have been addded top $usrName home directory"
+sleep 0.25
+echo "When you exit this script it will reboot the system"
+sleep 0.25
+echo "Log in as $usrName when system restarts"
+sleep 0.25
+echo "Run setup.sh from $usrName home directory"
+echo
+sleep 0.25
 read -p "Press Enter to reboot the system"
+sleep 0.5
 echo
 echo "The system will now reboot..."
+sleep 1
 echo
-sleep 2
-#reboot
-clear
+reboot
 exit 0
