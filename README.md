@@ -2,11 +2,11 @@
 
 A practical installer for Wayland environments on Debian.
 
-Targets Debian Forky (testing), see `cfg/installerInfo/debian.id`. Installs Wayland setups with GPU drivers, login manager, and Wayland session files.
+Installs Wayland setups with GPU drivers, login manager, and Wayland session files.
 
 ## Requirements
 
-- Debian Trixie minimal install with internet access.
+- Debian stable minimal install with internet access.
 - Run `initial.sh` as root. Log in as the created sudo user for `setup.sh`.
 - Packages bootstrapped by `initial.sh`: `sudo`, `git`, `wget`, `curl`, `gpg`, `whiptail`, `tmux`, `unzip`, `build-essential`, `fonts-font-awesome`, `firmware-linux`, plus Charmbracelet `gum` 0.17.0.
 
@@ -30,6 +30,8 @@ sudo ./setup.sh
 State is tracked in `/opt/kevrevrun/status/setup.stage`. Re-run `setup.sh` after each reboot to continue.
 
 ## Desktop choices
+# DE Selection
+** The selection of a Desktop Environment (DE) is currenly under construction! **
 
 No selector menu remains (`scripts/2609180915.sh` was removed). Desktops are installed by individual modules in `scripts/`:
 
