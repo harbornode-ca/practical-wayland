@@ -1,5 +1,5 @@
 #!/bin/bash
-#Installs WinApps and WinApps installer.
+# Sets up WinApps for using Windows applications through RDP based on the Dockur implementation and podman for container management.
 if [ $exitStat -ne 0 ]; then
     echo "$errMsg"
     sleep 1

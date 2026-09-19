@@ -1,7 +1,5 @@
 #!/bin/bash
-#This setups up the Danklinux Repository that contains a debian installer for niri and xwayland-sattelite 
-#which is requrired for niri to support X11 apps.
-#!/bin/bash
+#Installs niri DE with build scripts and instructions
 cmdFail () {
 if [ $exitStat -ne 0 ]; then
     echo "$errMsg"

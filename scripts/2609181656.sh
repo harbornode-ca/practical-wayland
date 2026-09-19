@@ -1,4 +1,5 @@
 #!/bin/bash
+#Builds and installs Xwayland Satellite for X11 support in niri and Umbriel
 cmdFail () {
 if [ $? -ne 0 ]; then
 echo "$errMsg"

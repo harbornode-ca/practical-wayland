@@ -1,4 +1,5 @@
 #!/bin/bash
+#Compiles and installs Rat Commander from source code. Rat commander is a TUI based file manager for linux distros.
 if [ $exitStat -ne 0 ]; then
     echo "$errMsg"
     sleep 1

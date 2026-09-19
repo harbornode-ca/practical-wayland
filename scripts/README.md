@@ -117,7 +117,6 @@ Xwayland Satellite from source.
 
 - Installs deps from `$swAptDir/xwayland-satellite.apt` with `--no-install-recommends`, clones the URL and checks out the tag from the `xwayland-satellite` row of `$installDir/git-commits.csv`, runs `cargo build --release`, and copies `target/release/xwayland-satellite` to `/usr/bin/` (`scripts/2609181656.sh:20-63`).
 - See `ref/xwayland-satellite.md` for XSETTINGS background.
-- Known bug: line 31 reads `sleep 1else` (missing newline), which is a syntax error.
 
 ## Dev tools (`dev-tools/`)
 

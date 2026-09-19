@@ -1,4 +1,7 @@
 #!/bin/bash
+#Adds bitmap font support for Glyph support in TUI and GUIs
+#Installs Noto Color Emoji font and Nerd Symbols font for emojis and symbols.
+#fa CLI font tool (FontAwesome) to be added in a future script with installation of a few useful fonts.
 cmdFail () {
 if [ $? -ne 0 ]; then
 echo "$errMsg"
@@ -39,6 +42,18 @@ while IFS="," read -r src dest; do
     successMsg="Hardlink from $src to $dest created"
     cmdFail
 done < cfg/installerInfo/fontconfig-add.csv
+echo "Installing Noto color emoji font"
+sudo apt install fonts-noto-color-emoji -y
+exitStat=$?
+errMsg="Failed to install Noto color emoji font"
+successMsg="Noto color emoji font installed"
+cmdFail
+echo "Installing Nerd Symbols font"
+sudo apt install fonts-nerd-font-symbols -y
+exitStat=$?
+errMsg="Failed to install Nerd Symbols font"
+successMsg="Nerd Symbols font installed"
+cmdFail
 echo 
 echo "Updating font cache"
 sudo fc-cache -fv

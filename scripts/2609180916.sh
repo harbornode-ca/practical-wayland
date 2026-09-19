@@ -2,6 +2,8 @@
 #This script adds the new noctalia repository and installs the Noctalia Desktop Environment stack.
 #This includes the noctalia package which is the main shell, the noctalia-greeter the login manager, 
 #umbriel which is the compositor/WM, and xdg-desktop-portal-umbriel for desktop portal support.
+#This will be installed with niri as Umbriel is still suffering from stability issues.
+#This will be monitored and updated once Umbriel is deemed stable enough for daily use.
 cmdFail () {
 if [ $exitStat -ne 0 ]; then
     echo "$errMsg"
