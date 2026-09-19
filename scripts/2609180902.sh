@@ -22,7 +22,7 @@ done
 echo
 echo "Checking file structure"
 sleep 1
-for file in "/opt/kevrevrun/id.usr" "/opt/kevrevrun/name.usr" "/opt/kevrevrun/status/setup.stage" "/opt/kevrevrun/status/loop.status" "/opt/kevrevrun/setup.dir"; do
+for file in "/opt/kevrevrun/id.usr" "/opt/kevrevrun/name.usr" "/opt/kevrevrun/status/setup.stage" "/opt/kevrevrun/setup.dir"; do
     if [ ! -f $file ]; then
         echo
         echo "The file - $file - was not found"
@@ -59,8 +59,8 @@ statusDir,/opt/kevrevrun/status
 scriptDir,/opt/kevrevrun/scripts
 cfgDir,/opt/kevrevrun/cfg
 tmpDir,/opt/kevrevrun/tmp
-installDir,/opt/kevrevrun/cfg/installInfo
-swAptDir,/opt/kevrevrun/cfg/softwareApt
+installDir,/opt/kevrevrun/cfg/installerInfo
+swAptDir,/opt/kevrevrun/cfg/softwareAPT
 themeDir,/opt/kevrevrun/cfg/systemTheme
 EOF
 echo
@@ -91,8 +91,8 @@ setupDirFile,/opt/kevrevrun/setup.dir
 stageFile,/opt/kevrevrun/status/setup.stage
 mainLog,/opt/kevrevrun/logs/main.log
 selDE,/opt/kevrevrun/status/selDE.status
-debNameFile,/opt/kevrevrun/installerInfo/debian.name
-debIdFile,/opt/kevrevrun/installerInfo/debian.id
+debNameFile,/opt/kevrevrun/cfg/installerInfo/debian.name
+debIdFile,/opt/kevrevrun/cfg/installerInfo/debian.id
 EOF
 echo
 echo "Setup variables saved to files.list"
@@ -121,8 +121,8 @@ usrId,/opt/kevrevrun/id.usr
 usrName,/opt/kevrevrun/name.usr
 setupDir,/opt/kevrevrun/setup.dir
 selDEValue,/opt/kevrevrun/status/selDE.status
-debVerID,/opt/kevrevrun/installerInfo/debian.id
-debVerName,/opt/kevrevrun/installerInfo/debian.name
+debVerID,/opt/kevrevrun/cfg/installerInfo/debian.id
+debVerName,/opt/kevrevrun/cfg/installerInfo/debian.name
 EOF
 echo
 echo "Setup variables have been saved to values.list"
