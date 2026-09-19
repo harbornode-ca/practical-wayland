@@ -1,7 +1,9 @@
 #!/bin/bash
+
 cfgDir=/opt/kevrevrun
 setupDir=$PWD
 echo $setupDir > $cfgDir/setup.dir
+
 banner () {
 echo
 echo "---------------------------------------------------------------------------"
@@ -9,23 +11,33 @@ echo "|                           *** KEVREVRUN ***                             
 echo "|                                 * & *                                   |"
 echo "|                  *** The Crappy Bash Scripts Group ***                  |"
 echo "|                              * Presents *                               |"
-echo "|                  Practical Debian Wayland Environments                  |"
+echo "|                  Practical Debian Wayland DE Installer                  |"
 echo "---------------------------------------------------------------------------"
 echo
 echo
 sleep 1
 }
+
 # Print error message to screen when command fails.
-prt_err () {
-clear
-banner
-echo "ERROR!"
-echo
-echo "$errMsg"
-echo
-echo "This script will now exit"
-exit 1
+cmdFail () {
+if [ $exitStat -ne 0 ]; then
+    echo "$errMsg"
+    sleep 1
+    echo
+    echo "This script will now exit"
+    read -p "Press [ENTER] key to exit"
+    clear
+    exit 1
+else
+    echo "$successMsg"
+fi
 }
+#These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
+#exitStat=$?
+#errMsg="ERROR MESSAGE"
+#successMsg="SUCCESS MESSAGE"
+#cmdFail
+
 # Display when an invalid response is entered
 invalid () {
 clear
@@ -42,21 +54,16 @@ sleep 1
 echo
 echo "Enter the username of user to be given sudo permission below"
 read -p "> " sudoUser
-echo
 echo "Checking if $sudoUser is a valid user"
 sleep 1
 chkSudoUser=$(cat /etc/passwd | grep -c $sudoUser)
 sleep 1
 if [ "$chkSudoUser" = "1" ]; then
-	echo
 	echo "The user $sudoUser is a valid user!"
 	sleep 1
 	chk_sudo
 else
-	clear
-	banner
-	echo
-	echo "Please verify that the user entered is correct."
+	invalid
 	add_sudo
 fi
 }
@@ -65,44 +72,31 @@ chk_sudo () {
 echo
 echo "Creating Sudo User"
 sleep 1
-echo
 echo "Do you want to give $sudoUser root priviledges [y/n]"
 read -p "> " confirm
 if [ "$confirm" = "y" ]; then
-	echo
 	echo "Root priviledges will be given to $sudoUser..."
 	sleep 1
 elif [ "$confirm" = "n" ]; then
-	clear
-	banner
+	echo "You have chosen not to give $sudoUser root access."
 	sleep 1
-	echo
-	echo "Please enter the username that you want to give root access to on the next screen"
-	read -p "Press Enter to re-enter username"
 	add_sudo
 else
 	invalid
 	chk_sudo
 fi
-echo
 echo "Applying sudo group to $sudoUser"
 sleep 1
 usermod -aG sudo $sudoUser 2>&1
-exit=$?
-if [ $exit != 0 ]; then
-	errMsg="Error adding $sudoUser to the sudo group"
-	prt_err
-else
-	echo
-	echo "The user $sudoUser now has root access"
-	sleep 1
-fi
+exitStat=$?
+errMsg="Adding $sudoUser to the sudo group failed"
+successMsg="The user $sudoUser now has root access"
+cmdFail
 }
 clear
 banner
 echo "Hold on a sec...They are telling me I need to check ID..."
 sleep 1
-echo
 echo "Checking root access..."
 sleep 1
 if [ "$EUID" != 0 ]; then
@@ -128,9 +122,7 @@ if [ "$EUID" != 0 ]; then
         clear
 	exit 1
 else
-	echo
 	echo "Root access has been granted!!!"
-	echo
 	sleep 1.5
 fi
 echo
@@ -139,57 +131,41 @@ sleep 1
 echo
 echo "Refreshing the package cache..."
 apt update
-exit=$?
-if [ $exit != 0 ]; then
-	errMsg="Failed to update package cache"
-	prt_err
-else
-	echo
+exitStat=$?
+errMsg="Failed to update package cache"
+successMsg="The package cache has updated sucessfully"
+cmdFail
+apt update | tee output.tmp
+chkUpdates=$(grep -c "packages can be upgraded" output.tmp 2>&1)
+rm output.tmp
+if [ $chkUpdates = 1 ]; then
 	echo "The package cache has updated sucessfully"
 fi
 apt update | tee output.tmp
 chkUpdates=$(grep -c "packages can be upgraded" output.tmp 2>&1)
 rm output.tmp
 if [ $chkUpdates = 1 ]; then
-	echo
 	echo "Updates are available."
-	echo
+	sleep 1
 	echo "Installing updates"
-	echo
 	apt upgrade -y
-	echo
-	exit=$?
-	if [ $exit != 0 ]; then
-		errMsg="Failed to install updates"
-		prt_msg
-	else
-		echo
-		echo "Update prcoess has completed sucessfully"
-		sleep 1
-	fi
+	exitStat=$?
+	errMsg="Failed to install updates"
+	successMsg="Update prcoess has completed sucessfully"
+	cmdFail
 else
 	echo
-	echo "System is already up to date"
-	sleep 1
-	echo
-	echo "No updates to install"
+	echo "Update prcoess has completed sucessfully"
 	sleep 1
 fi
 echo
 echo "Running apt to install packages..."
 echo
 apt install sudo fonts-font-awesome unzip git tmux gpg wget curl build-essential whiptail firmware-linux firmware-linux-nonfree -y 2>&1
-echo
-exit=$?
-if [ $exit != 0 ]; then
-	errMsg="Failed to install packages"
-	prt_err
-else
-	echo
-	echo "Package installation has completed sucessfully"
-	sleep 1
-
-fi
+exitStat=$?
+errMsg="Failed to install packages"
+successMsg="Package installation has completed sucessfully"
+cmdFail
 add_sudo
 echo
 echo "Setting Up Directories and Files"
@@ -197,45 +173,31 @@ echo
 echo "Configuring setup files..."
 sleep 1
 if [ -d $cfgDir ]; then
-	echo
 	echo "Configuration directory already exists..."
 	sleep 1
-	echo
 	echo "Skipping folder creation"
 	sleep 1
 else
-	echo
+	echo "Creating directory"
 	mkdir -v $cfgDir 2>&1
-	if [ -d $cfgDir ]; then
-		echo
-		echo "The config directory has been created"
-		sleep 1
-	else
-		errMsg="Failed to create directory."
-		prt_err
-	fi
+	exitStat=$?
+	errMsg="Failed to create directory"
+	successMsg="The directory was created sucessfully"
+	cmdFail
 fi
 for f in "cfg" "status" "scripts" "tmp" "logs"; do
 	if [ -d $cfgDir/$f ]; then
-		echo
 		echo "The directory $f already exists"
-		echo
 		echo "Skipping directory creation"
 		sleep 1
 	else
-		echo
 		echo "Creating directory $f"
 		sleep 1
-		echo
 		mkdir -v $cfgDir/$f
-		if [ -d $cfgDir/$f ]; then
-			echo
-			echo "The directory $f was sucessfully created"
-			sleep 1
-		else
-			errMsg= "Failed to create directory $f"
-			prt_err
-		fi
+		exitStat=$?
+		errMsg="Failed to create directory $f"
+		successMsg="The directory $f was sucessfully created"
+		cmdFail
 	fi
 done
 echo
