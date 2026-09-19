@@ -51,25 +51,25 @@ A list of installed and optionally installable software on the system.
 ---
 
 ## Debian Packaged Software
-1. :snowman: **Voxtype** - 
+1. :ice_cube: **Voxtype** - 
     - *AI Voice Typing*
     - *Current Stable 09/19/2026* - https://github.com/peteonrails/voxtype/releases/download/v1.0.1/voxtype_1.0.1-1_amd64.deb
-2. :snowman: **Pake** - 
+2. :ice_cube: **Pake** - 
     - *Convert websites into desktop apps*
     - *Current Stable 09/19/2026* - https://github.com/tw93/Pake/releases/download/V3.16.3/DeepSeek_x86_64.deb
-3. :snowman: **Markpad** - 
+3. :ice_cube: **Markpad** - 
     - *A beautiful, fast, and functional Markdown editor for Linux.*
     - *Current Stable 09/19/2026* - https://github.com/sftwrdotdev/Markpad/releases/download/v2.7.6/Markpad_2.7.6_amd64.deb
-4. :snowman: **SideX** - 
+4. :ice_cube: **SideX** - 
     - *VSCode built with Tauri*
     - *Current Stable 09/19/2026* - https://github.com/Sidenai/sidex/releases/download/v0.1.2/SideX_0.1.2_amd64.deb
-5. :snowman: **Lapce** - 
+5. :ice_cube: **Lapce** - 
     - *Lightning-fast and Powerful Code Editor written in Rust*
     - *Current Stable 09/19/2026* - https://github.com/lapce/lapce/releases/download/v0.4.6/lapce.debian.bookworm.amd64.deb
-6. :snowman: **Dive** - 
+6. :ice_cube: **Dive** - 
     - *Tool for exploring the contents of Docker image layers*
     - *Current Stable 09/19/2026* - https://github.com/wagoodman/dive/releases/download/v0.13.1/dive_0.13.1_linux_amd64.deb
-7. :snowman: **Opencode Desktop** 
+7. :ice_cube: **Opencode Desktop** 
     - *AI-powered cross-platform IDE GUI for Linux*
     - *Current Stable 09/19/2026* - https://opencode.ai/download/stable/linux-x64-deb
 
