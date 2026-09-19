@@ -28,7 +28,8 @@ echo "Cloning Xwayland Satellite repository"
 sleep 1
 if [ -d "$tmpDir/xwayland-satellite" ]; then
     echo "xwayland-satellite repository already cloned. Skipping"
-    sleep 1else
+    sleep 1
+else
     gitURL=$(cat $installDir/git-commits.csv | grep -i xwayland-satellite | cut -d ',' -f 2)
     gitTag=$(cat $installDir/git-commits.csv | grep -i xwayland-satellite | cut -d ',' -f 3)
     git clone $gitURL $tmpDir/xwayland-satellite
