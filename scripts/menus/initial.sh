@@ -185,7 +185,7 @@ else
 	successMsg="The directory was created sucessfully"
 	cmdFail
 fi
-for f in "cfg" "status" "scripts" "tmp" "logs"; do
+for f in "cfg" "status" "scripts" "tmp" "data" "tools"; do
 	if [ -d $cfgDir/$f ]; then
 		echo "The directory $f already exists"
 		echo "Skipping directory creation"
