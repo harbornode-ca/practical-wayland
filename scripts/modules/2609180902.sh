@@ -1,19 +1,38 @@
 #!/bin/bash
 #Sets up install process. Confirms directory structure and creates necessary files/variables. 
 #Downloads the repository and places all files in there relative folders.
-echo
+cmdFail () {
+if [ $exitStat -ne 0 ]; then
+    echo "$errMsg"
+    sleep 1
+    echo
+    echo "This script will now exit"
+    read -p "Press [ENTER] key to exit"
+    clear
+    exit 1
+else
+    echo "$successMsg"
+    sleep 0.5
+fi
+}
+#These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
+#exitStat=$?
+#errMsg="ERROR MESSAGE"
+#successMsg="SUCCESS MESSAGE"
+#cmdFail
 echo "Confirming directory structure"
 sleep 1
-for folder in "cfg" "status" "scripts" "tmp" "logs"; do
+for folder in "cfg" "status" "scripts" "tmp" "data" "tools"; do
     if [ ! -d "/opt/kevrevrun/$folder" ]; then
-        echo
         echo "Folder $folder not found"
-        sleep 0.5
+        sleep 0.25
         echo "Creating $folder"
         mkdir -v /opt/kevrevrun/$folder
-        sleep 0.5
+        exitStat=$?
+        errMsg="Creating directory $folder failed"
+        successMsg="Creating directory $folder completed"
+        cmdFail
     else
-        echo
         echo "Folder $folder confirmed"
         sleep 0.25
     fi
@@ -45,29 +64,33 @@ for file in "/opt/kevrevrun/id.usr" "/opt/kevrevrun/name.usr" "/opt/kevrevrun/st
     else
         echo
         echo "File $file confirmed"
-        sleep 1
+        sleep 0.5
     fi
 done
+sleep 1
 # Creates a file that contains all folder used in the installation
 echo
-echo "Creating Setup Variables...Folders"
+echo "Creating lists for setup variables"
+echo
+echo "Creating a list file of folder variables..."
 sleep 1
 cat << 'EOF' > /opt/kevrevrun/status/folders.list
 mainDir,/opt/kevrevrun
 statusDir,/opt/kevrevrun/status
+menuDir,/opt/kevrevrun/scripts/menus
+moduleDir,/opt/kevrevrun/scripts/modules
 scriptDir,/opt/kevrevrun/scripts
 cfgDir,/opt/kevrevrun/cfg
 tmpDir,/opt/kevrevrun/tmp
-installDir,/opt/kevrevrun/cfg/installerInfo
-swAptDir,/opt/kevrevrun/cfg/softwareAPT
-themeDir,/opt/kevrevrun/cfg/systemTheme
+dataDir,/opt/kevrevrun/data
+toolsDir,/opt/kevrevrun/tools
+logDir,/opt/kevrevrun/logs
 EOF
-echo
-echo "Setup variables have been saved to folders.list"
+echo "Folder variables have been saved to /opt/kevrevrun/status/folders.list"
 sleep 1
 # Sets the folder variables for each folder in folders.list
 echo
-echo "Setting up Folder Variables"
+echo "Exporting folder variables"
 sleep 1
 echo
 fldrList=$(cat /opt/kevrevrun/status/folders.list)
@@ -78,27 +101,26 @@ for f in $fldrList; do
     echo "Folder Variable $varName is set to $varValue"
     sleep 0.5
 done
+echo "Completed loading folder variables"
 sleep 1
-# Creates file that contains all files that hold a status across scripts and reboots.
 echo
-echo "Creating Setup Variables...Files"
+echo "Creating a list file of file variables..."
 sleep 1
 cat << 'EOF' > /opt/kevrevrun/status/files.list
-stgUsr,/opt/kevrevrun/id.usr
-stgUsrN,/opt/kevrevrun/name.usr
+usrIdFile,/opt/kevrevrun/id.usr
+usrNameFile,/opt/kevrevrun/name.usr
 setupDirFile,/opt/kevrevrun/setup.dir
 stageFile,/opt/kevrevrun/status/setup.stage
-mainLog,/opt/kevrevrun/logs/main.log
-selDE,/opt/kevrevrun/status/selDE.status
-debNameFile,/opt/kevrevrun/cfg/installerInfo/debian.name
-debIdFile,/opt/kevrevrun/cfg/installerInfo/debian.id
+selDEFile,/opt/kevrevrun/status/selDE.status
+debNameFile,/opt/kevrevrun/data/extra/debian.name
+debIdFile,/opt/kevrevrun/data/extra/debian.id
 EOF
 echo
-echo "Setup variables saved to files.list"
+echo "File variables have been saved to /opt/kevrevrun/status/files.list"
 sleep 1
 # Sets variables for the status files
 echo
-echo "Setting up File Variables"
+echo "Exporting file variables"
 sleep 1
 echo
 varFiles=$(cat /opt/kevrevrun/status/files.list)
@@ -109,10 +131,8 @@ for v in $varFiles; do
     echo "File Variable $varName is set to $varValue"
     sleep 0.5
 done
-sleep 1
-# Creates a file that allows the saved variables to be called into the current script
-echo
-echo "Creating Setup Variables...Values"
+# Creates a list file of setup variables and their values
+echo "Creating a list file of setup variables and values..."
 sleep 1
 cat << 'EOF' > /opt/kevrevrun/status/values.list
 setupStage,/opt/kevrevrun/status/setup.stage
@@ -120,30 +140,9 @@ usrId,/opt/kevrevrun/id.usr
 usrName,/opt/kevrevrun/name.usr
 setupDir,/opt/kevrevrun/setup.dir
 selDEValue,/opt/kevrevrun/status/selDE.status
-debVerID,/opt/kevrevrun/cfg/installerInfo/debian.id
-debVerName,/opt/kevrevrun/cfg/installerInfo/debian.name
+debVerID,/opt/kevrevrun/data/extra/debian.id
+debVerName,/opt/kevrevrun/data/extra/debian.name
 EOF
-echo
-echo "Setup variables have been saved to values.list"
-sleep 1
-# Reads the values from the files in values.list
-echo
-echo "Confirming Setup Variables"
-while IFS=',' read -r varName fileName ; do
-    if [ -f $fileName ]; then
-        echo
-        echo "File $fileName confirmed"
-    else
-        echo
-        echo "The file - $fileName - was not found"
-        sleep 1
-        echo "Creating missing file"
-        sleep 0.5
-        echo "0" > $fileName
-        echo "Missing file $fileName created"
-        sleep 0.5
-fi
-done < "/opt/kevrevrun/status/files.list"
 sleep 1
 echo
 echo "Reading and Exporting All Setup Variables"
@@ -173,21 +172,15 @@ echo "Moving files from the installation directory to Main directory"
 sleep 1
 echo
 #Move files from the installation directory to Main directory
-destFldr="$scriptDir $cfgDir"
-for f in $destFldr; do
-    echo "Empting folder $f"
-    sleep 1
-    rm -rvf $f/*
-    
-done
-echo
-sleep 1
-for f in $destFldr; do
+for f in "$scriptDir" "$cfgDir" "$dataDir" "$toolsDir"; do
     srcFldr=$(echo $f | cut -d '/' -f 4)
     echo "Copying files to folder $f"
     sleep 0.5
-    cp -Rv $tmpDir/practical-wayland/$srcFldr/* $f
-    sleep 0.5
+    cp -Rvf $tmpDir/practical-wayland/$srcFldr/* $f
+    exitStat=$?
+    errMsg="Copying files to folder $f failed"
+    successMsg="Copying files to folder $f completed successfully"
+    cmdFail
 done
 echo
 echo "Cleaning up temporary files"
@@ -196,8 +189,12 @@ echo
 echo "Removing temporary extraction folder"
 sleep 1.5
 rm -rvf "$tmpDir/practical-wayland"
+exitStat=$?
+errMsg="Removing temporary extraction folder"
+successMsg="Successfully removed temporary extraction folder"
+cmdFail
 echo
-echo "--------------------------------------------------"
-echo "Initial setup complete."
-echo "--------------------------------------------------"
+echo "Initial setup is now complete"
+echo 
 sleep 1
+exit 0
