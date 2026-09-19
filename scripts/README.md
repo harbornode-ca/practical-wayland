@@ -1,164 +1,123 @@
 # Scripts Directory
 
----
+Modules that perform each install step. They are invoked by `setup.sh` (stage dispatcher) and are not intended to run standalone.
 
-This folder contains module files for installing and setting up various features of the Practical Wayland environments.
-*These files are not intended to be run independently.*
+Each script follows the same pattern: `cmdFail` helper that checks `$?` via `exitStat`, prints `errMsg` / `successMsg`, and exits on failure.
 
----
-
-## Installation Scripts
+## Installation scripts
 
 ### 2609180902.sh
 
-**Initializes the installation environment**
-* Creates `/opt/kevrevrun` directory structure
-* Exports the folder, file, and status variables
-* Downloads the Practical Wayland repository
-* Places files in the correct folders
+Initializes the install environment.
+
+- Confirms `/opt/kevrevrun/{cfg,status,scripts,tmp,logs}`.
+- Checks `id.usr`, `name.usr`, `status/setup.stage`, `setup.dir`.
+- Downloads the repository and places files in their target folders.
 
 ### 2609180904.sh
 
-**Updates system to Debian Forky and installs base packages**
-* Updates system to Debian Forky (testing)
-* Installs base packages required for the installation scripts
-* After update and install is complete, the system will reboot
+APT source migration and Forky upgrade.
 
+- Removes legacy `sources.list` style files.
+- Installs the Forky `.sources` file from `cfg/debianAPT/`.
+- Upgrades the system to Debian Forky and installs firmware packages.
+- Prompts for reboot on completion.
 
 ### 2609180905.sh
 
-**Installs Rust and development tools**
-* Installs Rust and Cargo from rustup
-* Installs Just using cargo
-* Adds Just to /usr/local/sbin so it can be used by sudo
-* Removes temporary files
+Rust toolchain.
 
+- Installs or updates Rust and Cargo via rustup.
+- Installs `just` via Cargo and links it for `sudo` use.
+- Removes temporary files.
 
-### 2909180912.sh
+### 2609180912.sh
 
-**Adds i386 32-bit architecture to the system**
-* Adds i386 architecture support via dpkg (required for 32-bit software like Steam and NVIDIA components)
-* Updates the APT package cache
+32-bit architecture support.
 
-### 2909180913.sh
+- Runs `dpkg --add-architecture i386` (needed for Steam and some NVIDIA components).
+- Updates the APT cache.
 
-**Installs GPU drivers**
-* Detects GPU hardware (Intel, AMD, NVIDIA) using `lspci`
-* Installs corresponding graphics drivers
-* After install the system will reboot
+### 2609180913.sh
+
+GPU drivers.
+
+- Detects Intel / AMD / NVIDIA adapters with `lspci`.
+- Installs Mesa for Intel/AMD (`cfg/softwareAPT/gpuIntel.apt`, `gpuAMD.apt`) or the CUDA-keyring path for NVIDIA (`cfg/installerInfo/nvidia.url`, `gpuNVIDIA.apt`).
+- Exits early on VMs with no detected adapter.
 
 ### 2609180915.sh
 
-**Simple CLI Interactive Script for Selecting Desktop Environment**
+Desktop environment selector.
 
-* This script allows the user to select which desktop environment to install
-* Currently supported by this script is:
-    - *Noctalia V5* Includes the full notallia stack and is installed from the Noctalia Debian Testing repository
-    - *Niri with Flatbar* Includes the niri compositor and flatbar status bar. Portal is provided by xdg-desktop-portal-gtk. Lemurs handles login and launching the desktop environment.
-    - *LXQT with Niri* Includes the lxqt desktop environment and the niri compositor. Portal is provided by xdg-desktop-portal-gtk. Lemurs handles login and launching the desktop environment. 
+- Prompts for one of: Noctalia, Niri with status bar, LXQt with Niri WM.
+- Writes the choice to `/opt/kevrevrun/status/selDE.status` for later stages.
 
 ### 2609180916.sh
 
-**Adds Noctalia APT repository to the system and installs the Noctalia Desktop Environment stack**
-* Adds Noctalia APT repository to the system
-* Updates APT package cache
-* Installs Noctalia packages
-    - *noctalia* - Desktop environment
-    - *noctalia-greeter* - Login manager
-    - *umbriel* - Wayland compositor
-    - *xdg-desktop-portal-umbriel* - Desktop portal support
-* Removes temporary files
+Noctalia stack.
 
-*The Umbriel compositor is currently experimental and is not production ready*
-*Niri is installed along with Umbriel due to the current status of Umbriel issues*
-*The Noctalia greeter will allow you switch between Umbriel and Niri for your testing pleasure*
+- Adds the Noctalia APT repo (`pkg.noctalia.dev`, keyring `nickh-archive-keyring.deb`).
+- Installs `noctalia`, `noctalia-greeter`, `umbriel`, `xdg-desktop-portal-umbriel`.
+- Umbriel is experimental; Niri is installed alongside it.
 
 ### 2609180937.sh
 
-**Compiles and Installs Lemurs Login Manager from Source**
-* Downloads the current GitLab source for Lemurs
-* Checks out the tagged commit from gitlab.com/kevrevan/lemurs
-* Compiles Lemurs from source using Cargo
-* Installs Lemurs
-    - Copies the lemurs binary to /usr/bin/lemurs
-    - Installs systemd files
-        - Install Lemurs PAM Moduel
-        - Installs Lemurs default configuration file
-        - Installs Lemurs systemd service
-* Enables and starts the lemurs.service
-* Removes temporary files
+Lemurs login manager from source.
+
+- Builds the pinned commit from `cfg/installerInfo/git-commits.csv`.
+- Installs the binary to `/usr/bin/lemurs`, PAM module, default config (`cfg/installerInfo/lemurs-config.toml`), and systemd service.
+- Enables `lemurs.service`.
 
 ### 2609180944.sh
 
-**Compiles and Installs Niri Wayland Compositor from Source**
-* Downloads and builds niri from GitLab repositories
-* Checks out latest stable niri commit
-* Installs required dependencies for building niri
-* Compiles niri from source using cargo
-* Installs niri
-    - Installs niri binaries
-    - Installs Wayland session
-    - Installs xdg portal with GTK backend
-    - Installs systemd services
-* Removes temporary files
+Niri via the DankLinux (DMS) repository.
+
+- Adds `cfg/installerInfo/dms.sources` and installs Niri plus `xwayland-satellite` support for X11 apps.
 
 ### 2609181116.sh
 
-**Installs BlueTUI Bluetooth GUI**
-* Builds BlueTUI from crates.io
-* Installs BlueTUI to /usr/bin/bluetui
+Status bar baseline (Flatbar path, transitional).
+
+- Header notes this is moving toward an Ashell-from-source build; BlueTUI becomes optional software.
+- Pulls foot, fuzzel, `mako`, `wl-clipboard`, Nemo / Rat Commander file-manager baseline.
 
 ### 2609181123.sh
 
-**Installs Rat Commander File Manager**
-* Installs Rat Commander from source
-* Installs Rat Commander to /usr/bin/rc
+Rat Commander file manager (optional, under evaluation).
+
+- Installs deps from `cfg/softwareAPT/rc.apt`.
+- Builds the pinned commit from `cfg/installerInfo/git-commits.csv`.
 
 ### 2609181124.sh
 
-**Installs WinApps Powered by Dockur**
-* Checks for Podman
-* Installs Podman and Podman-Compose if required
-* Creates configuration files for WinApps
-* Starts podman container for WinApps
+WinApps via Dockur/Windows container (optional).
+
+- Installs `podman` / `podman-compose` (`cfg/softwareAPT/winapps.apt`).
+- Uses `cfg/installerInfo/winapps-compose.yaml` and `winapps.conf`; installer fetched from `cfg/installerInfo/winapps.url`.
+- See `ref/winapps.md` for container lifecycle commands.
 
 ### 2609181622.sh
 
-**Installs fontconfig files for bitmap font support**
-* Removes existing fontconfig files
-* Adds new fontconfig files
-* Updates font cache
+Bitmap font support.
+
+- Removes blocklists in `cfg/installerInfo/fontconfig-rm.list`.
+- Links additions in `cfg/installerInfo/fontconfig-add.csv` and refreshes the font cache.
 
 ### 2609181656.sh
 
-**Installs Xwayland Satellite**
-* Builds xwayland-satellite from source (Github)
-* Installs xwayland-satellite to /usr/bin/xwayland-satellite
-* Creates configuration files for Xwayland Satellite
-* Removes temporary files
+Xwayland Satellite from source.
 
-### Dev Tools Directory (`dev-tools/`)
+- Installs deps from `cfg/softwareAPT/xwayland-satellite.apt`.
+- Builds the pinned commit from `cfg/installerInfo/git-commits.csv`.
+- See `ref/xwayland-satellite.md` for XSETTINGS background.
 
-**Helper scripts used during development and testing of installation components.**
+## Dev tools (`dev-tools/`)
 
-#### `dev-tools/clear-lemurs.sh`
+Helpers for development and testing. Not part of the normal install.
 
-**Uninstalls and cleans up Lemurs login manager binaries, PAM configs, and configuration directories.**
-
-#### `dev-tools/clear-noctalia.sh`
-
-**Purges Noctalia packages (`noctalia`, `noctalia-greeter`, `umbriel`, `xdg-desktop-portal-umbriel`) and runs `apt autopurge`.**
-
-#### `dev-tools/cp-from-dev.sh`
-
-**Copies updated scripts and configuration files from the local working repository (`$HOME/practical-wayland`) to `/opt/kevrevrun/`.**
-
-*Copies files to the installation directory instead of commiting, pushing and pulling repository*
-
-#### `dev-tools/template-var.sh`
-
-**Template snippet script that reads and exports folder, file, and status variables from `/opt/kevrevrun/status/`.**
-
-*A script template that loads all variables required by the installation scripts, whether all are used in the current script or not.*
-*Avoids having to copy and paste variable definitions throughout the installation scripts.*
-*Once workflow is fully developed scripts will be upgraded to use export to avoid the need for a template file.*
+- `clear-lemurs.sh` - removes Lemurs binary, PAM file, and `/etc/lemurs`.
+- `clear-noctalia.sh` - purges `noctalia`, `noctalia-greeter`, `umbriel`, `xdg-desktop-portal-umbriel`, then `autopurge`.
+- `cp-from-dev.sh` - copies the local checkout (`$HOME/practical-wayland`) into `/opt/kevrevrun/` to test without commit/push.
+- `script-template.sh` - `cmdFail` + status boilerplate for new modules.
+- `variable-loader.sh` - loads folder/file/status variables from `/opt/kevrevrun/status/` (`folders.list`, `files.list`, `values.list`).

@@ -1,5 +1,5 @@
 # Tools Directory
-This directory will hold various custom scripts and configurations for keeping the software up to date
 
-**Currently a placeholder**
-*Feature not yet implemented*
+Maintenance helpers for installed systems (update checks, upkeep scripts).
+
+Currently a placeholder: the directory holds no scripts yet. Optional-software candidates that these tools will manage are listed in `../ref/software.md` (Debian packages, `.deb` downloads, source builds, Cargo, `uv`, Charmbracelet repo).

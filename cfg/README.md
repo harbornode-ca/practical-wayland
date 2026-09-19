@@ -1,15 +1,11 @@
 ## Config Folder
 
-The folder for everything related to configuration. I'll try to keep it organized...
+Source data consumed by `initial.sh`, `setup.sh`, and the modules in `scripts/`.
 
-### apt-files
-
-Files to build .sources files for apt configuration.
-
-### dotfiles
-
-Dotfiles for various programs.
-
-### themes
-
-Scripts and config files for themes.
+| Directory | Purpose |
+| --- | --- |
+| `debianAPT/` | Debian release `.sources` files (Forky/Sid/Trixie, enabled/disabled). See `debianAPT/README.md`. |
+| `softwareAPT/` | Per-component APT package lists (`*.apt`, one package per line). See `softwareAPT/README.md`. |
+| `defaultConfig/` | Default application configs deployed to the system (currently `niri/`). See `defaultConfig/README.md`. |
+| `installerInfo/` | Keys, third-party sources, pinned commits, URLs, and templates. See `installerInfo/README.md`. |
+| `systemTheme/` | Theme files. See `systemTheme/README.md`. |
