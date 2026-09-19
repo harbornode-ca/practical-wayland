@@ -76,11 +76,11 @@ A list of installed and optionally installable software on the system.
 ---
 
 ## Source Build Software
-1. [] **eget Package Manager** - https://github.com/zyedidia/eget
+1. :notebook: **eget Package Manager** - https://github.com/zyedidia/eget
     - *Install* - `go install github.com/zyedidia/eget@latest`
-2. [] **lazydocker** - https://github.com/jesseduffield/lazydocker
+2. :notebook: **lazydocker** - https://github.com/jesseduffield/lazydocker
     - *Install* - `go install github.com/jesseduffield/lazydocker@latest`
-3. [] **LazySpotify** - https://github.com/dubeyKartikay/lazyspotify
+3. :notebook: **LazySpotify** - https://github.com/dubeyKartikay/lazyspotify
     - *Binary patched library in lazy-spotify.url. Needs to be configured in lazy-spotify config*
     - *Install* - 
         ```
@@ -88,67 +88,70 @@ A list of installed and optionally installable software on the system.
         cd lazyspotify
         make build
         ```
-4. [] **Mods** - https://github.com/panjie/mods
+4. :notebook: **Mods** - https://github.com/panjie/mods
     - *Install* - go install github.com/panjie/mods@latest
+
+---
+
 ### Tarball Binaries
-1. [] **LazyGit** - https://github.com/jesseduffield/lazygit
+1. :card_file_box: **LazyGit** - https://github.com/jesseduffield/lazygit
     - Lates 09/19/2026: https://github.com/jesseduffield/lazygit/releases/download/v0.65.1/lazygit_0.65.1_linux_x86_64.tar.gz
 
 ---
 
 ##  Cargo Installable
-1. [] **Hazelnut** 
+1. :truck: **Hazelnut** 
     - *Terminal-based automated file organizer inspired by Hazel. Watch folders and organize files with rules.*
     - *Install* - `cargo install hazelnut`
-2. [] **Binstall** 
+2. :truck: **Binstall** 
     - *Tool to help you install cargo-binstall*
     - *Install* - `cargo install cargo-binstall`
-3. [] **Podlet Podman Quadlet tool** 
+3. :truck: **Podlet Podman Quadlet tool** 
     - *Tool for creating quadlets from docker compose or docker run commands*
     - *Install* - `cargo install podlet`
 
 ---
 
 ## Cargo Binstallable
-1. [] **Fresh IDE** 
+1. :package: **Fresh IDE** 
     - *AI-powered code editor*
     - *Install* - `cargo binstall fresh-editor`
 
 ---
 
 ## uv Installable
-1. [] **OpenViking** - https://github.com/volcengine/OpenViking
+1. :sunny: **OpenViking** - https://github.com/volcengine/OpenViking
     - *Install Info* - https://docs.openviking.ai/en/getting-started/02-quickstart
 
 ---
 
 
 ## Bash Installer
-1. [] **Opencode Terminal IDE** - https://opencode.ai
+1. :shell: **Opencode Terminal IDE** - https://opencode.ai
     - *Install* - `curl -fsSL https://opencode.ai/v2/install | bash`
 
 ---
 
 ## Charmbracelet Repository
 *Installable using APT after adding charmbracelet repository*
-1. [] **VHS** - https://github.com/charmbracelet/vhs
+1. :ring: **VHS** - https://github.com/charmbracelet/vhs
     - *Record terminal sessions as GIFs*
     - *Package Name* - vhs
-2. [] **Soft Serve** - https://github.com/charmbracelet/soft-serve
+2. :ring: **Soft Serve** - https://github.com/charmbracelet/soft-serve
     - *Git server that runs in your terminal*
     - *Package Name* - softserve
-3. [] **Skate** - https://github.com/charmbracelet/skate
+3. :ring: **Skate** - https://github.com/charmbracelet/skate
     - *A personal key-value store*
     - *Package Name* - skate
-4. [] **Pop** - https://github.com/charmbracelet/pop
+4. :ring: **Pop** - https://github.com/charmbracelet/pop
     - *Mail app for your terminal*
     - *Package Name* - pop
-5. [] **Glow** - https://github.com/charmbracelet/glow
+5. :ring: **Glow** - https://github.com/charmbracelet/glow
     - *Markdown viewer*
     - *Package Name* - glow
-6. [] **Freeze** - https://github.com/charmbracelet/freeze
+6. :ring: **Freeze** - https://github.com/charmbracelet/freeze
     - *Generate images of code and terminal output.*
     - *Package Name* - freeze
-7. [] **Crush** - https://github.com/charmbracelet/crush
+7. :ring: **Crush** - https://github.com/charmbracelet/crush
     - *Glamorous agentic coding for all*
     - *Package Name* - crush
