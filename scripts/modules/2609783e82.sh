@@ -253,7 +253,7 @@ for v in $varFiles; do
     prt_info
     gum style "Exporting variable $varName..."
     export $varName="$varValue"
-    style=msg
+    style=win
     prt_info
     gum style "File Variable $varName is set to $varValue"
     sleep 0.25

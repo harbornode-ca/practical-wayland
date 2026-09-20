@@ -51,27 +51,69 @@ sleep 1
 gum spin $moduleDir/2909b581a8.sh
 #END PRATICAL WAYLAND DOWNLOAD
 
-#START PRATICAL WAYLAND CLEANUP AND INSTALL
+#START DOWNLOADING PRATICAL WAYLAND INSTALLER
 style=info
 prt_info
-gum style "Setting up kevrevrun folder structure"
+gum style "Downloading Practical Wayland setup installer..."
+sleep 0.5
+gum spin "wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2909b581a8.sh"
+exitStat=$?
+errMsg="Practical Wayland setup installer part 1 download failed."
+successMsg="Practical Wayland setup installer part 1 downloaded successfully"
+gum spin "wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/260901abbc.sh"
+exitStat=$?
+errMsg="Practical Wayland setup installer part 2 download failed."
+successMsg="Practical Wayland setup installer part 2 downloaded successfully"
+echo
+cmdFail
+chmod +x 2909b581a8.sh 260901abbc.sh
+exitStat=$?
+errMsg="Added execute permission to Practical Wayland setup installer."
+successMsg="Added execute permission to Practical Wayland setup installer sucessfully"
+cmdFail
+#END DOWNLOADING PRATICAL WAYLAND INSTALLER
+
+#START INSTALLING PRATICAL WAYLAND
+style=info
+prt_info
+gum style "Downloading Practical Wayland setup files..."
 echo
 sleep 1
-gum style "Installing setup files to main directories"
+gum spin ./2909b581a8.sh
+exitStat=$?
+errMsg="Downloading of Practical Wayland setup files failed."
+successMsg="Downloading of Practical Wayland setup files completed"
+cmdFail
+echo
+gum style "Installing Practical Wayland setup files"
 sleep 1
-gum spin $moduleDir/260901abbc.sh
-style=info
-prt_info
+gum spin ./260901abbc.sh
+exitStat=$?
+errMsg="Installing Practical Wayland setup files failed."
+successMsg="Installing Practical Wayland setup files completed"
+cmdFail
+sleep 1
+echo
+#END INSTALLING PRATICAL WAYLAND
+
+#START CLEANUP
 gum style "Cleaning up temporary files"
 sleep 0.5
-gum style "Removing temporary extraction folder"
+gum style "Removing downloaded installer files"
+sleep 0.5
+rm -rf 2909b581a8.sh 260901abbc.sh
+exitStat=$?
+errMsg="Removing downloaded installer files failed."
+successMsg="Successfully removed downloaded installer files"
+cmdFail
+gum style "Removing temporary download folder"
 sleep 0.5
 rm -rf "$tmpDir/practical-wayland"
 exitStat=$?
-errMsg="Removing temporary extraction folder"
-successMsg="Successfully removed temporary extraction folder"
+errMsg="Removing temporary download folder failed."
+successMsg="Successfully removed temporary download folder"
 cmdFail
-#END PRATICAL WAYLAND CLEANUP AND INSTALL
+#END CLEANUP
 
 #SCRIPT END
 style=info
