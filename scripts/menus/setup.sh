@@ -134,6 +134,10 @@ wget -nv -O /opt/kevrevrun/scripts/modules/2609757192.sh https://raw.githubuserc
 exitStat=$?
 errMsg="Debian release info script download failed."
 successMsg="Debian release info script downloaded successfully"
+chmod -v +x /opt/kevrevrun/scripts/modules/2609757192.sh
+exitStat=$?
+errMsg="Added execute permission to Debian release info script failed."
+successMsg="Added execute permission to Debian release info script sucessfully"
 cmdFail
 /opt/kevrevrun/scripts/modules/2609757192
 echo
@@ -145,6 +149,11 @@ wget -nv -O /opt/kevrevrun/scripts/modules/2609180902.sh https://raw.githubuserc
 exitStat=$?
 errMsg="Install variable script download failed."
 successMsg="Install variable script downloaded successfully"
+cmdFail
+chmod -v +x /opt/kevrevrun/scripts/modules/2609180902.sh
+exitStat=$?
+errMsg="Added execute permission to install variable script failed."
+successMsg="Added execute permission to install variable script sucessfully"
 cmdFail
 /opt/kevrevrun/scripts/modules/2609180902.sh
 exitStat=$?
