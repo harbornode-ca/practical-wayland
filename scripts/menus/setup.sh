@@ -129,16 +129,23 @@ style=msg
 prt_info
 gum style "Grabbing Debian release info..."
 sleep 0.5
-wget -nv -O /opt/kevrevrun/scripts/modules/2609757192.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609757192.sh
+wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609757192.sh
 exitStat=$?
 errMsg="Debian release info script download failed."
 successMsg="Debian release info script downloaded successfully"
-chmod -v +x /opt/kevrevrun/scripts/modules/2609757192.sh
+chmod -v +x 2609757192.sh
 exitStat=$?
 errMsg="Added execute permission to Debian release info script failed."
 successMsg="Added execute permission to Debian release info script sucessfully"
 cmdFail
-/opt/kevrevrun/scripts/modules/2609757192
+./2609757192.sh
+echo
+gum style "Removing Debian release info script..."
+rm -vf 2609757192.sh
+exitStat=$?
+errMsg="Removing Debian release info script failed."
+successMsg="Removing Debian release info script sucessfully"
+cmdFail
 echo
 style=msg
 prt_info
