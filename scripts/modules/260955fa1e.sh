@@ -60,12 +60,12 @@ successMsg="Practical Wayland setup installer part 2 downloaded successfully"
 cmdFail
 echo
 gum style "Adding execute permission to Practical Wayland setup installer files"
-sleep 1
 chmod +x 2909b581a8.sh 260901abbc.sh
 exitStat=$?
 errMsg="Added execute permission to Practical Wayland setup installer."
 successMsg="Added execute permission to Practical Wayland setup installer sucessfully"
 cmdFail
+sleep 1
 echo
 style=info
 prt_info
