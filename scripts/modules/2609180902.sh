@@ -3,15 +3,21 @@
 #Downloads the repository and places all files in there relative folders.
 cmdFail () {
 if [ $exitStat -ne 0 ]; then
-    echo "$errMsg"
+    style=lose
+    prt_info
+    gum style "$errMsg"
     sleep 1
     echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
+    style=msg
+    prt_info
+    gum style "This script will now exit"
+    sleep 1
     clear
     exit 1
 else
-    echo "$successMsg"
+    style=win
+    prt_info
+    gum style "$successMsg"
     sleep 0.5
 fi
 }
@@ -20,59 +26,88 @@ fi
 #errMsg="ERROR MESSAGE"
 #successMsg="SUCCESS MESSAGE"
 #cmdFail
-echo "Confirming directory structure"
+style=msg
+prt_info
+gum style "Confirming directory structure"
 sleep 1
 for folder in "cfg" "status" "scripts" "tmp" "data" "tools"; do
     if [ ! -d "/opt/kevrevrun/$folder" ]; then
-        echo "Folder $folder not found"
+        style=msg
+        prt_info
+        gum style "Folder $folder not found"
         sleep 0.25
-        echo "Creating $folder"
+        style=msg
+        prt_info
+        gum style "Creating $folder"
         mkdir -v /opt/kevrevrun/$folder
         exitStat=$?
         errMsg="Creating directory $folder failed"
         successMsg="Creating directory $folder completed"
         cmdFail
     else
-        echo "Folder $folder confirmed"
+        style=win
+        prt_info
+        gum style "Folder $folder confirmed"
         sleep 0.25
     fi
 done
 echo
-echo "Checking file structure"
+    style=msg
+    prt_info
+    gum style "Checking file structure"
 sleep 1
 for file in "/opt/kevrevrun/id.usr" "/opt/kevrevrun/name.usr" "/opt/kevrevrun/status/setup.stage" "/opt/kevrevrun/setup.dir"; do
     if [ ! -f $file ]; then
-        echo
-        echo "The file - $file - was not found"
+        style=msg
+        prt_info
+        gum style "The file - $file - was not found"
         if [ $file = "/opt/kevrevrun/id.usr" ]; then
             echo $UID > $file
-            echo "Repaired $file"
+            style=win
+            prt_info
+            gum style "Repaired $file"
             sleep 0.5
         elif [ $file = "/opt/kevrevrun/name.usr" ]; then
-            echo $USER > $file
-            echo "Repaired $file"
+            style=win
+            prt_info
+            gum style "Repaired $file"
+            sleep 0.5
+        elif [ $file = "/opt/kevrevrun/status/setup.stage" ]; then
+            style=win
+            prt_info
+            gum style "Repaired $file"
+            sleep 0.5
+        elif [ $file = "/opt/kevrevrun/setup.dir" ]; then
+            style=win
+            prt_info
+            gum style "Repaired $file"
             sleep 0.5
         elif [ $file = "/opt/kevrevrun/status/setup.stage" ]; then
             echo "0" > $file
-            echo "Repaired $file"
+            style=win
+            prt_info
+            gum style "Repaired $file"
             sleep 0.5
         elif [ $file = "/opt/kevrevrun/setup.dir" ]; then
             echo "$HOME" > $file
-            echo "Repaired $file"
+            style=win
+            prt_info
+            gum style "Repaired $file"
             sleep 0.5
         fi
     else
-        echo
-        echo "File $file confirmed"
+        style=win
+        prt_info
+        gum style "File $file confirmed"
         sleep 0.5
     fi
 done
 sleep 1
 # Creates a file that contains all folder used in the installation
-echo
-echo "Creating lists for setup variables"
-echo
-echo "Creating a list file of folder variables..."
+style=msg
+prt_info
+gum style "Creating lists for setup variables"
+gum style "Creating a list file of folder variables..."
 sleep 1
 cat << 'EOF' > /opt/kevrevrun/status/folders.list
 mainDir,/opt/kevrevrun
@@ -86,25 +121,36 @@ dataDir,/opt/kevrevrun/data
 toolsDir,/opt/kevrevrun/tools
 logDir,/opt/kevrevrun/logs
 EOF
-echo "Folder variables have been saved to /opt/kevrevrun/status/folders.list"
+style=win
+prt_info
+gum style "Folder variables have been saved to /opt/kevrevrun/status/folders.list"
 sleep 1
 # Sets the folder variables for each folder in folders.list
-echo
-echo "Exporting folder variables"
+style=msg
+prt_info
+gum style "Exporting folder variables"
 sleep 1
-echo
 fldrList=$(cat /opt/kevrevrun/status/folders.list)
 for f in $fldrList; do
     varName=$(echo $f | cut -d ',' -f 1)
     varValue=$(echo $f | cut -d ',' -f 2)
+    style=msg
+    prt_info
+    gum style "exporting variable $varName..."
+    sleep 0.5
     export $varName="$varValue" 2>&1
-    echo "Folder Variable $varName is set to $varValue"
+    style=win
+    prt_info
+    gum style "Folder Variable $varName is set to $varValue"
     sleep 0.5
 done
-echo "Completed loading folder variables"
+style=win
+prt_info
+gum style "Completed loading folder variables"
 sleep 1
-echo
-echo "Creating a list file of file variables..."
+style=msg
+prt_info
+gum style "Creating a list file of file variables..."
 sleep 1
 cat << 'EOF' > /opt/kevrevrun/status/files.list
 usrIdFile,/opt/kevrevrun/id.usr
@@ -115,24 +161,33 @@ selDEFile,/opt/kevrevrun/status/selDE.status
 debNameFile,/opt/kevrevrun/data/extra/debian.name
 debIdFile,/opt/kevrevrun/data/extra/debian.id
 EOF
-echo
-echo "File variables have been saved to /opt/kevrevrun/status/files.list"
+style=win
+prt_info
+gum style "File variables have been saved to /opt/kevrevrun/status/files.list"
 sleep 1
 # Sets variables for the status files
-echo
-echo "Exporting file variables"
+style=msg
+prt_info
+gum style "Exporting file variables"
 sleep 1
-echo
 varFiles=$(cat /opt/kevrevrun/status/files.list)
 for v in $varFiles; do
     varName=$(echo $v | cut -d ',' -f 1)
     varValue=$(echo $v | cut -d ',' -f 2)
+    style=msg
+    prt_info
+    gum style "Exporting variable $varName..."
+    sleep 0.5
     export $varName="$varValue"
-    echo "File Variable $varName is set to $varValue"
+    style=win
+    prt_info
+    gum style "File Variable $varName is set to $varValue"
     sleep 0.5
 done
 # Creates a list file of setup variables and their values
-echo "Creating a list file of setup variables and values..."
+style=msg
+prt_info
+gum style "Creating a list file of setup variables and values..."
 sleep 1
 cat << 'EOF' > /opt/kevrevrun/status/values.list
 setupStage,/opt/kevrevrun/status/setup.stage
@@ -143,38 +198,52 @@ selDEValue,/opt/kevrevrun/status/selDE.status
 debVerID,/opt/kevrevrun/data/extra/debian.id
 debVerName,/opt/kevrevrun/data/extra/debian.name
 EOF
+style=win
+prt_info
+gum style "File variables have been saved to /opt/kevrevrun/status/files.list"
 sleep 1
-echo
-echo "Reading and Exporting All Setup Variables"
+# Sets variables for the status files
+style=msg
+prt_info
+gum style "Exporting file variables"
 sleep 1
-valueList=$(cat /opt/kevrevrun/status/values.list)
-for v in $valueList; do
+varFiles=$(cat /opt/kevrevrun/status/files.list)
+for v in $varFiles; do
     varName=$(echo $v | cut -d ',' -f 1)
     fileName=$(echo $v | cut -d ',' -f 2)
     varValue=$(cat $fileName)
+    style=msg
+    prt_info
+    gum style "Exporting variable $varName..."
+    sleep 0.5
     export $varName="$varValue"
-    echo "Variable $varName has been imported with value $varValue"
-    sleep 0.25
+    style=win
+    prt_info
+    gum style "File Variable $varName is set to $varValue"
+    sleep 0.5
 done
 sleep 1
-echo 
-echo "Downloading Practical Wayland from github"
+style=msg
+prt_info
+gum style "Downloading Practical Wayland from github"
 sleep 1
-echo
 git -C "$tmpDir" clone https://github.com/harbornode-ca/practical-wayland.git
 if [ -d "$tmpDir/practical-wayland" ]; then
-    echo
-    echo "Practical Wayland sucessfully cloned"
+    style=win
+    prt_info
+    gum style "Practical Wayland sucessfully cloned"
     sleep 1
 fi
-echo
-echo "Moving files from the installation directory to Main directory"
+style=msg
+prt_info
+gum style "Moving files from the installation directory to Main directory"
 sleep 1
-echo
 #Move files from the installation directory to Main directory
 for f in "$scriptDir" "$cfgDir" "$dataDir" "$toolsDir"; do
     srcFldr=$(echo $f | cut -d '/' -f 4)
-    echo "Copying files to folder $f"
+    style=msg
+    prt_info
+    gum style "Copying files to folder $f"
     sleep 0.5
     cp -Rvf $tmpDir/practical-wayland/$srcFldr/* $f
     exitStat=$?
@@ -182,19 +251,22 @@ for f in "$scriptDir" "$cfgDir" "$dataDir" "$toolsDir"; do
     successMsg="Copying files to folder $f completed successfully"
     cmdFail
 done
-echo
-echo "Cleaning up temporary files"
+style=msg
+prt_info
+gum style "Cleaning up temporary files"
 sleep 1.5
-echo
-echo "Removing temporary extraction folder"
+style=msg
+prt_info
+gum style "Removing temporary extraction folder"
 sleep 1.5
 rm -rvf "$tmpDir/practical-wayland"
 exitStat=$?
 errMsg="Removing temporary extraction folder"
 successMsg="Successfully removed temporary extraction folder"
 cmdFail
-echo
-echo "Initial setup is now complete"
+style=win
+prt_info
+gum style "Initial setup is now complete"
 echo 
 sleep 1
 exit 0

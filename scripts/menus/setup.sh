@@ -2,7 +2,9 @@
 curID=$(cat /opt/kevrevrun/cfg/install/current.id)
 stageFile="/opt/kevrevrun/status/setup.stage"
 setupStg=$(cat "$stageFile")
-#START GUM SETTINGS
+#START GUM VARIABLES
+
+#GUM CONFIRM VARIABLES
 export GUM_CONFIRM_PROMPT_FOREGROUND=7
 export GUM_CONFIRM_SELECTED_FOREGROUND=0
 export GUM_CONFIRM_SELECTED_BACKGROUND=3
@@ -10,6 +12,24 @@ export GUM_CONFIRM_UNSELECTED_FOREGROUND=0
 export GUM_CONFIRM_UNSELECTED_BACKGROUND=2
 export GUM_CONFIRM_PADDING="2 0"
 export GUM_CONFIRM_SHOW_HELP=false
+#END GUM CONFIRM VARIABLES
+
+#START GUM CHOOSE VARIABLES
+export GUM_CHOOSE_PADDING="1 0"
+export GUM_CHOOSE_HEIGHT=10
+export GUM_CHOOSE_CURSOR=" > "
+export GUM_CHOOSE_CURSOR_PREFIX="[-] "
+export GUM_CHOOSE_SELECTED_PREFIX="[x] "
+export GUM_CHOOSE_UNSELECTED_PREFIX="[ ] "
+export GUM_CHOOSE_CURSOR_FOREGROUND=7
+export GUM_CHOOSE_HEADER_FOREGROUND=3
+export GUM_CHOOSE_ITEM_FOREGROUND=3
+export GUM_CHOOSE_SELECTED_FOREGROUND=10
+#END GUM CHOOSE VARIABLES
+
+#END GUM VARIABLES
+
+#MESSAGE TYPE SETTINGS
 prt_info (){
 case $style in
     info) export FOREGROUND=7; export BOLD=true;;
@@ -19,172 +39,225 @@ case $style in
     *) export FOREGROUND=7; export BOLD=true;;
 esac
 }
-#END GUM SETTINGS
+#END MESSAGE TYPE SETTINGS
+
+#CMD FAIL FUNCTION
 cmdFail () {
 if [ $exitStat -ne 0 ]; then
-    $gumFailBld "$errMsg"
     sleep 1
     echo
-    $gumFailBld "This script will now exit"
-    gum confirm "Press [ENTER] key to exit"
+    style=lose
+    prt_info    
+    gum style "$errMsg"
+    echo
+    gum style "This script will now exit"
     clear
     exit 1
 else
-    $gumWinBld "$successMsg"
+    style=win
+    prt_info    
+    gum style "$successMsg"
 fi
 }
+#END CMD FAIL FUNCTION
+
+#STAGE CHECK FUNCTION
 chk_stage () {
 setupStg=$(cat "$stageFile")
 setup_stage
 }
+#END STAGE CHECK FUNCTION
+
+#LOAD VARIABLES FUNCTIONS
 loadVars () {
-echo "Setting up Folder Variables"
-echo
+style=msg
+prt_info
+gum style "Setting up Folder Variables"
 sleep 0.5
 fldrList=$(cat /opt/kevrevrun/status/folders.list)
 for f in $fldrList; do
     varName=$(echo $f | cut -d ',' -f 1)
     varValue=$(echo $f | cut -d ',' -f 2)
+    style=msg
+    prt_info
+    gum style "Setting up folder variable $varName"
     export $varName="$varValue" 2>&1
-    echo "Folder Variable $varName is set to $varValue"
+    style=win
+    prt_info
+    gum style "Folder Variable $varName is set to $varValue"
     sleep 0.25
 done
-echo
-echo "Setting up File Variables"
+style=msg
+prt_info
+gum style "Setting up File Variables"
 sleep 0.5
-echo
 varFiles=$(cat /opt/kevrevrun/status/files.list)
 for v in $varFiles; do
     varName=$(echo $v | cut -d ',' -f 1)
     varValue=$(echo $v | cut -d ',' -f 2)
+    style=msg
+    prt_info
+    gum style "Setting up file variable $varName"
     export $varName="$varValue"
-    echo "File Variable $varName is set to $varValue"
+    style=win
+    prt_info
+    gum style "File Variable $varName is set to $varValue"
     sleep 0.25
 done
-echo
-echo "Reading and Exporting All Setup Variables"
+style=msg
+prt_info
+gum style "Reading and Exporting All Setup Variables"
 sleep 0.5
-echo
 valueList=$(cat /opt/kevrevrun/status/values.list)
 for v in $valueList; do
     varName=$(echo $v | cut -d ',' -f 1)
     fileName=$(echo $v | cut -d ',' -f 2)
     varValue=$(cat $fileName)
+    style=msg
+    prt_info
+    gum style "Reading variable $varName"
     export $varName="$varValue"
-    echo "Variable $varName has been imported with value $varValue"
+    style=win
+    prt_info
+    gum style "Variable $varName has been imported with value $varValue"
     sleep 0.25
 done
-echo
-echo "Setting up Colors"
-echo
-while IFS="," read -r varName varValue; do
-    echo "Setting up color $varName with value $varValue"
-    sleep 0.25
-    export $varName="$varValue"
-    echo "Variable $varName has been set to $varValue"
-    sleep 0.25
-done < "$dataDir/csv/colours.csv"
 }
+#END LOAD VARIABLES FUNCTIONS
 stage1 () {
-    $gumMsgBld "Inintializing the install process"
+    style=msg
+    prt_info
+    gum style "Inintializing the install process"
     sleep 1.5
     echo
-    $gumMsgBld "Retrieving inintialization script."
+    style=msg
+    prt_info
+    gum style "Retrieving inintialization script."
     sleep 1
-    wget -nv -O /opt/kevrevrun/scripts/2609180902.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/2609180902.sh
+    style=msg
+    prt_info
+    gum style "Downloading script to temporary folder..."
+    sleep 0.5
+    wget -nv -O $tmpDir/2609180902.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/2609180902.sh
     exitStat=$?
     errMsg="Script download failed."
     successMsg="Script downloaded successfully"
     cmdFail
     echo
-    echo "Running script..."
+    style=msg
+    prt_info
+    gum style "Running script..."
     sleep 1
-    chmod -v +x /opt/kevrevrun/scripts/2609180902.sh
+    chmod -v +x $tmpDir/2609180902.sh
     exitStat=$?
     errMsg="Setup Initialization script failed to run."
     successMsg="Setup Initialization script ran successfully"
     cmdFail
     echo
-    echo "Next steps are to add the APT sources and upgrade the system to Debian $curID."
-    read -p "Do you want to continue with the upgrade? \[Y/N] >\ " nextStep
-    if [ $nextStep =~ ^[Yy]$ ]; then
+    style=msg
+    prt_info
+    gum style "Next steps are to add the APT sources and upgrade the system to Debian $curID."
+    nextStep=$(gum confirm "Do you want to continue with the upgrade?")
+    if [ $nextStep = 0 ]; then
         echo
-        echo "Adding APT Sources and upgrading to Debian $curID..."
-        echo
+        style=msg
+        prt_info
+        gum style "Adding APT Sources and upgrading to Debian $curID..."
         sleep 1
         echo "2" > $stageFile
         chk_stage
     else
-        echo
-        echo "Exit cancelled by user."
-        echo "When you want to continue, please run"
-        echo "$PWD/setup.sh"
-        echo
-        echo "This script will now exit."
-        sleep 1
+        style=msg
+        prt_info
+        gum style "Exit cancelled by user."
+        style=info
+        prt_info
+        gum style "When you want to continue, please run"
+        gum style "$PWD/setup.sh"
+        style=fail
+        prt_info
+        gum style "This script will now exit."
         exit 1
     fi
 }
 stage2 () {
-    echo "Loading Variables"
+    style=msg
+    prt_info
+    gum style "Loading Variables"
     sleep 1
     loadVars
-    echo
-    echo "Starting system update process..."
+    style=msg
+    prt_info
+    gum style "Starting system update process..."
     sleep 1
-    /opt/kevrevrun/scripts/2609180906.sh
+    $tmpDir/2609180906.sh
     exitStat=$? 
     errMsg="System update script failed to run."
     successMsg="System update script ran successfully"
     cmdFail
-    echo
-    echo "The system requires a reboot to complete the upgrade process."
-    echo "After the reboot, please run '$PWD/setup.sh' to continue the installation process"
-    echo "The next step is to install Rustup."
-    read -p "Are you ready to reboot the system? \[Y/N] >\ " nextStep
-    if [ $nextStep =~ ^[Yy]$ ]; then
-        echo
-        echo "Rebooting system..."
+    style=info
+    prt_info
+    gum style "The system requires a reboot to complete the upgrade process."
+    gum style "After the reboot, please run '$PWD/setup.sh' to continue the installation process"
+    gum style "The next step is to install Rustup."
+    sleep 1.5
+    nextStep=$(gum confirm "Are you ready to reboot the system?")
+    if [ $nextStep = 0 ]; then
+        style=msg
+        prt_info
+        gum style "Rebooting system..."
         echo
         sleep 1
         echo "3" > $stageFile
         sudo reboot
     else
-        echo
-        echo "Please restart your system before running the script again."
-        echo "When you want to continue, please run $PWD/setup.sh"
-        echo
-        read -p "Press [ENTER] key to exit"
-        clear
+        style=msg
+        prt_info
+        gum style "Please restart your system before running the script again."
+        style=info
+        prt_info
+        gum style "When you want to continue, please run"
+        gum style "$PWD/setup.sh"
+        style=msg
+        prt_info
+        gum style "This script will now exit."
         exit 1
     fi
 }
 stage3 () {
-    echo "Starting Rust installation..."
+    style=msg
+    prt_info
+    gum style "Starting Rust installation..."
     sleep 1
-    /opt/kevrevrun/scripts/2609180910.sh
+    /opt/kevrevrun/scripts/modules/2609180910.sh
     exitStat=$?
     errMsg="Rust installation script failed to run."
     successMsg="Rust installed and script ran successfully"
     cmdFail
-    echo
-    echo "The next step is to add i386 architecture to the system"
-    read -p "Do you want to continue? \[Y/N] >\ " nextStep
-    if [ $nextStep =~ ^[Yy]$ ]; then
-        echo
-        echo "Adding i386 architecture..."
+    style=msg
+    prt_info
+    gum style "The next step is to add i386 architecture to the system"
+    sleep 1
+    nextStep=$(gum confirm "Do you want to continue?")
+    if [ $nextStep = 0 ]; then
+        style=msg
+        prt_info
+        gum style "Adding i386 architecture..."
         echo
         sleep 1
         echo "4" > $stageFile
         chk_stage
     else
-        echo
-        echo "Exit cancelled by user."
-        echo "When you want to continue, please run"
-        echo "$PWD/setup.sh"
-        echo
-        echo "This script will now exit."
-        sleep 1
+        style=msg
+        prt_info
+        gum style "Exit cancelled by user."
+        style=info
+        prt_info
+        gum style "When you want to continue, please run"
+        gum style "$PWD/setup.sh"
+        style=msg
+        prt_info
+        gum style "This script will now exit."
         exit 1
     fi
 }
