@@ -314,7 +314,7 @@ prt_info
 gum style "Installing Practical Wayland Setup Files..."
 echo
 sleep 1
-gum spin ./260955fa1e.sh
+./260955fa1e.sh
 echo
 exitStat=$?
 errMsg="Practical Wayland Setup failed."
