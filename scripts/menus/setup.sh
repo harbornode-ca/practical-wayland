@@ -309,6 +309,11 @@ errMsg="Added execute permission to setup files script failed."
 successMsg="Added execute permission to setup files script sucessfully"
 cmdFail
 echo
+style=info
+prt_info
+gum style "Installing Practical Wayland Setup Files..."
+echo
+sleep 1
 gum spin ./260955fa1e.sh
 echo
 exitStat=$?
