@@ -80,6 +80,7 @@ esac
 style=info
 prt_info
 gum style "Confirming directory structure"
+echo
 sleep 1
 for folder in "cfg" "status" "scripts" "tmp" "data" "tools"; do
     if [ ! -d "/opt/kevrevrun/$folder" ]; then
@@ -109,6 +110,7 @@ echo
 style=info
 prt_info
 gum style "Checking file structure"
+echo
 sleep 1
 for file in "/opt/kevrevrun/id.usr" "/opt/kevrevrun/name.usr" "/opt/kevrevrun/status/setup.stage" "/opt/kevrevrun/setup.dir"; do
     if [ ! -f $file ]; then
@@ -120,28 +122,28 @@ for file in "/opt/kevrevrun/id.usr" "/opt/kevrevrun/name.usr" "/opt/kevrevrun/st
             style=win
             prt_info
             gum style "Repaired $file"
-            sleep 0.5
+            sleep 0.25
         elif [ $file = "/opt/kevrevrun/name.usr" ]; then
             style=win
             prt_info
             gum style "Repaired $file"
-            sleep 0.5
+            sleep 0.25
         elif [ $file = "/opt/kevrevrun/status/setup.stage" ]; then
             style=win
             prt_info
             gum style "Repaired $file"
-            sleep 0.5
+            sleep 0.25
         elif [ $file = "/opt/kevrevrun/setup.dir" ]; then
             style=win
             prt_info
             gum style "Repaired $file"
-            sleep 0.5
+            sleep 0.25
         elif [ $file = "/opt/kevrevrun/status/setup.stage" ]; then
             echo "0" > $file
             style=win
             prt_info
             gum style "Repaired $file"
-            sleep 0.5
+            sleep 0.25
         elif [ $file = "/opt/kevrevrun/setup.dir" ]; then
             echo "$HOME" > $file
             style=win
@@ -153,9 +155,10 @@ for file in "/opt/kevrevrun/id.usr" "/opt/kevrevrun/name.usr" "/opt/kevrevrun/st
         style=win
         prt_info
         gum style "File $file confirmed"
-        sleep 0.5
+        sleep 0.25
     fi
 done
+echo
 sleep 1
 #END FILE CHECK
 
@@ -185,6 +188,7 @@ style=win
 prt_info
 gum style "Folder variables have been saved to /opt/kevrevrun/status/folders.list"
 sleep 1
+echo
 #FOLDER LIST CREATION END
 
 #FOLDER VARIABLE EXPORT START
@@ -208,6 +212,7 @@ done
 style=win
 prt_info
 gum style "Completed loading folder variables"
+echo
 sleep 1
 #FOLDER VARIABLE EXPORT END
 
@@ -228,6 +233,7 @@ EOF
 style=win
 prt_info
 gum style "File variables have been saved to /opt/kevrevrun/status/files.list"
+echo
 sleep 1
 #FILE LIST CREATION END
 
@@ -249,6 +255,11 @@ for v in $varFiles; do
     gum style "File Variable $varName is set to $varValue"
     sleep 0.25
 done
+style=win
+prt_info
+gum style "Completed loading file variables"
+echo
+sleep 1
 #FILE VARIABLE EXPORT END
 
 #VALUE LIST CREATION START
@@ -268,6 +279,7 @@ EOF
 style=win
 prt_info
 gum style "Variable values have been saved to /opt/kevrevrun/status/values.list"
+echo
 sleep 1
 #VALUE LIST CREATION END
 
@@ -290,7 +302,11 @@ for v in $varValues; do
     gum style "Variable $varName is set to $varValue"
     sleep 0.25
 done
-sleep 0.75
+style=win
+prt_info
+gum style "Completed loading file variables"
+echo
+sleep 1
 #VALUE VARIABLE EXPORT END
 
 #LIST CREATION SECTION END
@@ -299,3 +315,4 @@ sleep 0.75
 style=win
 prt_info
 gum style "Initilialization completed successfully"
+sleep 1
