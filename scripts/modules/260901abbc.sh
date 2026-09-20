@@ -40,16 +40,19 @@ fi
 }
 #END CMD FAIL FUNCTION
 
-
+#START FILE COPY
 for f in $scriptDir $cfgDir $dataDir $toolsDir; do
     srcFldr=$(echo $f | cut -d '/' -f 4)
     style=info
     prt_info
     gum style "Copying files to folder $f"
-    sleep 1
+    sleep 0.25
     cp -Rvf $tmpDir/practical-wayland/$srcFldr/* $f
     exitStat=$?
     errMsg="Copying files to folder $f failed"
     successMsg="Copying files to folder $f completed successfully"
     cmdFail
 done
+#END FILE COPY
+
+#END OF SCRIPT
