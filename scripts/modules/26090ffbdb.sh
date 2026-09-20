@@ -115,7 +115,7 @@ if [ $chkUpgrades != 0 ]; then
     style=msg
     prt_info
     gum style "Updating system"
-    gum spin $moduleDir/2609f211fe.sh
+    gum spin $spinDir/2609f211fe.sh
     exitStat=$?
     errMsg="APT upgrade failed"
     successMsg="APT upgrade completed successfully"

@@ -61,7 +61,7 @@ if [ -d "$HOME/.cargo" ]; then
     prt_info
     gum style "Updating Rust and Cargo"
     sleep 0.5
-    gum spin 2609ad0bbc.sh
+    gum spin $spinDir/2609ad0bbc.sh
     exitStat=$?
     errMsg="Failed to update Rust and Cargo"
     successMsg="Rust and Cargo updated successfully"
@@ -108,7 +108,7 @@ else
     gum style "Installing Rust and Cargo"
     echo
     sleep 0.5
-    gum spin 26099cd945.sh
+    gum spin $spinDir/26099cd945.sh
     exitStat=$?
     errMsg="Failed to install Rust and Cargo"
     successMsg="Rust and Cargo installed successfully"
@@ -132,7 +132,7 @@ style=info
 prt_info
 gum style "Installing Just using cargo"
 sleep 0.5
-gum spin 26092d9817.sh
+gum spin $spinDir/26092d9817.sh
 exitStat=$?
 errMsg="Failed to install Just"
 successMsg="Just installed successfully"

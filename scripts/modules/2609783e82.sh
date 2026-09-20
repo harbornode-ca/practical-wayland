@@ -185,6 +185,7 @@ tmpDir,/opt/kevrevrun/tmp
 dataDir,/opt/kevrevrun/data
 toolsDir,/opt/kevrevrun/tools
 logDir,/opt/kevrevrun/logs
+spinDir,/opt/kevrevrun/scripts/spin
 EOF
 style=info
 prt_info

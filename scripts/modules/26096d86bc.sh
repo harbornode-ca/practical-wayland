@@ -62,7 +62,7 @@ style=info
 prt_info
 gum style "Updating APT package cache"
 sleep 0.5
-gum spin $moduleDir/2609cf9ded.sh
+gum spin $spinDir/2609cf9ded.sh
 exitStat=$?
 errMsg="Failed to update APT package cache"
 successMsg="APT package cache updated successfully"
