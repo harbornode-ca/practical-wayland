@@ -1,4 +1,5 @@
 #!/bin/bash
+# 2609ab672b - downloads debian id and name files to kevrevrun/data/extra
 prt_info () {
 case $style in
     info) export FOREGROUND=7; export BOLD=true;;

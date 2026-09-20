@@ -1,4 +1,5 @@
 #!/bin/bash
+# 260955fa1e - downloads practical-wayland, copies folder contents to relative folders in kevrevrun
 prt_info () {
 case $style in
     info) export FOREGROUND=7; export BOLD=true;;
@@ -11,7 +12,7 @@ esac
 cmdFail () {
 if [ $exitStat -ne 0 ]; then
     style=lose
-    prt_info
+    prt_info    
     gum style "$errMsg"
     sleep 1
     echo

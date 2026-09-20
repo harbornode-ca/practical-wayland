@@ -1,6 +1,6 @@
 #!/bin/bash
-#Sets up install process. Confirms directory structure and creates necessary files/variables. 
-#Downloads the repository and places all files in there relative folders.
+# 2609783e82 - Sets up install process. Confirms directory structure and creates necessary files/variables.
+
 #START GUM VARIABLES
 
 #GUM CONFIRM VARIABLES
