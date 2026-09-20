@@ -84,9 +84,9 @@ export GUM_CHOOSE_SELECTED_FOREGROUND=10
 #START GUM SPIN VARIABLES
 export GUM_SPIN_TITLE="Processing..."
 export GUM_SPIN_SPINNER_FOREGROUND=7
-export GUM_SPIN_TITLE_FOREGROUND=3 
+export GUM_SPIN_TITLE_FOREGROUND=2
 export GUM_SPIN_SPINNER="dot"
-export GUM_SPIN_PADDING="2 0"
+export GUM_SPIN_PADDING="1 0"
 #END GUM SPIN VARIABLES
 
 #START GUM STYLE FUNCTION
@@ -348,6 +348,7 @@ fi
 # END PRACTICAL WAYLAND INSTALL
 
 stage3 () {
+echo
 style=info
 prt_info
 gum style "Adding i386 32bit Architecture to supported architectures..."
@@ -406,7 +407,7 @@ fi
 # END SYSTEM UPGRADE STAGE
 
 # START RUST INSTALLATION STAGE
-stage4() {
+stage5() {
 style=msg
 prt_info
 gum style "Starting Rust installation..."
@@ -543,6 +544,7 @@ case $setupStg in
         ;;
 esac
 }
+clear
 if [ "$setupStg" != "1" ]; then
     loadVars
     setup_stage
