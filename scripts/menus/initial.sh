@@ -209,7 +209,7 @@ sleep 1
 echo
 echo "Downloading script to continue setup..."
 sleep 1
-wget -nv -O "/home/$sudoUser/setup.sh" "https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609180902.sh" 2>&1
+wget -nv -O "/home/$sudoUser/setup.sh" "https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/menus/setup.sh" 2>&1
 exitStat=$?
 errMsg="Failed to download setup script"
 successMsg="Setup script downloaded sucessfully"
