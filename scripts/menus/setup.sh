@@ -260,6 +260,8 @@ if [ $exitStat = 0 ]; then
     echo
     gum style "Continuing..."
     sleep 1
+    gum style "Loading Variables"
+loadVars
     stage2
 else
     echo
@@ -282,29 +284,28 @@ fi
 stage2 () {
 style=info
 prt_info
-echo
-gum style "Loading Variables"
-loadVars
-sleep 1
-style=info
-prt_info
 gum style "Downloading setup files script..."
-sleep 0.5
+echo
+sleep 1
 wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/260955fa1e.sh
 exitStat=$?
 errMsg="Setup files script download failed."
 successMsg="Setup files script downloaded successfully"
 cmdFail
+echo
+sleep 1
 chmod +x 260955fa1e.sh
 exitStat=$?
 errMsg="Added execute permission to setup files script failed."
 successMsg="Added execute permission to setup files script sucessfully"
 cmdFail
+echo
 ./260955fa1e.sh
 exitStat=$?
 errMsg="Setup files script failed to run."
 successMsg="Setup files script ran successfully"
 cmdFail
+echo
 style=info
 prt_info
 echo "3" > $stageFile
