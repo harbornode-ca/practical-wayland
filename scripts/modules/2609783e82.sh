@@ -176,12 +176,11 @@ for f in $fldrList; do
     style=msg
     prt_info
     gum style "exporting variable $varName..."
-    sleep 0.5
     export $varName="$varValue"
     style=win
     prt_info
     gum style "Folder Variable $varName is set to $varValue"
-    sleep 0.5
+    sleep 0.25
 done
 style=win
 prt_info
@@ -216,12 +215,11 @@ for v in $varFiles; do
     style=msg
     prt_info
     gum style "Exporting variable $varName..."
-    sleep 0.5
     export $varName="$varValue"
     style=win
     prt_info
     gum style "File Variable $varName is set to $varValue"
-    sleep 0.5
+    sleep 0.25
 done
 # Creates a list file of setup variables and their values
 style=msg
@@ -255,12 +253,11 @@ for v in $varValues; do
     style=msg
     prt_info
     gum style "Exporting variable $varName..."
-    sleep 0.5
     export $varName="$varValue"
     style=win
     prt_info
-    gum style "File Variable $varName is set to $varValue"
-    sleep 0.5
+    gum style "Variable $varName is set to $varValue"
+    sleep 0.25
 done
 sleep 0.75
 style=win

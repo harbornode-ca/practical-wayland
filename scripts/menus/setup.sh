@@ -181,12 +181,17 @@ style=msg
 prt_info
 gum style "Downloading setup files script..."
 sleep 0.5
-wget -nv -O /opt/kevrevrun/scripts/modules/260955fa1e.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/260955fa1e.sh
+wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/260955fa1e.sh
 exitStat=$?
 errMsg="Setup files script download failed."
 successMsg="Setup files script downloaded successfully"
 cmdFail
-gum spin "/opt/kevrevrun/scripts/modules/260955fa1e.sh"
+chmod +x 260955fa1e.sh
+exitStat=$?
+errMsg="Added execute permission to setup files script failed."
+successMsg="Added execute permission to setup files script sucessfully"
+cmdFail
+gum spin "./260955fa1e.sh"
 exitStat=$?
 errMsg="Setup files script failed to run."
 successMsg="Setup files script ran successfully"
@@ -197,8 +202,8 @@ gum style "The system requires a reboot to complete the upgrade process."
 gum style "After the reboot, please run '$PWD/setup.sh' to continue the installation process"
 gum style "The next step is to install Rustup."
 sleep 1.5
-nextStep=$(gum confirm "Are you ready to reboot the system?")
-if [ $nextStep = 0 ]; then
+gum confirm "Are you ready to reboot the system?"
+if [ $? = 0 ]; then
     style=msg
     prt_info
     gum style "Rebooting system..."
@@ -232,8 +237,8 @@ style=msg
 prt_info
 gum style "The next step is to add i386 architecture to the system"
 sleep 1
-nextStep=$(gum confirm "Do you want to continue?")
-if [ $nextStep = 0 ]; then
+gum confirm "Do you want to continue?"
+if [ $? = 0 ]; then
     style=msg
     prt_info
     gum style "Adding i386 architecture..."
