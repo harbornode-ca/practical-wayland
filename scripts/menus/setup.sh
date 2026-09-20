@@ -320,7 +320,7 @@ if [ $exitStat = 0 ]; then
     echo
     gum style "Continuing..."
     sleep 1
-    stage3
+    chk_stage
 else
     echo
     style=info
@@ -338,13 +338,29 @@ fi
 }
 # END PRACTICAL WAYLAND INSTALL
 
-# START SYSTEM UPGRADE STAGE
 stage3 () {
-#**NEED UPDATE SCRIPT MODULE ADDED**
+style=info
+prt_info
+gum style "Adding i386 32bit Architecture to supported architectures..."
+sleep 1
+$moduleDir/26096d86bc.sh
+exitStat=$?
+errMsg="Failed to add i386 32bit architecture support"
+successMsg="i386 32bit architecture support added successfully"
+cmdFail
+echo "4" > $stageFile
+}
+# START SYSTEM UPGRADE STAGE
+stage4 () {
+$moduleDir/26090ffbdb.sh
+sleep 0.5
+echo
 gum style "The system requires a reboot to complete the upgrade process."
 gum style "After the reboot, please run '$PWD/setup.sh' to continue the installation process"
-gum style "The next step is to install Rustup."
-sleep 1.5
+gum style "The next step is to installs the Rust Toolkit"
+echo
+sleep 0.5
+echo "5" > $stageFile
 gum confirm "Are you ready to reboot the system?"
 exitStat=$?
 if [ $exitStat = 0 ]; then
@@ -353,7 +369,6 @@ if [ $exitStat = 0 ]; then
     gum style "Rebooting system..."
     echo
     sleep 1
-    echo "3" > $stageFile
     sudo reboot
     else
     style=msg
@@ -377,19 +392,20 @@ style=msg
 prt_info
 gum style "Starting Rust installation..."
 sleep 1
-#**NEED RUST MODULE ADDED**
+$moduleDir/260921e7b5.sh
 exitStat=$?
-errMsg="Rust installation script failed to run."
-successMsg="Rust installed and script ran successfully"
+errMsg="Rust Toolkit & Just installation script failed."
+successMsg="Rust Toolkit & Just installed successfully"
 cmdFail
+echo
 style=msg
 prt_info
 sleep 1
+echo "5" > $stageFile
 gum confirm "Do you want to continue?"
 exitStat=$?
 if [ $exitStat = 0 ]; then
     sleep 1
-    echo "4" > $stageFile
     chk_stage
 else
     style=msg

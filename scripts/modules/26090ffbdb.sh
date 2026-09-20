@@ -1,7 +1,9 @@
 #!/bin/bash
 #26090ffbdb.sh - Removes an old style Debian .list files. Removes installer generated .sources file and adds Debian Forky repositories.
 #Updates the system to Debian Forky (testing) and installs firmware packages. Exits prompting user to reboot to complete the update.
-prt_info () {
+
+#START GUM STYLE FUNCTION
+prt_info (){
 case $style in
     info) export FOREGROUND=7; export BOLD=true;;
     msg) export FOREGROUND=3;;
@@ -10,10 +12,13 @@ case $style in
     *) export FOREGROUND=7; export BOLD=true;;
 esac
 }
+#END GUM STYLE FUNCTION
+
+#START CMD FAIL FUNCTION
 cmdFail () {
 if [ $exitStat -ne 0 ]; then
     style=lose
-    prt_info
+    prt_info    
     gum style "$errMsg"
     sleep 1
     echo
@@ -29,13 +34,17 @@ else
     gum style "$successMsg"
     sleep 0.5
 fi
-}
-# These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
+# These variables need to be set directly after a process ends to capture the $? value 
+# and output a message, cmdFail runs function.
 # exitStat=$?
 # errMsg="ERROR MESSAGE"
 # successMsg="SUCCESS MESSAGE"
 # cmdFail
-style=msg
+}
+#END CMD FAIL FUNCTION
+
+#START SETUP APT SOURCES
+style=info
 prt_info
 gum style "Removing non-modernized APT sources and setting up Debian Forky sources"
 echo
@@ -45,42 +54,55 @@ for r in $oldRepos; do
     style=msg
     prt_info
     gum style "Removing $r"
-    sudo rm -fv $r
+    sudo rm -f $r
     exitStat=$?
     errMsg="Removing $r failed"
     successMsg="Removed $r successfully"
-    cmdFail    
+    cmdFail
+    sleep 0.25 
 done
+echo
 style=win
 prt_info
 gum style "Removed old APT sources files"
 sleep 0.5
-echo "Removing Debian installer generated source file"
+echo
+style=msg
+prt_info
+gum style "Removing Debian installer generated source file"
+sleep 0.5
+
 if [ -f /etc/apt/sources.list.d/debian.sources ]; then
     style=msg
     prt_info
     gum style "Removing /etc/apt/sources.list.d/debian.sources"
-    sudo rm -fv /etc/apt/sources.list.d/debian.sources
+    sudo rm -f /etc/apt/sources.list.d/debian.sources
     exitStat=$?
     errMsg="Debian installer generated source file removal failed"
     successMsg="Debian installer generated source file removed successfully"
-    cmdFail    
+    cmdFail
+    sleep 0.25    
 else
     style=win
     prt_info
     gum style "No installer generated modernized source file detected."
     sleep 0.5
 fi
-style=msg
+echo
+style=info
 prt_info
-gum style "Copying Forky sources to /etc/apt/sources.list.d/"
-sleep 1
-sudo cp -fv "$cfgDir/debian-sources/enabledForky.sources" "/etc/apt/sources.list.d/forky.sources"
+gum style "Copying $debVerID sources to /etc/apt/sources.list.d/"
+sleep 0.5
+sudo cp -f "$cfgDir/debian-sources/enabled$debVerID.sources" "/etc/apt/sources.list.d/$debVerID.sources"
 exitStat=$?
-errMsg="Copying Forky sources to /etc/apt/sources.list.d/ failed"
-successMsg="Copying Forky sources to /etc/apt/sources.list.d/ completed successfully"
+errMsg="Copying $debVerID sources to /etc/apt/sources.list.d/ failed"
+successMsg="Copying $debVerID sources to /etc/apt/sources.list.d/ completed successfully"
 cmdFail    
-style=msg
+echo
+#END SETUP APT SOURCES
+
+#START APT UPDATE
+style=info
 prt_info
 gum style "Updating APT package cache"
 sleep 0.5
@@ -94,7 +116,7 @@ if [ $chkUpgrades != 0 ]; then
     style=msg
     prt_info
     gum style "Updating system"
-    sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
+    gum spin $moduleDir/2609f211fe.sh
     exitStat=$?
     errMsg="APT upgrade failed"
     successMsg="APT upgrade completed successfully"
