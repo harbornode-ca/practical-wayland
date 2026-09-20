@@ -1,8 +1,6 @@
 #!/bin/bash
 # 2609783e82 - Sets up install process. Confirms directory structure and creates necessary files/variables.
 
-#START GUM VARIABLES
-
 #GUM CONFIRM VARIABLES
 export GUM_CONFIRM_PROMPT_FOREGROUND=7
 export GUM_CONFIRM_SELECTED_FOREGROUND=0

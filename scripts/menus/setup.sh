@@ -129,19 +129,19 @@ style=msg
 prt_info
 gum style "Grabbing Debian release info..."
 sleep 0.5
-wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609757192.sh
+wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609ab672b.sh
 exitStat=$?
 errMsg="Debian release info script download failed."
 successMsg="Debian release info script downloaded successfully"
-chmod -v +x 2609757192.sh
+chmod -v +x 2609ab672b.sh
 exitStat=$?
 errMsg="Added execute permission to Debian release info script failed."
 successMsg="Added execute permission to Debian release info script sucessfully"
 cmdFail
-./2609757192.sh
+./2609ab672b.sh
 echo
 gum style "Removing Debian release info script..."
-rm -vf 2609757192.sh
+rm -vf 2609ab672b.sh
 exitStat=$?
 errMsg="Removing Debian release info script failed."
 successMsg="Removing Debian release info script sucessfully"
@@ -151,22 +151,31 @@ style=msg
 prt_info
 gum style "Setting up install variables..."
 sleep 0.5
-wget -nv -O /opt/kevrevrun/scripts/modules/2609180902.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609180902.sh
+wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609783e82.sh
 exitStat=$?
 errMsg="Install variable script download failed."
 successMsg="Install variable script downloaded successfully"
 cmdFail
-chmod -v +x /opt/kevrevrun/scripts/modules/2609180902.sh
+chmod -v +x 2609783e82.sh
 exitStat=$?
 errMsg="Added execute permission to install variable script failed."
 successMsg="Added execute permission to install variable script sucessfully"
 cmdFail
-/opt/kevrevrun/scripts/modules/2609180902.sh
+./2609783e82.sh
 exitStat=$?
 errMsg="Install variable script failed to run."
 successMsg="Install variable script ran successfully"
 cmdFail
 echo
+}
+stage2 () {
+style=msg
+prt_info
+gum style "Loading Variables"
+sleep 1
+loadVars
+style=msg
+prt_info
 style=msg
 prt_info
 gum style "Downloading setup files script..."
@@ -176,93 +185,74 @@ exitStat=$?
 errMsg="Setup files script download failed."
 successMsg="Setup files script downloaded successfully"
 cmdFail
-echo "/opt/kevrevrun/scripts/modules/260955fa1e.sh" > /opt/kevrevrun/status/cmd.string
-gum spin "/opt/kevrevrun/scripts/menus/run.sh"
+gum spin "/opt/kevrevrun/scripts/modules/260955fa1e.sh"
 exitStat=$?
 errMsg="Setup files script failed to run."
 successMsg="Setup files script ran successfully"
 cmdFail
-}
-stage2 () {
+style=info
+prt_info
+gum style "The system requires a reboot to complete the upgrade process."
+gum style "After the reboot, please run '$PWD/setup.sh' to continue the installation process"
+gum style "The next step is to install Rustup."
+sleep 1.5
+nextStep=$(gum confirm "Are you ready to reboot the system?")
+if [ $nextStep = 0 ]; then
     style=msg
     prt_info
-    gum style "Loading Variables"
+    gum style "Rebooting system..."
+    echo
     sleep 1
-    loadVars
+    echo "3" > $stageFile
+    sudo reboot
+    else
     style=msg
     prt_info
-    gum style "Starting system update process..."
-    sleep 1
-    $tmpDir/2609180906.sh
-    exitStat=$? 
-    errMsg="System update script failed to run."
-    successMsg="System update script ran successfully"
-    cmdFail
+    gum style "Please restart your system before running the script again."
     style=info
     prt_info
-    gum style "The system requires a reboot to complete the upgrade process."
-    gum style "After the reboot, please run '$PWD/setup.sh' to continue the installation process"
-    gum style "The next step is to install Rustup."
-    sleep 1.5
-    nextStep=$(gum confirm "Are you ready to reboot the system?")
-    if [ $nextStep = 0 ]; then
-        style=msg
-        prt_info
-        gum style "Rebooting system..."
-        echo
-        sleep 1
-        echo "3" > $stageFile
-        sudo reboot
-    else
-        style=msg
-        prt_info
-        gum style "Please restart your system before running the script again."
-        style=info
-        prt_info
-        gum style "When you want to continue, please run"
-        gum style "$PWD/setup.sh"
-        style=msg
-        prt_info
-        gum style "This script will now exit."
-        exit 1
-    fi
-}
-stage3 () {
+    gum style "When you want to continue, please run"
+    gum style "$PWD/setup.sh"
     style=msg
     prt_info
-    gum style "Starting Rust installation..."
-    sleep 1
-    /opt/kevrevrun/scripts/modules/2609180910.sh
-    exitStat=$?
-    errMsg="Rust installation script failed to run."
-    successMsg="Rust installed and script ran successfully"
-    cmdFail
+    gum style "This script will now exit."
+    exit 1
+fi
+style=msg
+prt_info
+gum style "Starting Rust installation..."
+sleep 1
+/opt/kevrevrun/scripts/modules/2609180910.sh
+exitStat=$?
+errMsg="Rust installation script failed to run."
+successMsg="Rust installed and script ran successfully"
+cmdFail
+style=msg
+prt_info
+gum style "The next step is to add i386 architecture to the system"
+sleep 1
+nextStep=$(gum confirm "Do you want to continue?")
+if [ $nextStep = 0 ]; then
     style=msg
     prt_info
-    gum style "The next step is to add i386 architecture to the system"
+    gum style "Adding i386 architecture..."
+    echo
     sleep 1
-    nextStep=$(gum confirm "Do you want to continue?")
-    if [ $nextStep = 0 ]; then
-        style=msg
-        prt_info
-        gum style "Adding i386 architecture..."
-        echo
-        sleep 1
-        echo "4" > $stageFile
-        chk_stage
-    else
-        style=msg
-        prt_info
-        gum style "Exit cancelled by user."
-        style=info
-        prt_info
-        gum style "When you want to continue, please run"
-        gum style "$PWD/setup.sh"
-        style=msg
-        prt_info
-        gum style "This script will now exit."
-        exit 1
-    fi
+    echo "4" > $stageFile
+    chk_stage
+else
+    style=msg
+    prt_info
+    gum style "Exit cancelled by user."
+    style=info
+    prt_info
+    gum style "When you want to continue, please run"
+    gum style "$PWD/setup.sh"
+    style=msg
+    prt_info
+    gum style "This script will now exit."
+    exit 1
+fi
 }
 setup_stage () {
 case $setupStg in

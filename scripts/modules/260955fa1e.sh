@@ -54,11 +54,11 @@ style=msg
 prt_info
 gum style "Making sure file system is clean"
 sleep 0.5
-for f in "$scriptDir" "$cfgDir" "$dataDir" "$toolsDir"; do
+for f in $scriptDir $cfgDir $dataDir $toolsDir; do
     style=msg
     prt_info
     gum style "Ensuring folder $f is empty"
-    rm -rvf "$f"/*
+    rm -rvf $f/*
     exitStat=$?
     errMsg="Removing files from folder $f failed"
     successMsg="Removing files from folder $f completed successfully"
@@ -74,7 +74,7 @@ style=msg
 prt_info
 gum style "Copying files to folders"
 sleep 0.5
-for f in "$scriptDir" "$cfgDir" "$dataDir" "$toolsDir"; do
+for f in $scriptDir $cfgDir $dataDir $toolsDir; do
     srcFldr=$(echo $f | cut -d '/' -f 4)
     style=msg
     prt_info
