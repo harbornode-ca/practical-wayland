@@ -166,7 +166,8 @@ exitStat=$?
 errMsg="Install variable script failed to run."
 successMsg="Install variable script ran successfully"
 cmdFail
-echo
+echo "2" > $stageFile
+stage2
 }
 stage2 () {
 style=msg
