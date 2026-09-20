@@ -422,11 +422,11 @@ fi
 
 # START RUST INSTALLATION STAGE
 stage5() {
-style=msg
+style=info
 prt_info
-gum style "Starting Rust installation..."
+gum style "Starting Rust Toolkit and Just installation..."
 sleep 1
-$moduleDir/26099cd945.sh
+$moduleDir/260921e7b5.sh
 exitStat=$?
 errMsg="Rust Toolkit & Just installation script failed."
 successMsg="Rust Toolkit & Just installed successfully"

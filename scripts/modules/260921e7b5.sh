@@ -132,7 +132,7 @@ style=info
 prt_info
 gum style "Installing Just using cargo"
 sleep 0.5
-gum spin cargo install just
+gum spin 26092d9817.sh
 exitStat=$?
 errMsg="Failed to install Just"
 successMsg="Just installed successfully"
