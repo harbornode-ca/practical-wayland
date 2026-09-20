@@ -203,13 +203,13 @@ done
 echo
 echo "Setting setup directory as /home/$sudoUser"
 sleep 1
-echo "$setupDir" > $setupDirFile
-echo "$setupDir" is now set as setup directory
+echo "/home/$sudoUser" > $cfgDir/setup.dir
+echo "/home/$sudoUser" is now set as setup directory
 sleep 1
 echo
 echo "Downloading script to continue setup..."
 sleep 1
-wget -nv -O "$setupDir/setup.sh" "https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609180902.sh" 2>&1
+wget -nv -O "/home/$sudoUser/setup.sh" "https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609180902.sh" 2>&1
 exitStat=$?
 errMsg="Failed to download setup script"
 successMsg="Setup script downloaded sucessfully"
@@ -218,14 +218,14 @@ echo
 echo "Setting file permissions..."
 sleep 1
 echo "Setting file ownership..."
-chown -v $sudoUser:$sudoUser $setupDir/setup.sh
+chown -v $sudoUser:$sudoUser "/home/$sudoUser/setup.sh"
 exitStat=$?
 errMsg="Failed to set file ownership"
 successMsg="File ownership applied sucessfully"
 cmdFail
 echo
 echo "Setting execute permissions..."
-chmod -v +x $setupDir/setup.sh 2>&1
+chmod -v +x "/home/$sudoUser/setup.sh" 2>&1
 exitStat=$?
 errMsg="Failed to set execute permissions"
 successMsg="Execute permissions applied sucessfully"

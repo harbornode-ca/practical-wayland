@@ -30,7 +30,7 @@ export GUM_CHOOSE_SELECTED_FOREGROUND=10
 #END GUM VARIABLES
 
 #MESSAGE TYPE SETTINGS
-prt_info (){
+prt_info () {
 case $style in
     info) export FOREGROUND=7; export BOLD=true;;
     msg) export FOREGROUND=3;;
@@ -138,7 +138,7 @@ stage1 () {
     prt_info
     gum style "Downloading script to temporary folder..."
     sleep 0.5
-    wget -nv -O $tmpDir/2609180902.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/2609180902.sh
+    wget -nv -O $PWD/2609180902.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/2609180902.sh
     exitStat=$?
     errMsg="Script download failed."
     successMsg="Script downloaded successfully"
@@ -148,7 +148,7 @@ stage1 () {
     prt_info
     gum style "Running script..."
     sleep 1
-    chmod -v +x $tmpDir/2609180902.sh
+    chmod -v +x $PWD/2609180902.sh
     exitStat=$?
     errMsg="Setup Initialization script failed to run."
     successMsg="Setup Initialization script ran successfully"
@@ -157,6 +157,7 @@ stage1 () {
     style=msg
     prt_info
     gum style "Next steps are to add the APT sources and upgrade the system to Debian $curID."
+    rm $PWD/2609180902.sh
     nextStep=$(gum confirm "Do you want to continue with the upgrade?")
     if [ $nextStep = 0 ]; then
         echo
