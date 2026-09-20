@@ -505,3 +505,9 @@ gum write
 '''
 This is not completed. Needs explainations and details for a lot of commands. All gum tools variables and flags are described here.
 '''
+Gum Colours for Scripts (using 8 colour)
+
+Err    1
+Msg    3
+Succ   2
+Info   7

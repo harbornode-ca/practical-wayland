@@ -2,17 +2,35 @@
 curID=$(cat /opt/kevrevrun/cfg/install/current.id)
 stageFile="/opt/kevrevrun/status/setup.stage"
 setupStg=$(cat "$stageFile")
+#START GUM SETTINGS
+export GUM_CONFIRM_PROMPT_FOREGROUND=7
+export GUM_CONFIRM_SELECTED_FOREGROUND=0
+export GUM_CONFIRM_SELECTED_BACKGROUND=3
+export GUM_CONFIRM_UNSELECTED_FOREGROUND=0
+export GUM_CONFIRM_UNSELECTED_BACKGROUND=2
+export GUM_CONFIRM_PADDING="2 0"
+export GUM_CONFIRM_SHOW_HELP=false
+prt_info (){
+case $style in
+    info) export FOREGROUND=7; export BOLD=true;;
+    msg) export FOREGROUND=3;;
+    lose) export FOREGROUND=1; export BOLD=true;;
+    win) export FOREGROUND=2; export BOLD=true;;
+    *) export FOREGROUND=7; export BOLD=true;;
+esac
+}
+#END GUM SETTINGS
 cmdFail () {
 if [ $exitStat -ne 0 ]; then
-    echo "$errMsg"
+    $gumFailBld "$errMsg"
     sleep 1
     echo
-    echo "This script will now exit"
-    read -p "Press [ENTER] key to exit"
+    $gumFailBld "This script will now exit"
+    gum confirm "Press [ENTER] key to exit"
     clear
     exit 1
 else
-    echo "$successMsg"
+    $gumWinBld "$successMsg"
 fi
 }
 chk_stage () {
@@ -56,12 +74,22 @@ for v in $valueList; do
     echo "Variable $varName has been imported with value $varValue"
     sleep 0.25
 done
+echo
+echo "Setting up Colors"
+echo
+while IFS="," read -r varName varValue; do
+    echo "Setting up color $varName with value $varValue"
+    sleep 0.25
+    export $varName="$varValue"
+    echo "Variable $varName has been set to $varValue"
+    sleep 0.25
+done < "$dataDir/csv/colours.csv"
 }
 stage1 () {
-    echo "Inintializing the install process"
+    $gumMsgBld "Inintializing the install process"
     sleep 1.5
     echo
-    echo "Retrieving inintialization script."
+    $gumMsgBld "Retrieving inintialization script."
     sleep 1
     wget -nv -O /opt/kevrevrun/scripts/2609180902.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/2609180902.sh
     exitStat=$?
