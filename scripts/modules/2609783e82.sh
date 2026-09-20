@@ -166,7 +166,6 @@ sleep 0.5
 #END FILE CHECK
 
 #START LIST CREATION SECTION
-
 #FOLDER LIST CREATION START
 style=info
 prt_info
@@ -194,31 +193,6 @@ echo
 sleep 0.5
 #FOLDER LIST CREATION END
 
-#FOLDER VARIABLE EXPORT START
-style=info
-prt_info
-gum style "Exporting folder variables"
-sleep 1
-fldrList=$(cat /opt/kevrevrun/status/folders.list)
-for f in $fldrList; do
-    varName=$(echo $f | cut -d ',' -f 1)
-    varValue=$(echo $f | cut -d ',' -f 2)
-    style=msg
-    prt_info
-    gum style "exporting variable $varName..."
-    export $varName="$varValue"
-    style=win
-    prt_info
-    gum style "Folder Variable $varName is set to $varValue"
-    sleep 0.25
-done
-style=info
-prt_info
-gum style "Completed loading folder variables"
-echo
-sleep 0.5
-#FOLDER VARIABLE EXPORT END
-
 #FILE LIST CREATION
 style=info
 prt_info
@@ -240,31 +214,6 @@ echo
 sleep 0.5
 #FILE LIST CREATION END
 
-#FILE VARIABLE EXPORT START
-style=info
-prt_info
-gum style "Exporting file variables"
-sleep 1
-varFiles=$(cat /opt/kevrevrun/status/files.list)
-for v in $varFiles; do
-    varName=$(echo $v | cut -d ',' -f 1)
-    varValue=$(echo $v | cut -d ',' -f 2)
-    style=msg
-    prt_info
-    gum style "Exporting variable $varName..."
-    export $varName="$varValue"
-    style=win
-    prt_info
-    gum style "File Variable $varName is set to $varValue"
-    sleep 0.25
-done
-style=info
-prt_info
-gum style "Completed loading file variables"
-echo
-sleep 0.5
-#FILE VARIABLE EXPORT END
-
 #VALUE LIST CREATION START
 style=info
 prt_info
@@ -285,33 +234,6 @@ gum style "Variable values have been saved to /opt/kevrevrun/status/values.list"
 echo
 sleep 1
 #VALUE LIST CREATION END
-
-#VALUE VARIABLE EXPORT START
-style=info
-prt_info
-gum style "Exporting variable values"
-sleep 1
-varValues=$(cat /opt/kevrevrun/status/values.list)
-for v in $varValues; do
-    varName=$(echo $v | cut -d ',' -f 1)
-    fileName=$(echo $v | cut -d ',' -f 2)
-    varValue=$(cat $fileName)
-    style=msg
-    prt_info
-    gum style "Exporting variable $varName..."
-    export $varName="$varValue"
-    style=win
-    prt_info
-    gum style "Variable $varName is set to $varValue"
-    sleep 0.25
-done
-style=win
-prt_info
-gum style "Completed loading file variables"
-echo
-sleep 1
-#VALUE VARIABLE EXPORT END
-
 #LIST CREATION SECTION END
 
 #INITIALIZATION PROCESS COMPLETE
