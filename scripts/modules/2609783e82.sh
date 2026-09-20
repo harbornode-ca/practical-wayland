@@ -199,7 +199,6 @@ stageFile,/opt/kevrevrun/status/setup.stage
 deSetFile,/opt/kevrevrun/status/deSet.status
 debNameFile,/opt/kevrevrun/data/extra/debian.name
 debIdFile,/opt/kevrevrun/data/extra/debian.id
-cmdStringFile,/opt/kevrevrun/status/cmd.string
 EOF
 style=win
 prt_info
