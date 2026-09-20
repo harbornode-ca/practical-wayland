@@ -150,6 +150,11 @@ stage1 () {
     sleep 1
     chmod -v +x $PWD/2609180902.sh
     exitStat=$?
+    errMsg="Failed to set execute permissions on script"
+    successMsg="Set execute permissions on script"
+    cmdFail
+    $PWD/2609180902.sh
+    exitStat=$?
     errMsg="Setup Initialization script failed to run."
     successMsg="Setup Initialization script ran successfully"
     cmdFail
@@ -158,7 +163,7 @@ stage1 () {
     prt_info
     gum style "Next steps are to add the APT sources and upgrade the system to Debian $curID."
     rm $PWD/2609180902.sh
-    nextStep=$(gum confirm "Do you want to continue with the upgrade?")
+    nextStep=$(gum confirm "Do you want to continue with the upgrade?" 2>&1)
     if [ $nextStep = 0 ]; then
         echo
         style=msg
