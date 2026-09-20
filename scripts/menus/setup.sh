@@ -138,7 +138,7 @@ stage1 () {
     prt_info
     gum style "Downloading script to temporary folder..."
     sleep 0.5
-    wget -nv -O $PWD/2609180902.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/2609180902.sh
+    wget -nv -O $PWD/2609180902.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609180902.sh
     exitStat=$?
     errMsg="Script download failed."
     successMsg="Script downloaded successfully"
