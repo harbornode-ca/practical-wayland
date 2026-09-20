@@ -92,7 +92,7 @@ style=info
 prt_info
 gum style "Copying $debVerName sources to /etc/apt/sources.list.d/"
 sleep 0.5
-sudo cp -f "$cfgDir/debian-sources/enabled$debVerID.sources" "/etc/apt/sources.list.d/$debVerID.sources"
+sudo cp -f "$cfgDir/apt/enabled$debVerID.sources" "/etc/apt/sources.list.d/$debVerID.sources"
 exitStat=$?
 errMsg="Copying $debVerName sources to /etc/apt/sources.list.d/ failed"
 successMsg="Copying $debVerName sources to /etc/apt/sources.list.d/ completed successfully"
