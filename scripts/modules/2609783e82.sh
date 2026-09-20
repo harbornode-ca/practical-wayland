@@ -158,8 +158,11 @@ for file in "/opt/kevrevrun/id.usr" "/opt/kevrevrun/name.usr" "/opt/kevrevrun/st
         sleep 0.25
     fi
 done
+style=info
+prt_info
+gum style "Completed file checking"
 echo
-sleep 1
+sleep 0.5
 #END FILE CHECK
 
 #START LIST CREATION SECTION
@@ -184,11 +187,11 @@ dataDir,/opt/kevrevrun/data
 toolsDir,/opt/kevrevrun/tools
 logDir,/opt/kevrevrun/logs
 EOF
-style=win
+style=info
 prt_info
 gum style "Folder variables have been saved to /opt/kevrevrun/status/folders.list"
-sleep 1
 echo
+sleep 0.5
 #FOLDER LIST CREATION END
 
 #FOLDER VARIABLE EXPORT START
@@ -209,11 +212,11 @@ for f in $fldrList; do
     gum style "Folder Variable $varName is set to $varValue"
     sleep 0.25
 done
-style=win
+style=info
 prt_info
 gum style "Completed loading folder variables"
 echo
-sleep 1
+sleep 0.5
 #FOLDER VARIABLE EXPORT END
 
 #FILE LIST CREATION
@@ -230,11 +233,11 @@ deSetFile,/opt/kevrevrun/status/deSet.status
 debNameFile,/opt/kevrevrun/data/extra/debian.name
 debIdFile,/opt/kevrevrun/data/extra/debian.id
 EOF
-style=win
+style=info
 prt_info
 gum style "File variables have been saved to /opt/kevrevrun/status/files.list"
 echo
-sleep 1
+sleep 0.5
 #FILE LIST CREATION END
 
 #FILE VARIABLE EXPORT START
@@ -250,16 +253,16 @@ for v in $varFiles; do
     prt_info
     gum style "Exporting variable $varName..."
     export $varName="$varValue"
-    style=win
+    style=msg
     prt_info
     gum style "File Variable $varName is set to $varValue"
     sleep 0.25
 done
-style=win
+style=info
 prt_info
 gum style "Completed loading file variables"
 echo
-sleep 1
+sleep 0.5
 #FILE VARIABLE EXPORT END
 
 #VALUE LIST CREATION START

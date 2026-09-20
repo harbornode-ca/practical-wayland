@@ -120,6 +120,11 @@ for f in $fldrList; do
     gum style "Folder Variable $varName is set to $varValue"
     sleep 0.25
 done
+style=info
+prt_info
+gum style "Completed loading folder variables"
+echo
+sleep 0.5
 #END FOLDER VARIABLES
 
 #FILE VARIABLES
@@ -140,6 +145,11 @@ for v in $varFiles; do
     gum style "File Variable $varName is set to $varValue"
     sleep 0.25
 done
+style=info
+prt_info
+gum style "Completed loading file variables"
+echo
+sleep 0.5
 #END FILE VARIABLES
 
 #VARIABLE VALUES
@@ -161,6 +171,11 @@ for v in $valueList; do
     gum style "Variable $varName has been imported with value $varValue"
     sleep 0.25
 done
+style=info
+prt_info
+gum style "Completed loading variable values"
+echo
+sleep 0.5
 #END VARIABLE VALUES
 
 # START SETUP INITIALIZATION STAGE
