@@ -177,7 +177,7 @@ for f in $fldrList; do
     prt_info
     gum style "exporting variable $varName..."
     sleep 0.5
-    export $varName="$varValue" 2>&1
+    export $varName="$varValue"
     style=win
     prt_info
     gum style "Folder Variable $varName is set to $varValue"
@@ -278,6 +278,25 @@ prt_info
 gum style "Moving files from the installation directory to Main directory"
 sleep 1
 #Move files from the installation directory to Main directory
+style=msg
+prt_info
+gum style "Ensuring empty destination directories"
+sleep 0.5
+for f in "$scriptDir" "$cfgDir" "$dataDir" "$toolsDir"; do
+    style=msg
+    prt_info
+    gum style "Ensuring folder $f is empty"
+    rm -rvf "$f"/*
+    exitStat=$?
+    errMsg="Removing files from folder $f failed"
+    successMsg="Removing files from folder $f completed successfully"
+    cmdFail
+    sleep 0.5
+done
+style=msg
+prt_info
+gum style "Copying files from the installation directory to Main directory"
+sleep 0.5
 for f in "$scriptDir" "$cfgDir" "$dataDir" "$toolsDir"; do
     srcFldr=$(echo $f | cut -d '/' -f 4)
     style=msg
@@ -293,11 +312,11 @@ done
 style=msg
 prt_info
 gum style "Cleaning up temporary files"
-sleep 1.5
+sleep 0.5
 style=msg
 prt_info
 gum style "Removing temporary extraction folder"
-sleep 1.5
+sleep 0.5
 rm -rvf "$tmpDir/practical-wayland"
 exitStat=$?
 errMsg="Removing temporary extraction folder"
