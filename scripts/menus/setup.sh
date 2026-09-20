@@ -301,15 +301,40 @@ successMsg="Added execute permission to setup files script sucessfully"
 cmdFail
 echo
 ./260955fa1e.sh
+echo
 exitStat=$?
-errMsg="Setup files script failed to run."
-successMsg="Setup files script ran successfully"
+errMsg="Practical Wayland Setup failed."
+successMsg="Practical Wayland Setup completed successfully!"
 cmdFail
 echo
-style=info
-prt_info
+sleep 1
+gum style "Next stage is system upgrade!"
+gum style "You can continue installation or come back later to continue."
+sleep 0.5
 echo "3" > $stageFile
-read -p "THIS IS THE END OF TEST --BREAK HERE--"
+gum confirm "Continue Installation?"
+exitStat=$?
+if [ $exitStat = 0 ]; then
+    style=info
+    prt_info
+    echo
+    gum style "Continuing..."
+    sleep 1
+    stage3
+else
+    echo
+    style=info
+    prt_info
+    gum style "Installation cancelled by user."
+    echo
+    gum style "When you want to continue, please run"
+    gum style "$PWD/setup.sh"
+    echo
+    style=msg
+    prt_info
+    gum style "This script will now exit."
+    exit 0
+fi
 }
 # END PRACTICAL WAYLAND INSTALL
 

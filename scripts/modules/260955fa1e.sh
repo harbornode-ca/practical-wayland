@@ -43,62 +43,68 @@ fi
 #START DOWNLOADING PRATICAL WAYLAND INSTALLER
 style=info
 prt_info
-gum style "Downloading Practical Wayland setup installer..."
+gum style "Downloading Practical Wayland Setup installer..."
 echo
 sleep 1
 wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2909b581a8.sh
 echo
 exitStat=$?
-errMsg="Practical Wayland setup installer part 1 download failed."
-successMsg="Practical Wayland setup installer part 1 downloaded successfully"
+errMsg="Practical Wayland Setup installer part 1 download failed."
+successMsg="Practical Wayland Setup installer part 1 downloaded successfully"
 cmdFail
 sleep 1
 wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/260901abbc.sh
 exitStat=$?
-errMsg="Practical Wayland setup installer part 2 download failed."
-successMsg="Practical Wayland setup installer part 2 downloaded successfully"
+errMsg="Practical Wayland Setup installer part 2 download failed."
+successMsg="Practical Wayland Setup installer part 2 downloaded successfully"
 cmdFail
 echo
 gum style "Adding execute permission to Practical Wayland setup installer files"
 chmod +x 2909b581a8.sh 260901abbc.sh
 exitStat=$?
-errMsg="Added execute permission to Practical Wayland setup installer."
-successMsg="Added execute permission to Practical Wayland setup installer sucessfully"
+errMsg="Added execute permission to Practical Wayland Setup installer."
+successMsg="Added execute permission to Practical Wayland Setup installer sucessfully"
 cmdFail
 sleep 1
 echo
 style=info
 prt_info
-gum style "Practical Wayland setup installer files downloaded successfully"
+gum style "Practical Wayland Setup installer files downloaded successfully"
 sleep 1
+echo
 #END DOWNLOADING PRATICAL WAYLAND INSTALLER
 
 #START INSTALLING PRATICAL WAYLAND
+echo
 style=info
 prt_info
-gum style "Downloading Practical Wayland setup files..."
+gum style "Installing Practical Wayland Setup."
 echo
 sleep 1
 gum spin ./2909b581a8.sh
 exitStat=$?
-errMsg="Downloading Practical Wayland setup files failed."
-successMsg="Installing Practical Wayland setup files completed"
+errMsg="Installing Practical Wayland Setup failed."
+successMsg="Installing Practical Wayland Setup completed"
 cmdFail
 echo
-gum style "Installing Practical Wayland setup files"
 sleep 1
 gum spin ./260901abbc.sh
 exitStat=$?
-errMsg="Installing Practical Wayland setup files failed."
-successMsg="Installing Practical Wayland setup files completed"
+errMsg="Installing Practical Wayland Setup failed."
+successMsg="Installing Practical Wayland Setup completed"
 cmdFail
+sleep 1
+echo
+style=info
+prt_info
+gum style "Practical Wayland Setup installation completed"
 sleep 1
 echo
 #END INSTALLING PRATICAL WAYLAND
 
 #START CLEANUP
 gum style "Cleaning up temporary files"
-sleep 0.5
+sleep 1
 gum style "Removing downloaded installer files"
 sleep 0.5
 rm -rf 2909b581a8.sh 260901abbc.sh
@@ -106,6 +112,7 @@ exitStat=$?
 errMsg="Removing downloaded installer files failed."
 successMsg="Successfully removed downloaded installer files"
 cmdFail
+sleep 0.5
 gum style "Removing temporary download folder"
 sleep 0.5
 rm -rf "$tmpDir/practical-wayland"
@@ -113,9 +120,5 @@ exitStat=$?
 errMsg="Removing temporary download folder failed."
 successMsg="Successfully removed temporary download folder"
 cmdFail
+sleep 0.5
 #END CLEANUP
-
-#SCRIPT END
-style=info
-prt_info
-gum style "Practical Wayland setup and installation is complete!"
