@@ -1,5 +1,5 @@
 #!/bin/bash
-#Script Information
+#260901abbc.sh - Copies files from the cloned repository to their final destination folders.
 
 #START GUM STYLE FUNCTION
 prt_info (){

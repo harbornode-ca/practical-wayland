@@ -1,5 +1,5 @@
 #!/bin/bash
-# 260955fa1e - downloads practical-wayland, copies folder contents to relative folders in kevrevrun
+#260955fa1e.sh - Downloads practical-wayland, copies folder contents to relative folders in kevrevrun
 
 #START GUM STYLE FUNCTION
 prt_info (){

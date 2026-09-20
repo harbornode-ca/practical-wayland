@@ -1,16 +1,13 @@
-## APT Repository Files
+# cfg/apt
 
-DEB822 `.sources` files for switching Debian releases. Used by `scripts/2609180904.sh`.
+DEB822 `.sources` files for switching Debian releases.
 
-| File | State | Suite |
-| --- | --- | --- |
-| `enabledForky.sources` | Active | `forky` + `forky-security` |
-| `disabledForky.sources` | Inactive copy | `forky` + `forky-security` |
-| `enabledSid.sources` | Active | `sid` |
-| `disabledSid.sources` | Inactive copy | `sid` |
-| `enabledTrixie.sources` | Active | `trixie` |
-| `disabledTrixie.sources` | Inactive copy | `trixie` |
+| File | Suite |
+| --- | --- |
+| `enabledForky.sources` / `disabledForky.sources` | `forky` + `forky-security` |
+| `enabledSid.sources` / `disabledSid.sources` | `sid` |
+| `enabledTrixie.sources` / `disabledTrixie.sources` | `trixie` |
 
-Current installer target is Forky (`../installerInfo/debian.id` contains `forky`).
+Target suite is `forky` (`../../data/extra/debian.id`).
 
-Convention: copy the desired `enabled*` file to `/etc/apt/sources.list.d/` and remove legacy `sources.list` entries. The `disabled*` copies are kept for quick diffing and rollback.
+`enabled*` is the active variant; `disabled*` is kept for diff/rollback. Install copies the selected `enabled*` to `/etc/apt/sources.list.d/`.

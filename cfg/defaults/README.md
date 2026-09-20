@@ -1,17 +1,9 @@
-## Config Files
+# cfg/defaults
 
-Defaults deployed by the install modules.
+Default configs deployed by install modules.
 
-### `niri/`
-
-Split Niri configuration in KDL format (`https://kdl.dev`):
-
-- `config.kdl` - root file; includes the six files below.
-- `inputs.kdl` - keyboard, mouse, touchpad, tablet.
-- `outputs.kdl` - monitors, scale, position.
-- `layouts.kdl` - tiling layout, gaps, borders, focus behavior.
-- `startup.kdl` - autostarted programs.
-- `winrules.kdl` - per-window rules.
-- `keybinds.kdl` - key bindings.
-
-Edit the split files rather than inlining everything into `config.kdl` so diffs stay readable.
+| Directory | Contents |
+| --- | --- |
+| `niri/` | Split KDL config: `config.kdl` + `inputs.kdl`, `outputs.kdl`, `layouts.kdl`, `startup.kdl`, `winrules.kdl`, `keybinds.kdl`. |
+| `lemurs/` | `lemurs-config.toml` for the Lemurs login manager. |
+| `winApps/` | `winapps.conf` RDP template for WinApps. |

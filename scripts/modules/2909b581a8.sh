@@ -1,5 +1,5 @@
 #!/bin/bash
-#Script Information
+#2909b581a8.sh - Clone practical-wayland repository from github
 
 #START GUM STYLE FUNCTION
 prt_info (){

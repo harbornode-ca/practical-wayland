@@ -1,5 +1,5 @@
 #!/bin/bash
-# 2609ab672b - downloads debian id and name files to kevrevrun/data/extra
+# 2609ab672b.sh - downloads debian id and name files to kevrevrun/data/extra
 
 #START GUM STYLE FUNCTION
 prt_info (){

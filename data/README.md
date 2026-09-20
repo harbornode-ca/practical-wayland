@@ -1,15 +1,12 @@
-## Installer Info Files
+# data
 
-Third-party sources, keys, pinned versions, and install templates. Not Debian release sources (those live in `../debianAPT/`).
+Installer data consumed by the modules. Debian release sources live in `../cfg/apt/`.
 
-- `debian.id` / `debian.name` - installer target release (`forky` / `Forky`).
-- `charm.gpg` / `charm.sources` - Charmbracelet APT repo (provides `gum`).
-- `dms.sources` - DankLinux (DMS) repo for Niri builds.
-- `git-commits.csv` - pinned `name,url,commit` for source builds: `lemurs`, `rat-commander`, `xwayland-satellite`, `lazy-git`, `lazy-spotify`.
-- `nvidia.url` - CUDA keyring `.deb` URL for the NVIDIA driver path.
-- `niri-install.csv` - `source,destination` pairs for Niri artifacts (binary, session file, `wayland-sessions/*.desktop`, portal config, systemd user units).
-- `lemurs-config.toml` - default Lemurs login-manager config.
-- `fontconfig-rm.list` / `fontconfig-add.csv` - bitmap-font blocklist removals and `src,dst` links applied by `scripts/2609181622.sh`.
-- `winapps-compose.yaml` / `winapps.conf` / `winapps.url` - WinApps container definition, RDP config template, and upstream installer URL.
-- `lazy-spotify.url` - patched `go-librespot` binary tarball URL.
-- `opencode.dlr` - one-line Opencode installer (`curl ... | bash`).
+| Directory | Contents |
+| --- | --- |
+| `apt/` | Per-component package lists (`*.apt`): `niri-build`, `niri-runtime`, `ashell-*`, `gpu*`, `lemurs`, `noctalia*`, `rc`, `winapps`, `xwayland-satellite`, `lazy-spotify`. |
+| `csv/` | `git-commits.csv` (pinned source commits), `niri-install.csv` (install destinations), `fontconfig-add.csv`. |
+| `extra/` | `debian.id` / `debian.name` (target release), `fontconfig-rm.list`, `opencode.dlr`. |
+| `repositories/` | Third-party APT sources (`charm.sources`) and keys (`keys/charm.gpg`). |
+| `url/` | Upstream URLs: `nvidia.url`, `winapps.url`, `lazy-spotify.url`. |
+| `containers/compose/` | `winapps-compose.yaml` container definition. |

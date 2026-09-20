@@ -1,11 +1,9 @@
-## Config Folder
+# cfg
 
-Source data consumed by `initial.sh`, `setup.sh`, and the modules in `scripts/`.
+Source data consumed by `scripts/menus/initial.sh`, `scripts/menus/setup.sh`, and the modules in `scripts/modules/`.
 
-| Directory | Purpose |
+| Directory | Contents |
 | --- | --- |
-| `debianAPT/` | Debian release `.sources` files (Forky/Sid/Trixie, enabled/disabled). See `debianAPT/README.md`. |
-| `softwareAPT/` | Per-component APT package lists (`*.apt`, one package per line). See `softwareAPT/README.md`. |
-| `defaultConfig/` | Default application configs deployed to the system (currently `niri/`). See `defaultConfig/README.md`. |
-| `installerInfo/` | Keys, third-party sources, pinned commits, URLs, and templates. See `installerInfo/README.md`. |
-| `systemTheme/` | Theme files. See `systemTheme/README.md`. |
+| `apt/` | DEB822 `.sources` for Forky/Sid/Trixie. See `apt/README.md`. |
+| `defaults/` | Default configs for niri, lemurs, winApps. See `defaults/README.md`. |
+| `theme/` | Reserved for theme assets. See `theme/README.md`. |

@@ -1,10 +1,15 @@
-## Reference Documents
+# ref
 
 Background notes for developers. Not consumed by the installer at runtime.
 
-- `variables.md` - `/opt/kevrevrun` directory layout, status files (`id.usr`, `name.usr`, `setup.stage`, etc.), and variable names.
-- `software.md` - optional-software catalog: Debian repo packages, third-party `.deb` files, source builds, tarball binaries, `cargo` / `cargo-binstall`, `uv`, bash installers, Charmbracelet repo.
-- `gum.md` - Charmbracelet `gum` subcommand flags and variables (choose, confirm, file, filter, format, input, join, log, pager, spin, style, table, write).
-- `gum-log.md` - `gum log` levels, formats, and date formats.
-- `winapps.md` - WinApps container lifecycle with `podman-compose` and FreeRDP cert reset.
-- `xwayland-satellite.md` - XSETTINGS / `xsettingsd` background for X11 apps under Niri.
+| File | Contents |
+| --- | --- |
+| `variables.md` | `/opt/kevrevrun` layout, status files (`id.usr`, `name.usr`, `setup.stage`), variable names. |
+| `software.md` | Optional-software catalog. |
+| `gum.md` | Gum subcommands and variables. |
+| `gumVariables.md` | Project defaults for gum styling. |
+| `gum-colours.md` | Colour palette for gum. |
+| `gum-log.md` | `gum log` levels and formats. |
+| `ascii-symbols.csv` | Symbol reference. |
+| `winapps.md` | WinApps container lifecycle. |
+| `xwayland-satellite.md` | XSETTINGS background for X11 under Niri. |

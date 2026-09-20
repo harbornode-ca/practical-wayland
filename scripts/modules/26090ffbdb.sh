@@ -1,5 +1,5 @@
 #!/bin/bash
-#Removes an old style Debian .list files. Removes installer generated .sources file and adds Debian Forky repositories.
+#26090ffbdb.sh - Removes an old style Debian .list files. Removes installer generated .sources file and adds Debian Forky repositories.
 #Updates the system to Debian Forky (testing) and installs firmware packages. Exits prompting user to reboot to complete the update.
 prt_info () {
 case $style in
