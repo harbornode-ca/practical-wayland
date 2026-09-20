@@ -300,11 +300,20 @@ errMsg="Added execute permission to setup files script failed."
 successMsg="Added execute permission to setup files script sucessfully"
 cmdFail
 echo
-./260955fa1e.sh
+gum spin ./260955fa1e.sh
 echo
 exitStat=$?
 errMsg="Practical Wayland Setup failed."
 successMsg="Practical Wayland Setup completed successfully!"
+cmdFail
+echo
+style=info
+prt_info
+gum style "Removing setup files script..."
+rm -f 260955fa1e.sh
+exitStat=$?
+errMsg="Removing setup files script failed."
+successMsg="Removing setup files script sucessfully"
 cmdFail
 echo
 sleep 1
@@ -349,15 +358,25 @@ errMsg="Failed to add i386 32bit architecture support"
 successMsg="i386 32bit architecture support added successfully"
 cmdFail
 echo "4" > $stageFile
+sleep 1
+chk_stage
 }
 # START SYSTEM UPGRADE STAGE
 stage4 () {
+style=info
+prt_info
+gum style "Starting system upgrade to Debian $debVerName"
+sleep 1
 $moduleDir/26090ffbdb.sh
+exitStat=$?
+errMsg="Upgrading to Debian $debVerName failed!"
+successMsg="System upgraded to Debian $debVerName successfully!"
+cmdFail
 sleep 0.5
 echo
 gum style "The system requires a reboot to complete the upgrade process."
 gum style "After the reboot, please run '$PWD/setup.sh' to continue the installation process"
-gum style "The next step is to installs the Rust Toolkit"
+gum style "The next step installs the Rust Toolkit"
 echo
 sleep 0.5
 echo "5" > $stageFile

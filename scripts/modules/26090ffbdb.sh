@@ -91,12 +91,12 @@ fi
 echo
 style=info
 prt_info
-gum style "Copying $debVerID sources to /etc/apt/sources.list.d/"
+gum style "Copying $debVerName sources to /etc/apt/sources.list.d/"
 sleep 0.5
 sudo cp -f "$cfgDir/debian-sources/enabled$debVerID.sources" "/etc/apt/sources.list.d/$debVerID.sources"
 exitStat=$?
-errMsg="Copying $debVerID sources to /etc/apt/sources.list.d/ failed"
-successMsg="Copying $debVerID sources to /etc/apt/sources.list.d/ completed successfully"
+errMsg="Copying $debVerName sources to /etc/apt/sources.list.d/ failed"
+successMsg="Copying $debVerName sources to /etc/apt/sources.list.d/ completed successfully"
 cmdFail    
 echo
 #END SETUP APT SOURCES
@@ -137,7 +137,7 @@ gum style "Upgrade process completed!"
 sleep 1
 style=msg
 prt_info
-gum style "The system has been updated to Debian Forky."
+gum style "The system has been updated to Debian $DebVerName."
 sleep 1
 style=msg
 prt_info

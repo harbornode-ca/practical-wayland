@@ -44,6 +44,7 @@ fi
 #END CMD FAIL FUNCTION
 
 #START ADD I386 ARCH
+echo
 style=info
 prt_info
 gum style "Running dpkg to add i386 32bit Architecture to supported architectures"
