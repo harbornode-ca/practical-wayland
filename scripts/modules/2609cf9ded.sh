@@ -41,4 +41,4 @@ fi
 # cmdFail
 }
 #END CMD FAIL FUNCTION
-DEBIAN_FRONTEND=noninteractive apt update
+sudo DEBIAN_FRONTEND=noninteractive apt update
