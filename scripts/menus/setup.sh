@@ -195,6 +195,7 @@ errMsg="Added execute permission to Debian release info script failed."
 successMsg="Added execute permission to Debian release info script sucessfully"
 cmdFail
 ./2609ab672b.sh
+echo
 exitStat=$?
 errMsg="Debian release info script failed to run."
 successMsg="Debian release info script ran successfully"
@@ -207,6 +208,7 @@ exitStat=$?
 errMsg="Removing Debian release info script failed."
 successMsg="Removing Debian release info script sucessfully"
 cmdFail
+echo
 style=info
 prt_info
 gum style "Setting up install variables..."
@@ -215,17 +217,21 @@ wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/
 exitStat=$?
 errMsg="Install variable script download failed."
 successMsg="Install variable script downloaded successfully"
+echo
 cmdFail
 chmod +x 2609783e82.sh
 exitStat=$?
 errMsg="Added execute permission to install variable script failed."
 successMsg="Added execute permission to install variable script sucessfully"
 cmdFail
+echo
 ./2609783e82.sh
+echo
 exitStat=$?
 errMsg="Install variable script failed to run."
 successMsg="Install variable script ran successfully"
 cmdFail
+echo
 style=info
 prt_info
 gum style "Removing Install variable script..."
@@ -234,11 +240,13 @@ exitStat=$?
 errMsg="Removing Install variable script failed."
 successMsg="Removing Install variable script sucessfully"
 cmdFail
+echo
 style=info
 prt_info
 gum style "Setup initialization process is complete!"
 sleep 0.5
-gum style "Next stage upgrade the system to $debianName"
+echo
+gum style "Next stage installs Practical Wayland files!"
 gum style "You can continue installation or come back later to continue."
 sleep 0.5
 echo "2" > $stageFile
