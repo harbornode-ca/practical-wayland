@@ -46,7 +46,7 @@ prt_info
 gum style "Downloading Practical Wayland Setup installer..."
 echo
 sleep 1
-wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2909b581a8.sh
+wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609b581a8.sh
 echo
 exitStat=$?
 errMsg="Practical Wayland Setup installer part 1 download failed."
@@ -60,7 +60,7 @@ successMsg="Practical Wayland Setup installer part 2 downloaded successfully"
 cmdFail
 echo
 gum style "Adding execute permission to Practical Wayland setup installer files"
-chmod +x 2909b581a8.sh 260901abbc.sh
+chmod +x 2609b581a8.sh 260901abbc.sh
 exitStat=$?
 errMsg="Added execute permission to Practical Wayland Setup installer."
 successMsg="Added execute permission to Practical Wayland Setup installer sucessfully"
@@ -81,7 +81,7 @@ prt_info
 gum style "Installing Practical Wayland Setup."
 echo
 sleep 1
-gum spin ./2909b581a8.sh
+gum spin ./2609b581a8.sh
 exitStat=$?
 errMsg="Installing Practical Wayland Setup failed."
 successMsg="Installing Practical Wayland Setup completed"
@@ -107,7 +107,7 @@ gum style "Cleaning up temporary files"
 sleep 1
 gum style "Removing downloaded installer files"
 sleep 0.5
-rm -rf 2909b581a8.sh 260901abbc.sh
+rm -rf 2609b581a8.sh 260901abbc.sh
 exitStat=$?
 errMsg="Removing downloaded installer files failed."
 successMsg="Successfully removed downloaded installer files"
