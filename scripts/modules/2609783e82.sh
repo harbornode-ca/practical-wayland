@@ -1,6 +1,37 @@
 #!/bin/bash
 # 2609783e82 - Sets up install process. Confirms directory structure and creates necessary files/variables.
 
+#START CMD FAIL FUNCTION
+cmdFail () {
+if [ $exitStat -ne 0 ]; then
+    style=lose
+    prt_info    
+    gum style "$errMsg"
+    sleep 1
+    echo
+    style=msg
+    prt_info
+    gum style "This script will now exit"
+    sleep 1
+    clear
+    exit 1
+else
+    style=win
+    prt_info
+    gum style "$successMsg"
+    sleep 0.5
+fi
+# These variables need to be set directly after a process ends to capture the $? value 
+# and output a message, cmdFail runs function.
+# exitStat=$?
+# errMsg="ERROR MESSAGE"
+# successMsg="SUCCESS MESSAGE"
+# cmdFail
+}
+#END CMD FAIL FUNCTION
+
+
+#START GUM VARIABLES
 #GUM CONFIRM VARIABLES
 export GUM_CONFIRM_PROMPT_FOREGROUND=7
 export GUM_CONFIRM_SELECTED_FOREGROUND=0
@@ -24,10 +55,16 @@ export GUM_CHOOSE_ITEM_FOREGROUND=3
 export GUM_CHOOSE_SELECTED_FOREGROUND=10
 #END GUM CHOOSE VARIABLES
 
-#END GUM VARIABLES
+#START GUM SPIN VARIABLES
+export GUM_SPIN_TITLE="Processing..."
+export GUM_SPIN_SPINNER_FOREGROUND=7
+export GUM_SPIN_TITLE_FOREGROUND=3 
+export GUM_SPIN_SPINNER=dots
+export GUM_SPIN_PADDING="2 0"
+#END GUM SPIN VARIABLES
 
-#MESSAGE TYPE SETTINGS
-prt_info () {
+#START GUM STYLE FUNCTION
+prt_info (){
 case $style in
     info) export FOREGROUND=7; export BOLD=true;;
     msg) export FOREGROUND=3;;
@@ -36,34 +73,11 @@ case $style in
     *) export FOREGROUND=7; export BOLD=true;;
 esac
 }
+#END GUM STYLE FUNCTION
+#END GUM VARIABLES
 
-#END MESSAGE TYPE SETTINGS
-cmdFail () {
-if [ $exitStat -ne 0 ]; then
-    style=lose
-    prt_info
-    gum style "$errMsg"
-    sleep 1
-    echo
-    style=msg
-    prt_info
-    gum style "This script will now exit"
-    sleep 1
-    clear
-    exit 1
-else
-    style=win
-    prt_info
-    gum style "$successMsg"
-    sleep 0.5
-fi
-}
-#These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
-#exitStat=$?
-#errMsg="ERROR MESSAGE"
-#successMsg="SUCCESS MESSAGE"
-#cmdFail
-style=msg
+#START DIRECTORY CHECK
+style=info
 prt_info
 gum style "Confirming directory structure"
 sleep 1
@@ -89,9 +103,12 @@ for folder in "cfg" "status" "scripts" "tmp" "data" "tools"; do
     fi
 done
 echo
-    style=msg
-    prt_info
-    gum style "Checking file structure"
+#END DIRECTORY CHECK
+
+#START FILE CHECK
+style=info
+prt_info
+gum style "Checking file structure"
 sleep 1
 for file in "/opt/kevrevrun/id.usr" "/opt/kevrevrun/name.usr" "/opt/kevrevrun/status/setup.stage" "/opt/kevrevrun/setup.dir"; do
     if [ ! -f $file ]; then
@@ -140,8 +157,12 @@ for file in "/opt/kevrevrun/id.usr" "/opt/kevrevrun/name.usr" "/opt/kevrevrun/st
     fi
 done
 sleep 1
-# Creates a file that contains all folder used in the installation
-style=msg
+#END FILE CHECK
+
+#START LIST CREATION SECTION
+
+#FOLDER LIST CREATION START
+style=info
 prt_info
 gum style "Creating list files for setup variables"
 sleep 1
@@ -164,8 +185,10 @@ style=win
 prt_info
 gum style "Folder variables have been saved to /opt/kevrevrun/status/folders.list"
 sleep 1
-# Sets the folder variables for each folder in folders.list
-style=msg
+#FOLDER LIST CREATION END
+
+#FOLDER VARIABLE EXPORT START
+style=info
 prt_info
 gum style "Exporting folder variables"
 sleep 1
@@ -186,7 +209,10 @@ style=win
 prt_info
 gum style "Completed loading folder variables"
 sleep 1
-style=msg
+#FOLDER VARIABLE EXPORT END
+
+#FILE LIST CREATION
+style=info
 prt_info
 gum style "Creating a list file of file variables..."
 sleep 1
@@ -203,8 +229,10 @@ style=win
 prt_info
 gum style "File variables have been saved to /opt/kevrevrun/status/files.list"
 sleep 1
-# Sets variables for the status files
-style=msg
+#FILE LIST CREATION END
+
+#FILE VARIABLE EXPORT START
+style=info
 prt_info
 gum style "Exporting file variables"
 sleep 1
@@ -221,8 +249,10 @@ for v in $varFiles; do
     gum style "File Variable $varName is set to $varValue"
     sleep 0.25
 done
-# Creates a list file of setup variables and their values
-style=msg
+#FILE VARIABLE EXPORT END
+
+#VALUE LIST CREATION START
+style=info
 prt_info
 gum style "Creating a list file of setup variables and values..."
 sleep 1
@@ -239,8 +269,10 @@ style=win
 prt_info
 gum style "Variable values have been saved to /opt/kevrevrun/status/values.list"
 sleep 1
-# Sets variables for the status files
-style=msg
+#VALUE LIST CREATION END
+
+#VALUE VARIABLE EXPORT START
+style=info
 prt_info
 gum style "Exporting variable values"
 sleep 1
@@ -259,7 +291,11 @@ for v in $varValues; do
     sleep 0.25
 done
 sleep 0.75
+#VALUE VARIABLE EXPORT END
+
+#LIST CREATION SECTION END
+
+#INITIALIZATION PROCESS COMPLETE
 style=win
 prt_info
 gum style "Initilialization completed successfully"
-sleep 1

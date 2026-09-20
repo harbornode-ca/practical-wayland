@@ -2,44 +2,34 @@
 stageFile="/opt/kevrevrun/status/setup.stage"
 setupStg=$(cat "$stageFile")
 
-#START GUM VARIABLES
-
-#GUM CONFIRM VARIABLES
-export GUM_CONFIRM_PROMPT_FOREGROUND=7
-export GUM_CONFIRM_SELECTED_FOREGROUND=0
-export GUM_CONFIRM_SELECTED_BACKGROUND=3
-export GUM_CONFIRM_UNSELECTED_FOREGROUND=0
-export GUM_CONFIRM_UNSELECTED_BACKGROUND=2
-export GUM_CONFIRM_PADDING="2 0"
-export GUM_CONFIRM_SHOW_HELP=false
-#END GUM CONFIRM VARIABLES
-
-#START GUM CHOOSE VARIABLES
-export GUM_CHOOSE_PADDING="1 0"
-export GUM_CHOOSE_HEIGHT=10
-export GUM_CHOOSE_CURSOR=" > "
-export GUM_CHOOSE_CURSOR_PREFIX="[-] "
-export GUM_CHOOSE_SELECTED_PREFIX="[x] "
-export GUM_CHOOSE_UNSELECTED_PREFIX="[ ] "
-export GUM_CHOOSE_CURSOR_FOREGROUND=7
-export GUM_CHOOSE_HEADER_FOREGROUND=3
-export GUM_CHOOSE_ITEM_FOREGROUND=3
-export GUM_CHOOSE_SELECTED_FOREGROUND=10
-#END GUM CHOOSE VARIABLES
-
-#END GUM VARIABLES
-
-#MESSAGE TYPE SETTINGS
-prt_info () {
-case $style in
-    info) export FOREGROUND=7; export BOLD=true;;
-    msg) export FOREGROUND=3;;
-    lose) export FOREGROUND=1; export BOLD=true;;
-    win) export FOREGROUND=2; export BOLD=true;;
-    *) export FOREGROUND=7; export BOLD=true;;
-esac
+#START CMD FAIL FUNCTION
+cmdFail () {
+if [ $exitStat -ne 0 ]; then
+    style=lose
+    prt_info    
+    gum style "$errMsg"
+    sleep 1
+    echo
+    style=msg
+    prt_info
+    gum style "This script will now exit"
+    sleep 1
+    clear
+    exit 1
+else
+    style=win
+    prt_info
+    gum style "$successMsg"
+    sleep 0.5
+fi
+# These variables need to be set directly after a process ends to capture the $? value 
+# and output a message, cmdFail runs function.
+# exitStat=$?
+# errMsg="ERROR MESSAGE"
+# successMsg="SUCCESS MESSAGE"
+# cmdFail
 }
-#END MESSAGE TYPE SETTINGS
+#END CMD FAIL FUNCTION
 
 #CMD FAIL FUNCTION
 cmdFail () {
@@ -67,9 +57,53 @@ setup_stage
 }
 #END STAGE CHECK FUNCTION
 
-#LOAD VARIABLES FUNCTIONS
-loadVars () {
-style=msg
+#START GUM VARIABLES
+#GUM CONFIRM VARIABLES
+export GUM_CONFIRM_PROMPT_FOREGROUND=7
+export GUM_CONFIRM_SELECTED_FOREGROUND=0
+export GUM_CONFIRM_SELECTED_BACKGROUND=3
+export GUM_CONFIRM_UNSELECTED_FOREGROUND=0
+export GUM_CONFIRM_UNSELECTED_BACKGROUND=2
+export GUM_CONFIRM_PADDING="2 0"
+export GUM_CONFIRM_SHOW_HELP=false
+#END GUM CONFIRM VARIABLES
+
+#START GUM CHOOSE VARIABLES
+export GUM_CHOOSE_PADDING="1 0"
+export GUM_CHOOSE_HEIGHT=10
+export GUM_CHOOSE_CURSOR=" > "
+export GUM_CHOOSE_CURSOR_PREFIX="[-] "
+export GUM_CHOOSE_SELECTED_PREFIX="[x] "
+export GUM_CHOOSE_UNSELECTED_PREFIX="[ ] "
+export GUM_CHOOSE_CURSOR_FOREGROUND=7
+export GUM_CHOOSE_HEADER_FOREGROUND=3
+export GUM_CHOOSE_ITEM_FOREGROUND=3
+export GUM_CHOOSE_SELECTED_FOREGROUND=10
+#END GUM CHOOSE VARIABLES
+
+#START GUM SPIN VARIABLES
+export GUM_SPIN_TITLE="Processing..."
+export GUM_SPIN_SPINNER_FOREGROUND=7
+export GUM_SPIN_TITLE_FOREGROUND=3 
+export GUM_SPIN_SPINNER=dots
+export GUM_SPIN_PADDING="2 0"
+#END GUM SPIN VARIABLES
+
+#START GUM STYLE FUNCTION
+prt_info (){
+case $style in
+    info) export FOREGROUND=7; export BOLD=true;;
+    msg) export FOREGROUND=3;;
+    lose) export FOREGROUND=1; export BOLD=true;;
+    win) export FOREGROUND=2; export BOLD=true;;
+    *) export FOREGROUND=7; export BOLD=true;;
+esac
+}
+#END GUM STYLE FUNCTION
+#END GUM VARIABLES
+
+#FOLDER VARIABLES
+style=info
 prt_info
 gum style "Setting up Folder Variables"
 sleep 0.5
@@ -86,7 +120,10 @@ for f in $fldrList; do
     gum style "Folder Variable $varName is set to $varValue"
     sleep 0.25
 done
-style=msg
+#END FOLDER VARIABLES
+
+#FILE VARIABLES
+style=info
 prt_info
 gum style "Setting up File Variables"
 sleep 0.5
@@ -103,7 +140,10 @@ for v in $varFiles; do
     gum style "File Variable $varName is set to $varValue"
     sleep 0.25
 done
-style=msg
+#END FILE VARIABLES
+
+#VARIABLE VALUES
+style=info
 prt_info
 gum style "Reading and Exporting All Setup Variables"
 sleep 0.5
@@ -121,33 +161,38 @@ for v in $valueList; do
     gum style "Variable $varName has been imported with value $varValue"
     sleep 0.25
 done
-}
-#END LOAD VARIABLES FUNCTIONS
+#END VARIABLE VALUES
+
+# START SETUP INITIALIZATION STAGE
 stage1 () {
-echo
-style=msg
+style=info
 prt_info
 gum style "Grabbing Debian release info..."
 sleep 0.5
+echo
 wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609ab672b.sh
 exitStat=$?
 errMsg="Debian release info script download failed."
 successMsg="Debian release info script downloaded successfully"
-chmod -v +x 2609ab672b.sh
+chmod +x 2609ab672b.sh
 exitStat=$?
 errMsg="Added execute permission to Debian release info script failed."
 successMsg="Added execute permission to Debian release info script sucessfully"
 cmdFail
 ./2609ab672b.sh
-echo
+exitStat=$?
+errMsg="Debian release info script failed to run."
+successMsg="Debian release info script ran successfully"
+cmdFail
+style=info
+prt_info
 gum style "Removing Debian release info script..."
-rm -vf 2609ab672b.sh
+rm -f 2609ab672b.sh
 exitStat=$?
 errMsg="Removing Debian release info script failed."
 successMsg="Removing Debian release info script sucessfully"
 cmdFail
-echo
-style=msg
+style=info
 prt_info
 gum style "Setting up install variables..."
 sleep 0.5
@@ -156,7 +201,7 @@ exitStat=$?
 errMsg="Install variable script download failed."
 successMsg="Install variable script downloaded successfully"
 cmdFail
-chmod -v +x 2609783e82.sh
+chmod +x 2609783e82.sh
 exitStat=$?
 errMsg="Added execute permission to install variable script failed."
 successMsg="Added execute permission to install variable script sucessfully"
@@ -166,11 +211,26 @@ exitStat=$?
 errMsg="Install variable script failed to run."
 successMsg="Install variable script ran successfully"
 cmdFail
+style=info
+prt_info
+gum style "Removing Install variable script..."
+rm -f 2609783e82.sh
+exitStat=$?
+errMsg="Removing Install variable script failed."
+successMsg="Removing Install variable script sucessfully"
+cmdFail
+style=info
+prt_info
+gum style "Setup initialization process is complete!"
+sleep 0.5
+gum style "Next stage upgrade the system to $debianName"
+gum style "You can continue installation or come back later to continue."
+sleep 0.5
 echo "2" > $stageFile
-gum confirm "Are you ready to continue?"
+gum confirm "Continue Installation?"
 exitStat=$?
 if [ $exitStat = 0 ]; then
-    style=msg
+    style=info
     prt_info
     echo
     gum style "Continuing..."
@@ -178,28 +238,30 @@ if [ $exitStat = 0 ]; then
     stage2
 else
     echo
-    style=msg
-    prt_info
-    gum style "Exit cancelled by user."
     style=info
     prt_info
+    gum style "Installation cancelled by user."
     echo
     gum style "When you want to continue, please run"
     gum style "$PWD/setup.sh"
+    echo
     style=msg
     prt_info
-    echo
     gum style "This script will now exit."
     exit 0
 fi
 }
+# END SETUP INITIALIZATION STAGE
+
+# START PRACTICAL WAYLAND INSTALL
 stage2 () {
 style=info
 prt_info
 echo
 gum style "Loading Variables"
+loadVars
 sleep 1
-style=msg
+style=info
 prt_info
 gum style "Downloading setup files script..."
 sleep 0.5
@@ -213,7 +275,7 @@ exitStat=$?
 errMsg="Added execute permission to setup files script failed."
 successMsg="Added execute permission to setup files script sucessfully"
 cmdFail
-gum spin "./260955fa1e.sh"
+./260955fa1e.sh
 exitStat=$?
 errMsg="Setup files script failed to run."
 successMsg="Setup files script ran successfully"
@@ -221,6 +283,13 @@ cmdFail
 style=info
 prt_info
 echo "3" > $stageFile
+read -p "THIS IS THE END OF TEST --BREAK HERE--"
+}
+# END PRACTICAL WAYLAND INSTALL
+
+# START SYSTEM UPGRADE STAGE
+stage3 () {
+#**NEED UPDATE SCRIPT MODULE ADDED**
 gum style "The system requires a reboot to complete the upgrade process."
 gum style "After the reboot, please run '$PWD/setup.sh' to continue the installation process"
 gum style "The next step is to install Rustup."
@@ -248,25 +317,26 @@ if [ $exitStat = 0 ]; then
     gum style "This script will now exit."
     exit 1
 fi
+}
+# END SYSTEM UPGRADE STAGE
+
+# START RUST INSTALLATION STAGE
+stage4() {
 style=msg
 prt_info
 gum style "Starting Rust installation..."
 sleep 1
-/opt/kevrevrun/scripts/modules/2609180910.sh
+#**NEED RUST MODULE ADDED**
 exitStat=$?
 errMsg="Rust installation script failed to run."
 successMsg="Rust installed and script ran successfully"
 cmdFail
 style=msg
 prt_info
-gum style "The next step is to add i386 architecture to the system"
 sleep 1
 gum confirm "Do you want to continue?"
-if [ $? = 0 ]; then
-    style=msg
-    prt_info
-    gum style "Adding i386 architecture..."
-    echo
+exitStat=$?
+if [ $exitStat = 0 ]; then
     sleep 1
     echo "4" > $stageFile
     chk_stage
@@ -287,26 +357,7 @@ else
     exit 1
 fi
 }
-stage3 () {
-style=msg
-prt_info
-echo
-gum style "Adding i386 architecture..."
-sleep 1
-$moduleDir/26096d86bc.sh
-exitStat=$?
-errMsg="Adding i386 architecture script failed to run."
-successMsg="i386 architecture added and script ran successfully"
-cmdFail
-echo "4" > $stageFile
-}
-stage4 () {
-style=msg
-prt_info
-echo
-gum style "Upgrading system to $debVerName"
 
-}
 setup_stage () {
 case $setupStg in
     1) 

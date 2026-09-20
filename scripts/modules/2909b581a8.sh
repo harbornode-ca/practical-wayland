@@ -1,5 +1,5 @@
 #!/bin/bash
-# 260955fa1e - downloads practical-wayland, copies folder contents to relative folders in kevrevrun
+#Script Information
 
 #START GUM STYLE FUNCTION
 prt_info (){
@@ -42,38 +42,16 @@ fi
 }
 #END CMD FAIL FUNCTION
 
-
 #START PRATICAL WAYLAND DOWNLOAD
 style=info
 prt_info
 gum style "Downloading Practical Wayland from github"
 sleep 1
-gum spin $moduleDir/2909b581a8.sh
+git -C "$tmpDir" clone https://github.com/harbornode-ca/practical-wayland.git
+if [ -d "$tmpDir/practical-wayland" ]; then
+    style=win
+    prt_info
+    gum style "Practical Wayland sucessfully cloned"
+    sleep 1
+fi
 #END PRATICAL WAYLAND DOWNLOAD
-
-#START PRATICAL WAYLAND CLEANUP AND INSTALL
-style=info
-prt_info
-gum style "Setting up kevrevrun folder structure"
-echo
-sleep 1
-gum style "Installing setup files to main directories"
-sleep 1
-gum spin $moduleDir/260901abbc.sh
-style=info
-prt_info
-gum style "Cleaning up temporary files"
-sleep 0.5
-gum style "Removing temporary extraction folder"
-sleep 0.5
-rm -rf "$tmpDir/practical-wayland"
-exitStat=$?
-errMsg="Removing temporary extraction folder"
-successMsg="Successfully removed temporary extraction folder"
-cmdFail
-#END PRATICAL WAYLAND CLEANUP AND INSTALL
-
-#SCRIPT END
-style=info
-prt_info
-gum style "Practical Wayland setup and installation is complete!"

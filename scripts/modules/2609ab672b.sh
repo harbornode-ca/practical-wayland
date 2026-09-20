@@ -1,6 +1,8 @@
 #!/bin/bash
 # 2609ab672b - downloads debian id and name files to kevrevrun/data/extra
-prt_info () {
+
+#START GUM STYLE FUNCTION
+prt_info (){
 case $style in
     info) export FOREGROUND=7; export BOLD=true;;
     msg) export FOREGROUND=3;;
@@ -9,10 +11,13 @@ case $style in
     *) export FOREGROUND=7; export BOLD=true;;
 esac
 }
+#END GUM STYLE FUNCTION
+
+#START CMD FAIL FUNCTION
 cmdFail () {
 if [ $exitStat -ne 0 ]; then
     style=lose
-    prt_info
+    prt_info    
     gum style "$errMsg"
     sleep 1
     echo
@@ -28,18 +33,21 @@ else
     gum style "$successMsg"
     sleep 0.5
 fi
-}
-# These variables need to be set directly after a process ends to capture the $? value and output a message, cmdFail runs function.
+# These variables need to be set directly after a process ends to capture the $? value 
+# and output a message, cmdFail runs function.
 # exitStat=$?
 # errMsg="ERROR MESSAGE"
 # successMsg="SUCCESS MESSAGE"
 # cmdFail
-style=msg
+}
+#END CMD FAIL FUNCTION
+
+style=info
 prt_info
 gum style "Starting setup initialization"
-sleep 1.5
+sleep 1
 echo
-style=msg
+style=info
 prt_info
 gum style "Creating some needed folders"
 sleep 0.5
@@ -63,7 +71,7 @@ if [ ! -d /opt/kevrevrun/scripts/modules ]; then
     successMsg="/opt/kevrevrun/scripts/modules folder created successfully"
     cmdFail
 fi    
-style=msg
+style=info
 prt_info
 gum style "Retreiving target release information"
 echo
@@ -75,7 +83,7 @@ exitStat=$?
 errMsg="Debian release id download failed."
 successMsg="Debian release id downloaded successfully"
 cmdFail
-style=msg
+style=info
 prt_info    
 gum style "Downloading Debian release name file"
 sleep 0.5
