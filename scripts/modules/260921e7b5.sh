@@ -61,7 +61,7 @@ if [ -d "$HOME/.cargo" ]; then
     prt_info
     gum style "Updating Rust and Cargo"
     sleep 0.5
-    gum spin rustup update -y
+    gum spin 2609ad0bbc.sh
     exitStat=$?
     errMsg="Failed to update Rust and Cargo"
     successMsg="Rust and Cargo updated successfully"
@@ -108,7 +108,7 @@ else
     gum style "Installing Rust and Cargo"
     echo
     sleep 0.5
-    gum spin $tmpDir/rustup.sh -y
+    gum spin 26099cd945.sh
     exitStat=$?
     errMsg="Failed to install Rust and Cargo"
     successMsg="Rust and Cargo installed successfully"
@@ -127,7 +127,8 @@ fi
 #END RUST INSTALLATION
 
 #START JUST INSTALLATION
-style=msg
+echo
+style=info
 prt_info
 gum style "Installing Just using cargo"
 sleep 0.5
@@ -136,14 +137,21 @@ exitStat=$?
 errMsg="Failed to install Just"
 successMsg="Just installed successfully"
 cmdFail
-echo "Installing Just to /usr/local/sbin for sudo use"
+sleep 0.5
+echo
+style=info
+prt_info
+gum style "Installing Just to /usr/local/sbin for sudo use"
+sleep 0.5
 sudo cp $HOME/.cargo/bin/just /usr/local/sbin/just
 exitStat=$?
 errMsg="Failed to copy Just to /usr/local/sbin"
 successMsg="Just copied to /usr/local/sbin successfully"
 cmdFail
 echo 
-echo "Cleaning up temporary files"
+style=info
+prt_info
+gum style "Cleaning up temporary files"
 sleep 0.5
 rm -fv $tmpDir/rustup.sh
 exitStat=$?

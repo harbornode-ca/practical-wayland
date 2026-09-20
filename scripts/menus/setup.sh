@@ -435,7 +435,7 @@ echo
 style=msg
 prt_info
 sleep 1
-echo "5" > $stageFile
+echo "6" > $stageFile
 gum confirm "Do you want to continue?"
 exitStat=$?
 if [ $exitStat = 0 ]; then
