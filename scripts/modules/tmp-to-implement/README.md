@@ -1,64 +1,43 @@
-# Scripts to implement:
+# Parked Modules
+
+These modules are not currently executed by `menus/setup.sh`. They were moved here pending refactoring and will be re-integrated as core or optional stages in the future.
 
 ## 2609180905.sh
 
-- Installs Rust Toolchain
-- Installs Just Package Manager
-- Adds Just to /usr/bin for sudo use
+Installs the Rust toolchain and the `just` command runner.
 
 ## 2609180913.sh
 
-- Identifies GPU type (Intel/AMD/NVIDIA)
-- Installs appropriate Mesa or NVIDIA drivers
-- Handles NVIDIA repository setup and driver installation
+Detects the system GPU (Intel, AMD, or NVIDIA) and installs the appropriate drivers.
 
 ## 2609180916.sh
 
-- Adds the Noctalia repository and installs the Noctalia Desktop Environment stack
-- Currently installs niri as the main shell as Umbriel is still suffering from stability issues
-- Will be updated once Umbriel is deemed stable enough for daily use
+Configures the Noctalia desktop environment repository and installs the Noctalia stack.
 
 ## 2609180937.sh
 
-- Installs Lemurs Login Manager from source
-- Installs dependencies
-- Creates necessary configuration files and directories
-- Configures systemd
-- Enables Lemurs systemd service
+Builds and installs the Lemurs login manager from source.
 
 ## 2609180944.sh
 
-- Installs system dependencies
-- Builds and installs niri
-
+Builds and installs the Niri window manager from source.
 
 ## 2609181116.sh
 
-- Installs BlueTUI from source
-- Installs dependencies
-- Moves BlueTUI binary to /usr/bin
+Installs BlueTUI, a terminal UI for Bluetooth management.
 
 ## 2609181123.sh
 
-- Installs Rat Commander from source code
-- Installs dependencies
-- Moves Rat Commander binary to /usr/bin
+Builds and installs Rat Commander, a TUI file manager.
 
 ## 2609181124.sh
 
-- Sets up Podman 
-- Configures WinApps
-- Starts WinApps
-- Attempts to start install via browser
+Sets up WinApps via Podman/Dockur to run Windows applications through RDP.
 
 ## 2609181622.sh
 
-- Adds Bitmap Font support 
-- Installs Nerd Font
-- Install Awesome Font
+Configures bitmap font support and installs supplementary fonts.
 
 ## 2609181656.sh
 
-- Installs xwayland-satellite from source
-- Installs dependencies
-- Moves xwayland-satellite binary to /usr/bin
+Builds and installs xwayland-satellite for X11 compatibility under Niri/Umbriel.
