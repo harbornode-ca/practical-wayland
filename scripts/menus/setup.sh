@@ -51,7 +51,6 @@ if [ $exitStat -ne 0 ]; then
     gum style "$errMsg"
     echo
     gum style "This script will now exit"
-    clear
     exit 1
 else
     style=win
