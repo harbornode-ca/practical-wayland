@@ -426,7 +426,7 @@ style=msg
 prt_info
 gum style "Starting Rust installation..."
 sleep 1
-$moduleDir/260921e7b5.sh
+$moduleDir/26099cd945.sh
 exitStat=$?
 errMsg="Rust Toolkit & Just installation script failed."
 successMsg="Rust Toolkit & Just installed successfully"
