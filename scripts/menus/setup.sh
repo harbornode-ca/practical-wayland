@@ -31,24 +31,33 @@ fi
 }
 #END CMD FAIL FUNCTION
 
-#CMD FAIL FUNCTION
+#START CMD FAIL FUNCTION
 cmdFail () {
 if [ $exitStat -ne 0 ]; then
-    sleep 1
-    echo
     style=lose
     prt_info    
     gum style "$errMsg"
+    sleep 1
     echo
+    style=msg
+    prt_info
     gum style "This script will now exit"
     exit 1
 else
     style=win
-    prt_info    
+    prt_info
     gum style "$successMsg"
+    sleep 0.5
 fi
+# These variables need to be set directly after a process ends to capture the $? value 
+# and output a message, cmdFail runs function.
+# exitStat=$?
+# errMsg="ERROR MESSAGE"
+# successMsg="SUCCESS MESSAGE"
+# cmdFail
 }
 #END CMD FAIL FUNCTION
+
 
 #STAGE CHECK FUNCTION
 chk_stage () {

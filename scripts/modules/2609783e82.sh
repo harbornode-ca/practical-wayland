@@ -2,6 +2,7 @@
 # 2609783e82 - Sets up install process. Confirms directory structure and creates necessary files/variables.
 
 #START CMD FAIL FUNCTION
+#START CMD FAIL FUNCTION
 cmdFail () {
 if [ $exitStat -ne 0 ]; then
     style=lose
@@ -12,8 +13,6 @@ if [ $exitStat -ne 0 ]; then
     style=msg
     prt_info
     gum style "This script will now exit"
-    sleep 1
-    clear
     exit 1
 else
     style=win
@@ -29,6 +28,7 @@ fi
 # cmdFail
 }
 #END CMD FAIL FUNCTION
+
 
 
 #START GUM VARIABLES

@@ -25,8 +25,6 @@ if [ $exitStat -ne 0 ]; then
     style=msg
     prt_info
     gum style "This script will now exit"
-    sleep 1
-    clear
     exit 1
 else
     style=win
@@ -42,6 +40,7 @@ fi
 # cmdFail
 }
 #END CMD FAIL FUNCTION
+
 
 #START SETUP APT SOURCES
 style=info
