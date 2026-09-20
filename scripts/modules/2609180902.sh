@@ -145,7 +145,9 @@ sleep 1
 # Creates a file that contains all folder used in the installation
 style=msg
 prt_info
-gum style "Creating lists for setup variables"
+gum style "Creating list files for setup variables"
+sleep 1
+echo
 gum style "Creating a list file of folder variables..."
 sleep 1
 cat << 'EOF' > /opt/kevrevrun/status/folders.list
@@ -196,9 +198,10 @@ usrIdFile,/opt/kevrevrun/id.usr
 usrNameFile,/opt/kevrevrun/name.usr
 setupDirFile,/opt/kevrevrun/setup.dir
 stageFile,/opt/kevrevrun/status/setup.stage
-selDEFile,/opt/kevrevrun/status/selDE.status
+deSetFile,/opt/kevrevrun/status/deSet.status
 debNameFile,/opt/kevrevrun/data/extra/debian.name
 debIdFile,/opt/kevrevrun/data/extra/debian.id
+cmdStringFile,/opt/kevrevrun/status/cmd.string
 EOF
 style=win
 prt_info
@@ -233,21 +236,22 @@ setupStage,/opt/kevrevrun/status/setup.stage
 usrId,/opt/kevrevrun/id.usr
 usrName,/opt/kevrevrun/name.usr
 setupDir,/opt/kevrevrun/setup.dir
-selDEValue,/opt/kevrevrun/status/selDE.status
+deSet,/opt/kevrevrun/status/deSet.status
 debVerID,/opt/kevrevrun/data/extra/debian.id
 debVerName,/opt/kevrevrun/data/extra/debian.name
+cmdString,/opt/kevrevrun/status/cmd.string
 EOF
 style=win
 prt_info
-gum style "File variables have been saved to /opt/kevrevrun/status/files.list"
+gum style "Variable values have been saved to /opt/kevrevrun/status/values.list"
 sleep 1
 # Sets variables for the status files
 style=msg
 prt_info
-gum style "Exporting file variables"
+gum style "Exporting variable values"
 sleep 1
-varFiles=$(cat /opt/kevrevrun/status/files.list)
-for v in $varFiles; do
+varValues=$(cat /opt/kevrevrun/status/values.list)
+for v in $varValues; do
     varName=$(echo $v | cut -d ',' -f 1)
     fileName=$(echo $v | cut -d ',' -f 2)
     varValue=$(cat $fileName)
@@ -261,70 +265,8 @@ for v in $varFiles; do
     gum style "File Variable $varName is set to $varValue"
     sleep 0.5
 done
-sleep 1
-style=msg
-prt_info
-gum style "Downloading Practical Wayland from github"
-sleep 1
-git -C "$tmpDir" clone https://github.com/harbornode-ca/practical-wayland.git
-if [ -d "$tmpDir/practical-wayland" ]; then
-    style=win
-    prt_info
-    gum style "Practical Wayland sucessfully cloned"
-    sleep 1
-fi
-style=msg
-prt_info
-gum style "Moving files from the installation directory to Main directory"
-sleep 1
-#Move files from the installation directory to Main directory
-style=msg
-prt_info
-gum style "Ensuring empty destination directories"
-sleep 0.5
-for f in "$scriptDir" "$cfgDir" "$dataDir" "$toolsDir"; do
-    style=msg
-    prt_info
-    gum style "Ensuring folder $f is empty"
-    rm -rvf "$f"/*
-    exitStat=$?
-    errMsg="Removing files from folder $f failed"
-    successMsg="Removing files from folder $f completed successfully"
-    cmdFail
-    sleep 0.5
-done
-style=msg
-prt_info
-gum style "Copying files from the installation directory to Main directory"
-sleep 0.5
-for f in "$scriptDir" "$cfgDir" "$dataDir" "$toolsDir"; do
-    srcFldr=$(echo $f | cut -d '/' -f 4)
-    style=msg
-    prt_info
-    gum style "Copying files to folder $f"
-    sleep 0.5
-    cp -Rvf $tmpDir/practical-wayland/$srcFldr/* $f
-    exitStat=$?
-    errMsg="Copying files to folder $f failed"
-    successMsg="Copying files to folder $f completed successfully"
-    cmdFail
-done
-style=msg
-prt_info
-gum style "Cleaning up temporary files"
-sleep 0.5
-style=msg
-prt_info
-gum style "Removing temporary extraction folder"
-sleep 0.5
-rm -rvf "$tmpDir/practical-wayland"
-exitStat=$?
-errMsg="Removing temporary extraction folder"
-successMsg="Successfully removed temporary extraction folder"
-cmdFail
+sleep 0.75
 style=win
 prt_info
-gum style "Initial setup is now complete"
-echo 
+gum style "Initilialization completed successfully"
 sleep 1
-exit 0

@@ -125,99 +125,48 @@ done
 }
 #END LOAD VARIABLES FUNCTIONS
 stage1 () {
-    style=msg
-    prt_info
-    gum style "Inintializing the install process"
-    sleep 1.5
-    echo
+echo
 style=msg
-    prt_info
-    gum style "Checking if we have the required folders"
-    if [ ! -d /opt/kevrevrun/data/extra ]; then
-        style=msg
-        prt_info
-        gum style "Creating /opt/kevrevrun/data/extra folder."
-        mkdir -pv /opt/kevrevrun/data/extra
-        exitStat=$?
-        errMsg="Failed to create /opt/kevrevrun/data/extra folder."
-        successMsg="/opt/kevrevrun/data/extra folder created successfully"
-        cmdFail
-    fi
-    if [ ! -d /opt/kevrevrun/scripts/modules ]; then
-        style=msg
-        prt_info
-        gum style "Creating /opt/kevrevrun/scripts/modules folder."
-        mkdir -pv /opt/kevrevrun/scripts/modules
-        exitStat=$?
-        errMsg="Failed to create /opt/kevrevrun/scripts/modules folder."
-        successMsg="/opt/kevrevrun/scripts/modules folder created successfully"
-        cmdFail
-    fi    
-    style=msg
-    prt_info
-    gum style "Retrieving inintialization script."
-    sleep 1
-    style=msg
-    prt_info
-    gum style "Downloading script to temporary folder..."
-    sleep 0.5
-    wget -nv -O /opt/kevrevrun/scripts/modules/2609180902.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609180902.sh
-    exitStat=$?
-    errMsg="Script download failed."
-    successMsg="Script downloaded successfully"
-    cmdFail
-    wget -nv -O /opt/kevrevrun/data/extra/debian.id https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/data/extra/debian.id
-    exitStat=$?
-    errMsg="Debian ID download failed."
-    successMsg="Debian ID downloaded successfully"
-    cmdFail
-    wget -nv -O /opt/kevrevrun/data/extra/debian.name https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/data/extra/debian.name
-    exitStat=$?
-    errMsg="Debian name download failed."
-    successMsg="Debian name downloaded successfully"
-    cmdFail
-    echo
-    style=msg
-    prt_info
-    gum style "Running script..."
-    sleep 1
-    chmod -v +x /opt/kevrevrun/scripts/modules/2609180902.sh
-    exitStat=$?
-    errMsg="Failed to set execute permissions on script"
-    successMsg="Set execute permissions on script"
-    cmdFail
-    /opt/kevrevrun/scripts/modules/2609180902.sh
-    exitStat=$?
-    errMsg="Setup Initialization script failed to run."
-    successMsg="Setup Initialization script ran successfully"
-    cmdFail
-    echo
-    style=msg
-    prt_info
-    gum style "Next steps are to add the APT sources and upgrade the system to Debian $curID."
-    rm -v /opt/kevrevrun/scripts/modules/2609180902.sh
-    nextStep=$(gum confirm "Do you want to continue with the upgrade?" 2>&1)
-    if [ $nextStep = 0 ]; then
-        echo
-        style=msg
-        prt_info
-        gum style "Adding APT Sources and upgrading to Debian $curID..."
-        sleep 1
-        echo "2" > $stageFile
-        chk_stage
-    else
-        style=msg
-        prt_info
-        gum style "Exit cancelled by user."
-        style=info
-        prt_info
-        gum style "When you want to continue, please run"
-        gum style "$HOME/setup.sh"
-        style=fail
-        prt_info
-        gum style "This script will now exit."
-        exit 1
-    fi
+prt_info
+gum style "Grabbing Debian release info..."
+sleep 0.5
+wget -nv -O /opt/kevrevrun/scripts/modules/2609757192.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609757192.sh
+exitStat=$?
+errMsg="Debian release info script download failed."
+successMsg="Debian release info script downloaded successfully"
+cmdFail
+/opt/kevrevrun/scripts/modules/2609757192
+echo
+style=msg
+prt_info
+gum style "Setting up install variables..."
+sleep 0.5
+wget -nv -O /opt/kevrevrun/scripts/modules/2609180902.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609180902.sh
+exitStat=$?
+errMsg="Install variable script download failed."
+successMsg="Install variable script downloaded successfully"
+cmdFail
+/opt/kevrevrun/scripts/modules/2609180902.sh
+exitStat=$?
+errMsg="Install variable script failed to run."
+successMsg="Install variable script ran successfully"
+cmdFail
+echo
+style=msg
+prt_info
+gum style "Downloading setup files script..."
+sleep 0.5
+wget -nv -O /opt/kevrevrun/scripts/modules/260955fa1e.sh https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/260955fa1e.sh
+exitStat=$?
+errMsg="Setup files script download failed."
+successMsg="Setup files script downloaded successfully"
+cmdFail
+echo "/opt/kevrevrun/scripts/modules/260955fa1e.sh" > /opt/kevrevrun/status/cmd.string
+gum spin "/opt/kevrevrun/scripts/menus/run.sh"
+exitStat=$?
+errMsg="Setup files script failed to run."
+successMsg="Setup files script ran successfully"
+cmdFail
 }
 stage2 () {
     style=msg

@@ -236,6 +236,7 @@ sleep 1
 id -u $sudoUser > $cfgDir/id.usr
 echo $sudoUser > $cfgDir/name.usr
 echo 1 > $cfgDir/status/setup.stage
+echo 0 > $cfgDir/status/loop.status
 echo 
 for f in "$cfgDir/id.usr" "$cfgDir/name.usr" "$cfgDir/status/setup.stage"; do
 	if [ -f  $f ]; then
