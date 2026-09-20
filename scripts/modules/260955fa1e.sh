@@ -40,15 +40,6 @@ fi
 }
 #END CMD FAIL FUNCTION
 
-
-#START PRATICAL WAYLAND DOWNLOAD
-style=info
-prt_info
-gum style "Downloading Practical Wayland from github"
-sleep 1
-gum spin $moduleDir/2909b581a8.sh
-#END PRATICAL WAYLAND DOWNLOAD
-
 #START DOWNLOADING PRATICAL WAYLAND INSTALLER
 style=info
 prt_info
