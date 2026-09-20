@@ -1,7 +1,7 @@
 #!/bin/bash
-curID=$(cat /opt/kevrevrun/cfg/install/current.id)
 stageFile="/opt/kevrevrun/status/setup.stage"
 setupStg=$(cat "$stageFile")
+
 #START GUM VARIABLES
 
 #GUM CONFIRM VARIABLES
@@ -167,16 +167,38 @@ errMsg="Install variable script failed to run."
 successMsg="Install variable script ran successfully"
 cmdFail
 echo "2" > $stageFile
-stage2
+gum confirm "Are you ready to continue?"
+exitStat=$?
+if [ $exitStat = 0 ]; then
+    style=msg
+    prt_info
+    echo
+    gum style "Continuing..."
+    sleep 1
+    stage2
+else
+    echo
+    style=msg
+    prt_info
+    gum style "Exit cancelled by user."
+    style=info
+    prt_info
+    echo
+    gum style "When you want to continue, please run"
+    gum style "$PWD/setup.sh"
+    style=msg
+    prt_info
+    echo
+    gum style "This script will now exit."
+    exit 0
+fi
 }
 stage2 () {
-style=msg
+style=info
 prt_info
+echo
 gum style "Loading Variables"
 sleep 1
-loadVars
-style=msg
-prt_info
 style=msg
 prt_info
 gum style "Downloading setup files script..."
@@ -198,12 +220,14 @@ successMsg="Setup files script ran successfully"
 cmdFail
 style=info
 prt_info
+echo "3" > $stageFile
 gum style "The system requires a reboot to complete the upgrade process."
 gum style "After the reboot, please run '$PWD/setup.sh' to continue the installation process"
 gum style "The next step is to install Rustup."
 sleep 1.5
 gum confirm "Are you ready to reboot the system?"
-if [ $? = 0 ]; then
+exitStat=$?
+if [ $exitStat = 0 ]; then
     style=msg
     prt_info
     gum style "Rebooting system..."
@@ -249,16 +273,39 @@ if [ $? = 0 ]; then
 else
     style=msg
     prt_info
+    echo
     gum style "Exit cancelled by user."
     style=info
     prt_info
+    echo
     gum style "When you want to continue, please run"
     gum style "$PWD/setup.sh"
     style=msg
     prt_info
+    echo
     gum style "This script will now exit."
     exit 1
 fi
+}
+stage3 () {
+style=msg
+prt_info
+echo
+gum style "Adding i386 architecture..."
+sleep 1
+$moduleDir/26096d86bc.sh
+exitStat=$?
+errMsg="Adding i386 architecture script failed to run."
+successMsg="i386 architecture added and script ran successfully"
+cmdFail
+echo "4" > $stageFile
+}
+stage4 () {
+style=msg
+prt_info
+echo
+gum style "Upgrading system to $debVerName"
+
 }
 setup_stage () {
 case $setupStg in

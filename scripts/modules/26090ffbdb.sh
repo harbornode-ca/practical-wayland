@@ -74,9 +74,8 @@ else
     sleep 0.5
 fi
 echo
-echo "--------------------------------------------------"
+
 echo "Upgrade process completed!"
 echo "The system has been updated to Debian Forky." 
 echo "A reboot is required to complete the update process."
-echo "--------------------------------------------------"
 sleep 1

@@ -234,7 +234,6 @@ setupDir,/opt/kevrevrun/setup.dir
 deSet,/opt/kevrevrun/status/deSet.status
 debVerID,/opt/kevrevrun/data/extra/debian.id
 debVerName,/opt/kevrevrun/data/extra/debian.name
-cmdString,/opt/kevrevrun/status/cmd.string
 EOF
 style=win
 prt_info

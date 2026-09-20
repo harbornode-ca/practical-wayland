@@ -33,7 +33,5 @@ exitStat=$?
 errMsg="Failed to update APT package cache"
 successMsg="APT package cache updated successfully"
 cmdFail
-echo "--------------------------------------------------"
 echo "i386 architchture support has been sucessfully added"
-echo "--------------------------------------------------"
 sleep 1
