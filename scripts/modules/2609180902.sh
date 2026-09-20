@@ -38,6 +38,7 @@ case $style in
     *) export FOREGROUND=7; export BOLD=true;;
 esac
 }
+
 #END MESSAGE TYPE SETTINGS
 cmdFail () {
 if [ $exitStat -ne 0 ]; then
