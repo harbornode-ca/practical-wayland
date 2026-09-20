@@ -44,21 +44,21 @@ fi
 style=info
 prt_info
 gum style "Downloading Practical Wayland setup installer..."
+echo
 sleep 1
 wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2909b581a8.sh
+echo
 exitStat=$?
 errMsg="Practical Wayland setup installer part 1 download failed."
 successMsg="Practical Wayland setup installer part 1 downloaded successfully"
 cmdFail
-echo
 sleep 1
 wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/260901abbc.sh
 exitStat=$?
 errMsg="Practical Wayland setup installer part 2 download failed."
 successMsg="Practical Wayland setup installer part 2 downloaded successfully"
-echo
-sleep 1
 cmdFail
+echo
 gum style "Adding execute permission to Practical Wayland setup installer files"
 sleep 1
 chmod +x 2909b581a8.sh 260901abbc.sh
@@ -66,11 +66,11 @@ exitStat=$?
 errMsg="Added execute permission to Practical Wayland setup installer."
 successMsg="Added execute permission to Practical Wayland setup installer sucessfully"
 cmdFail
+echo
 style=info
 prt_info
 gum style "Practical Wayland setup installer files downloaded successfully"
 sleep 1
-exit 0
 #END DOWNLOADING PRATICAL WAYLAND INSTALLER
 
 #START INSTALLING PRATICAL WAYLAND
