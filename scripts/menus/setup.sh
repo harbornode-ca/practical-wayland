@@ -391,9 +391,9 @@ sleep 0.5
 echo
 style=info
 prt_info
-gum style "Adding Practical Wayland command to /usr/bin"
+gum style "Adding Practical Wayland as an Alias"
 sleep 1
-sudo ln -sf $menuDir/runPW.sh /usr/bin/pw
+echo 'alias pw="$menuDir/runPW.sh"' >> ~/.bashrc
 exitStat=$?
 errMsg="Adding Practical Wayland command failed!"
 successMsg="Adding Practical Wayland command sucessfully!"
