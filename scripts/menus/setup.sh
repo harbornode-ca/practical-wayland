@@ -389,12 +389,23 @@ successMsg="System upgraded to Debian $debVerName successfully!"
 cmdFail
 sleep 0.5
 echo
-gum style "The system requires a reboot to complete the upgrade process."
-gum style "After the reboot, please run '$PWD/setup.sh' to continue the installation process"
-gum style "The next step installs the Rust Toolkit"
+style=info
+prt_info
+gum style "Adding Practical Wayland command to /usr/bin"
+sleep 1
+sudo ln -sf $menuDir/runPW.sh /usr/bin/pw
+exitStat=$?
+errMsg="Adding Practical Wayland command failed!"
+successMsg="Adding Practical Wayland command sucessfully!"
+cmdFail
+sleep 0.5
+echo
+gum style "Practical Wayland is now installed. The system requires an update to complete"
+gum style "the upgrade process. To run Practical Wayland you can run it by typing 'pw'"
+gum style "in the terminal and pressing enter. This will allow you to install and manage"
+gum style "other desktop environments and other software components of Practical Wayland."
 echo
 sleep 0.5
-echo "5" > $stageFile
 gum confirm "Are you ready to reboot the system?"
 exitStat=$?
 if [ $exitStat = 0 ]; then
@@ -404,60 +415,14 @@ if [ $exitStat = 0 ]; then
     echo
     sleep 1
     sudo reboot
-    else
-    style=msg
-    prt_info
-    gum style "Please restart your system before running the script again."
-    style=info
-    prt_info
-    gum style "When you want to continue, please run"
-    gum style "$PWD/setup.sh"
-    style=msg
-    prt_info
-    gum style "This script will now exit."
-    exit 1
-fi
-}
-# END SYSTEM UPGRADE STAGE
-
-# START RUST INSTALLATION STAGE
-stage5() {
-style=info
-prt_info
-gum style "Starting Rust Toolkit and Just installation..."
-sleep 1
-$moduleDir/260921e7b5.sh
-exitStat=$?
-errMsg="Rust Toolkit & Just installation script failed."
-successMsg="Rust Toolkit & Just installed successfully"
-cmdFail
-echo
-style=msg
-prt_info
-sleep 1
-echo "6" > $stageFile
-gum confirm "Do you want to continue?"
-exitStat=$?
-if [ $exitStat = 0 ]; then
-    sleep 1
-    chk_stage
 else
     style=msg
     prt_info
-    echo
-    gum style "Exit cancelled by user."
-    style=info
-    prt_info
-    echo
-    gum style "When you want to continue, please run"
-    gum style "$PWD/setup.sh"
-    style=msg
-    prt_info
-    echo
-    gum style "This script will now exit."
-    exit 1
+    gum style "Please restart your system to complete the upgrade."
+    exit 0
 fi
 }
+# END SYSTEM UPGRADE STAGE
 
 setup_stage () {
 case $setupStg in
@@ -472,84 +437,6 @@ case $setupStg in
         ;;
     4) 
         stage4
-        ;;
-    5) 
-        stage5
-        ;;
-    6) 
-        stage6
-        ;;
-    7) 
-        stage7
-        ;;
-    8) 
-        stage8
-        ;;
-    9) 
-        stage9
-        ;;
-    10) 
-        stage10
-        ;;
-    11) 
-        stage11
-        ;;
-    12) 
-        stage12
-        ;;
-    13) 
-        stage13
-        ;;
-    14) 
-        stage14
-        ;;
-    15) 
-        stage15
-        ;;
-    16) 
-        stage16
-        ;;
-    17) 
-        stage17
-        ;;
-    18) 
-        stage18
-        ;;
-    19) 
-        stage19
-        ;;
-    20) 
-        stage20
-        ;;
-    21) 
-        stage21
-        ;;
-    22) 
-        stage22
-        ;;
-    23) 
-        stage23
-        ;;
-    24) 
-        stage24
-        ;;
-    25) 
-        stage25
-        ;;
-    26) 
-        stage26
-        ;;
-    27) 
-        stage27
-        ;;
-    28) 
-        stage28
-        ;;
-    29) 
-        stage29
-        ;;
-    30) 
-        stage30
         ;;
     *) 
         echo "Invalid stage"
