@@ -186,8 +186,8 @@ prt_info
 gum style "Completed loading variable values"
 echo
 sleep 0.5
-#END VARIABLE VALUES
 }
+#END VARIABLE VALUES
 
 # START SETUP INITIALIZATION STAGE
 stage1 () {
