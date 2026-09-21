@@ -47,14 +47,14 @@ prt_info
 gum style "Downloading Practical Wayland Setup installer..."
 echo
 sleep 1
-wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/2609b581a8.sh
+wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/spin/2609b581a8.sh
 echo
 exitStat=$?
 errMsg="Practical Wayland Setup installer part 1 download failed."
 successMsg="Practical Wayland Setup installer part 1 downloaded successfully"
 cmdFail
 sleep 1
-wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/modules/260901abbc.sh
+wget -nv https://raw.githubusercontent.com/harbornode-ca/practical-wayland/refs/heads/main/scripts/spin/260901abbc.sh
 exitStat=$?
 errMsg="Practical Wayland Setup installer part 2 download failed."
 successMsg="Practical Wayland Setup installer part 2 downloaded successfully"
