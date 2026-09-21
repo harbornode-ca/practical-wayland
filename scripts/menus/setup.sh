@@ -393,7 +393,7 @@ style=info
 prt_info
 gum style "Adding Practical Wayland as an Alias"
 sleep 1
-echo 'alias pw="$menuDir/runPW.sh"' >> ~/.bashrc
+echo 'alias pw="/opt/kevrevrun/scripts/menus/runPW.sh"' >> ~/.bashrc
 exitStat=$?
 errMsg="Adding Practical Wayland command failed!"
 successMsg="Adding Practical Wayland command sucessfully!"
