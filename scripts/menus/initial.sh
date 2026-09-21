@@ -68,31 +68,7 @@ else
 fi
 }
 # Verify user to give sudo priviledges
-chk_sudo () {
-echo
-echo "Creating Sudo User"
-sleep 1
-echo "Do you want to give $sudoUser root priviledges [y/n]"
-read -p "> " confirm
-if [ "$confirm" = "y" ]; then
-	echo "Root priviledges will be given to $sudoUser..."
-	sleep 1
-elif [ "$confirm" = "n" ]; then
-	echo "You have chosen not to give $sudoUser root access."
-	sleep 1
-	add_sudo
-else
-	invalid
-	chk_sudo
-fi
-echo "Applying sudo group to $sudoUser"
-sleep 1
-usermod -aG sudo $sudoUser 2>&1
-exitStat=$?
-errMsg="Adding $sudoUser to the sudo group failed"
-successMsg="The user $sudoUser now has root access"
-cmdFail
-}
+
 clear
 banner
 echo "Hold on a sec...They are telling me I need to check ID..."
