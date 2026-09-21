@@ -12,9 +12,9 @@ Desktop environment selection is under construction.
 
 | Option | Stack | Status |
 | --- | --- | --- |
-| Noctalia | Greeter + Umbriel compositor + shell; Niri included for stability, xwayland-satellite for X11 | Repo and Niri scripts ready; dispatcher wiring in progress |
-| Niri + Ashell | Lemurs + niri + Ashell, xwayland-satellite | Niri/Lemurs/xwayland-satellite ready; Ashell build pending |
-| LXQt + niri | LXQt panel/PCManFM-Qt with niri compositor, xwayland-satellite | Niri/xwayland-satellite ready; LXQt integration in progress |
+| Noctalia | Greeter + Umbriel compositor + shell; Niri included for stability, xwayland-satellite for X11 | *In Progress* |
+| Niri + Ashell | Lemurs + niri + Ashell, xwayland-satellite | *In Progress* |
+| LXQt + niri | LXQt panel/PCManFM-Qt with niri compositor, xwayland-satellite | *In Progress* |
 
 ---
 
