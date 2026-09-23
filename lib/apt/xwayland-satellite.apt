@@ -1,0 +1,14 @@
+pkg-config
+fonts-open-sans
+fontconfig
+libx11-xcb-dev
+xwayland
+clang
+cmake
+libx11-dev
+libx11-6
+libxfixes-dev
+libxfixes3
+libgtest-dev
+xsettingsd
+libxcb-cursor-dev
