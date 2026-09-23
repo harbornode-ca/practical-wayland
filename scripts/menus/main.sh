@@ -1,22 +1,56 @@
 #!/bin/bash
 #main.sh - Main menu
 
-fastfetch | grep OS | cut -d ":" -f 2 | cut -c2-
-sleep 0.5
-#START GUM BOX VARIABLES
-fastfetch | grep OS | cut -d ":" -f 2 | cut -c2-
-declare -i cols third fifth half qtr qqqtr
+#START OSTYPE FUNCTION
+#Uses fastfetch to get the OS type and prints it to the terminal.
+#This function is only meant to be used once at the start of the script to pull in terminal info.
+osType () {
+	fastfetch | grep OS | cut -d ":" -f 2 | cut -c2-
+}
+#END OSTYPE FUNCTION
+
+#START COLMATH FUNCTION
+#Calculates widths and margins for gum boxes based on terminal columns
+colMath (){
+declare -i cols third fifth half qtr qqqtr qtrMargin halfMargin thirdMargin fifthMargin qqqtrMargin
 let cols=$COLUMNS-2
 let qtr=$cols/4
-let qtrMargin=qtr*2
-let half=qtr*2
-let halfMargin=qtr
-let qqqtr=qtr*3
-let qqqtrMargin=qtr/2
-let third=cols/3
-let thirdMargin=third/1
-let fifth=cols/5
-let fifthMargin=fifth*2
+let qtrMargin=$qtr*2
+let half=$qtr*2
+let halfMargin=$qtr
+let qqqtr=$qtr*3
+let qqqtrMargin=$qtr/2
+let third=$cols/3
+let thirdMargin=$third/1
+let fifth=$cols/5
+let fifthMargin=$fifth*2
+export half
+export halfMargin
+export third
+export thirdMargin
+export qqqtr
+export qqqtrMargin
+export fifth
+export fifthMargin
+#Column math for two boxes side-by-side by percentage
+declare -i colsa colsb widtha widthb side
+let colsa=side
+let colsb=100-side
+let widtha=colsa-4
+let widthb=colsb-4
+export colsa
+export colsb
+export widtha
+export widthb
+}
+#END COLMATH FUNCTION
+
+showBoxPair () {
+sideA=$(gum style --width="$widtha" --border=double --border-foreground=7 --padding="1 2" --margin="0 1" --foreground=7 --align="center" "$boxA")
+sideB=$(gum style --width="$widthb" --border=double --border-foreground=7 --padding="1 2" --margin="0 1"--foreground=7 --align="center" "$boxB")
+gum join "$sideA" "$sideB" --horizontal
+}
+
 #END GUM BOX VARIABLES
 
 #START CMD FAIL FUNCTION
@@ -92,18 +126,13 @@ esac
 }
 #END GUM STYLE FUNCTION
 
-#START GUM BOX VARIABLES
-fastfetch | grep OS | cut -d ":" -f 2 | cut -c2-
-declare -i cols third fifth half qtr qqqtr
-let cols=$COLUMNS-2
-let qtr=$cols/4
-let qtrMargin=qtr*2
-let half=qtr*2
-let halfMargin=qtr
-let qqqtr=qtr*3
-let qqqtrMargin=qtr/2
-let third=cols/3
-let thirdMargin=third/1
-let fifth=cols/5
-let fifthMargin=fifth*2
-#END GUM BOX VARIABLES
+#START BANNER FUNCTION
+# $MenuTitle & $MenuSubTitle are set in the scripts called by this menu
+gum style --foreground=172 --border-foreground=172 --border=double --align=center --width="$half" --margin="1 $halfMargin" --padding="1 2" '$MenuTitle' '$MenuSubTitle'
+#START MAIN MENU
+
+osType
+sleep 0.75
+colMath
+
+
