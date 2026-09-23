@@ -1,5 +1,23 @@
 #!/bin/bash
-#Script Information
+#main.sh - Main menu
+
+fastfetch | grep OS | cut -d ":" -f 2 | cut -c2-
+sleep 0.5
+#START GUM BOX VARIABLES
+fastfetch | grep OS | cut -d ":" -f 2 | cut -c2-
+declare -i cols third fifth half qtr qqqtr
+let cols=$COLUMNS-2
+let qtr=$cols/4
+let qtrMargin=qtr*2
+let half=qtr*2
+let halfMargin=qtr
+let qqqtr=qtr*3
+let qqqtrMargin=qtr/2
+let third=cols/3
+let thirdMargin=third/1
+let fifth=cols/5
+let fifthMargin=fifth*2
+#END GUM BOX VARIABLES
 
 #START CMD FAIL FUNCTION
 cmdFail () {
@@ -73,4 +91,19 @@ case $style in
 esac
 }
 #END GUM STYLE FUNCTION
-#END GUM VARIABLES
+
+#START GUM BOX VARIABLES
+fastfetch | grep OS | cut -d ":" -f 2 | cut -c2-
+declare -i cols third fifth half qtr qqqtr
+let cols=$COLUMNS-2
+let qtr=$cols/4
+let qtrMargin=qtr*2
+let half=qtr*2
+let halfMargin=qtr
+let qqqtr=qtr*3
+let qqqtrMargin=qtr/2
+let third=cols/3
+let thirdMargin=third/1
+let fifth=cols/5
+let fifthMargin=fifth*2
+#END GUM BOX VARIABLES
