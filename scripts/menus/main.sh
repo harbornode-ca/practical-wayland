@@ -6,6 +6,7 @@
 #This function is only meant to be used once at the start of the script to pull in terminal info.
 osType () {
 	fastfetch | grep OS | cut -d ":" -f 2 | cut -c2-
+    clear
 }
 #END OSTYPE FUNCTION
 
@@ -24,14 +25,15 @@ let third=$cols/3
 let thirdMargin=$third/1
 let fifth=$cols/5
 let fifthMargin=$fifth*2
-export half
-export halfMargin
-export third
-export thirdMargin
-export qqqtr
-export qqqtrMargin
-export fifth
-export fifthMargin
+export halfBoxWidth="$half"
+export halfBoxMargin="$halfMargin"
+export thirdBoxWidth="$third"
+export thirdBoxMargin="$thirdMargin"
+export qqqtrBoxWidth="$qqqtr"
+export qqqtrBoxMargin="$qqqtrMargin"
+export fifthBoxWidth="$fifth"
+export fifthBoxMargin="$fifthMargin"
+
 #Column math for two boxes side-by-side by percentage
 declare -i colsa colsb widtha widthb side
 let colsa=side
@@ -100,39 +102,167 @@ export GUM_CHOOSE_CURSOR=" > "
 export GUM_CHOOSE_CURSOR_PREFIX="[-] "
 export GUM_CHOOSE_SELECTED_PREFIX="[x] "
 export GUM_CHOOSE_UNSELECTED_PREFIX="[ ] "
-export GUM_CHOOSE_CURSOR_FOREGROUND=7
+export GUM_CHOOSE_CURSOR_FOREGROUND=11
 export GUM_CHOOSE_HEADER_FOREGROUND=3
 export GUM_CHOOSE_ITEM_FOREGROUND=3
-export GUM_CHOOSE_SELECTED_FOREGROUND=10
+export GUM_CHOOSE_SELECTED_FOREGROUND=11
 #END GUM CHOOSE VARIABLES
 
 #START GUM SPIN VARIABLES
 export GUM_SPIN_TITLE="Processing..."
 export GUM_SPIN_SPINNER_FOREGROUND=3
-export GUM_SPIN_TITLE_FOREGROUND=11
+export GUM_SPIN_TITLE_FOREGROUND=7
 export GUM_SPIN_SPINNER="dot"
 export GUM_SPIN_PADDING="1 0"
 #END GUM SPIN VARIABLES
 
 #START GUM STYLE FUNCTION
-prt_info (){
+prtInfo (){
 case $style in
-    info) export FOREGROUND=7; export BOLD=true;;
-    msg) export FOREGROUND=3;;
-    lose) export FOREGROUND=1; export BOLD=true;;
-    win) export FOREGROUND=2; export BOLD=true;;
-    *) export FOREGROUND=7; export BOLD=true;;
+    info) export FOREGROUND=7;;
+    msg) export FOREGROUND=11;;
+    lose) export FOREGROUND=1;;
+    win) export FOREGROUND=2;;
+    *) export FOREGROUND=7;;
 esac
 }
 #END GUM STYLE FUNCTION
 
 #START BANNER FUNCTION
 # $MenuTitle & $MenuSubTitle are set in the scripts called by this menu
-gum style --foreground=172 --border-foreground=172 --border=double --align=center --width="$half" --margin="1 $halfMargin" --padding="1 2" '$MenuTitle' '$MenuSubTitle'
-#START MAIN MENU
+banner () {
+gum style --foreground=11 --border-foreground=3 --border="double" --align=center --width="$halfBoxWidth" --margin="1 $halfBoxMargin" --padding="0 0" "$MenuTitle" "$MenuSubTitle"
+}
+#END BANNER FUNCTION
 
+#START MAIN MENU FUNCTION
+mainMenu () {
+clear
+MenuTitle="Practical Wayland Tools"
+MenuSubTitle="Main Menu"
+banner
+style=msg
+prtInfo
+gum style "Welcome To Practical Wayland Tools"
+echo
+mainMenuOutput="$(gum choose --limit=1 --header="Please Make A Selection:" "Install Desktop Environment" "Update System" "Install Applications" "Exit")"
+case $mainMenuOutput in
+    "Install Desktop Environment")
+        deMenu
+    ;;
+    "Update System")
+        clear
+        MenuTitle="Practical Wayland Tools"
+        MenuSubTitle="Update System Menu"
+        banner
+        style=msg
+        prtInfo
+        gum style "Not Yet Implemented"
+        gum style "Returning to Main Menu"
+        sleep 1
+        clear
+        mainMenu
+    ;;
+    "Install Applications")
+        clear
+        MenuTitle="Practical Wayland Tools"
+        MenuSubTitle="Install Applications Menu"
+        banner
+        style=msg
+        prtInfo
+        gum style "Not Yet Implemented"
+        gum style "Returning to Main Menu"
+        sleep 1
+        clear
+        mainMenu
+    ;;
+    "Exit")
+        clear
+        exit 0
+    ;;
+    *)      
+        clear
+        style=warn
+        prtInfo
+        gum style "Invalid Selection - Please try again"
+        sleep 1
+        clear
+        MenuTitle="Practical Wayland Tools"
+        MenuSubTitle="Main Menu"
+        banner
+        gum style "Press [ENTER] to continue..."
+        read
+        mainMenu
+    ;;
+esac
+}
+#END MAIN MENU FUNCTION
+
+#START DEMENUOPTION FUNCTION
+deMenu () {
+clear
+MenuTitle="Practical Wayland Tools"
+MenuSubTitle="Desktop Environment Menu"
+banner
+echo
+deMenuOutput=$(gum choose --limit=1 --header="Please Select A Desktop Environment to Install:" "Noctalia" "Niri w/ Ashell" "LXQt w/ Niri" "Back")
+case $deMenuOutput in
+    "Noctalia")
+        clear
+        MenuTitle="Practical Wayland Tools"
+        MenuSubTitle="Noctalia Installer"
+        banner
+        style=msg
+        prtInfo
+        gum style "Not Yet Implemented"
+        gum style "Returning to Main Menu"
+        sleep 2
+        deMenu
+    ;;
+    "Niri w/ Ashell")
+        clear
+        MenuTitle="Practical Wayland Tools"
+        MenuSubTitle="Desktop Environment Menu"
+        banner
+        style=msg
+        prtInfo
+        gum style "Not Yet Implemented"
+        gum style "Returning to Main Menu"
+        sleep 2
+        deMenu
+    ;;
+    "LXQt w/ Niri")
+        clear
+        MenuTitle="Practical Wayland Tools"
+        MenuSubTitle="Desktop Environment Menu"
+        banner
+        style=msg
+        prtInfo
+        gum style "Not Yet Implemented"
+        gum style "Returning to Main Menu"
+        sleep 2
+        deMenu
+    ;;
+    "Back")
+        clear
+        mainMenu
+    ;;
+    *)
+        clear
+        style=warn
+        prtInfo
+        gum style "Invalid Selection - Please try again"
+        sleep 1
+        clear
+        deMenu
+    ;;
+esac
+}
+#END DEMENUOPTION FUNCTION
+
+#START MAIN MENU EXECUTION
 osType
 sleep 0.75
 colMath
-
-
+mainMenu
+#END MAIN MENU EXECUTION
