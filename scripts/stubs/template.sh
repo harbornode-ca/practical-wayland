@@ -1,2 +1,2 @@
 #!/bin/bash
-#Script Information
+#tempate.sh - Template Script (PUT SCRIPT DESCRIPTION HERE)
