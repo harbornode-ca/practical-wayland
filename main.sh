@@ -55,6 +55,15 @@ gum join "$sideA" "$sideB" --horizontal
 
 #END GUM BOX VARIABLES
 
+#START VARIABLE DEFINITIONS
+export libDir=/opt/practical-wayland/lib
+export modDir=/opt/practical-wayland/scripts/modules
+export stubDir=/opt/practical-wayland/scripts/stubs
+export optionsDir=/opt/practical-wayland/scripts/options
+export tmpDir=/opt/practical-wayland/tmp
+#END VARIABLE DEFINITIONS
+
+
 #START CMD FAIL FUNCTION
 cmdFail () {
 if [ $exitStat -ne 0 ]; then
@@ -208,16 +217,7 @@ echo
 deMenuOutput=$(gum choose --limit=1 --header="Please Select A Desktop Environment to Install:" "Noctalia" "Niri w/ Ashell" "LXQt w/ Niri" "Back")
 case $deMenuOutput in
     "Noctalia")
-        clear
-        MenuTitle="Practical Wayland Tools"
-        MenuSubTitle="Noctalia Installer"
-        banner
-        style=msg
-        prtInfo
-        gum style "Not Yet Implemented"
-        gum style "Returning to Main Menu"
-        sleep 2
-        deMenu
+        $optionsDir/2609d8b228.sh
     ;;
     "Niri w/ Ashell")
         clear
