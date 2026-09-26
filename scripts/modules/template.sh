@@ -31,6 +31,24 @@ fi
 #END CMD FAIL FUNCTION
 
 #START GUM STYLE FUNCTION
+prtInfo (){
+case $style in
+    info) export FOREGROUND=7;;
+    msg) export FOREGROUND=11;;
+    lose) export FOREGROUND=1;;
+    win) export FOREGROUND=2;;
+    *) export FOREGROUND=7;;
+esac
+}
+#END GUM STYLE FUNCTION
+
+#START CALL DISPLAY FUNCTION
+callDisplay() {
+$modDir/2609802c.sh
+}
+#END CALL DISPLAY FUNCTION
+
+#START GUM STYLE FUNCTION
 prt_info (){
 case $style in
     info) export FOREGROUND=7; export BOLD=true;;

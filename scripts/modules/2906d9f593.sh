@@ -45,29 +45,31 @@ esac
 #START STATUSBOX FUNCTION
 #statusBox creates a box with a checklist for installation steps
 statusBox () {
-declare -a chkList
-declare -a chkStatus
-while read -r line; do
-    chkList+=("$line")
-done < "$libDir/noctalia.steps"
-chkTotal="${#chkList[@]}"
 count=0
 while [ $count -lt $chkTotal ]; do
-    IFS=',' read -r complete action inProgress string <<< "${chkList[$count]}"
-    if [ "$complete" -eq 0 ]; then
-      if [ "$inProgress" -eq 1 ]; then
-        chkStatus["$count"]="[>] $action"
-      else
+    IFS=',' read -r step status action inProgress <<< "${chkList[$count]}"
+    if [ "$status" -eq 0 -a "$inProgress" -eq 0 ]; then
         chkStatus["$count"]="[ ] $action"
-      fi
-    else
+    elif [ "$status" -eq 1 -a "$inProgress" -eq 0 ]; then
       chkStatus["$count"]="[x] $action"
+    elif [ "$status" -eq 0 -a "$inProgress" -eq 1 ]; then
+      chkStatus["$count"]="[>] $action"
+    else
+      chkStatus["$count"]="[E] $action"
     fi
     ((count++))      
 done
 printf "%s\n" "${chkStatus[@]}" | gum style --foreground=11 --border-foreground=3 --border="rounded" --align=left --padding="1 1" --no-strip-ansi 
 }
 #END STATUSBOX FUNCTION
+
+#START CALL DISPLAY FUNCTION
+callDisplay() {
+# Calls the display module to update the display
+    noctaliaTitle
+    statusBox
+}
+#END CALL DISPLAY FUNCTION
 
 #START BANNER FUNCTION
 # $MenuTitle & $MenuSubTitle are set in the scripts called by this menu
@@ -85,7 +87,39 @@ banner
 }
 #END NOCTALIATITLE FUNCTION
 
-noctaliaTitle
-statusBox
-
-
+#START RUN MODULE
+gum style "Checking for existing installation of Just"
+if [ -f "$HOME/.cargo/bin/just" ]; then
+    style=info
+    prtInfo
+    gum style "Just is already installed"
+    sleep 1
+    callDisplay
+    gum style "Making sure that Just is up to date"
+    sleep 1
+    callDisplay
+    gum spin --title "Upgrading Just" $stubDir/2609b4dcf6.sh
+    sleep 0.5
+    callDisplay
+    style=win
+    prt_info
+    gum style "Just is now up to date."
+    sleep 1
+else
+    style=info
+    prtInfo
+    gum style "Just is not installed"
+    sleep 1
+    callDisplay
+    gum style "Installing Just"
+    sleep 1
+    callDisplay
+    gum spin --title "Upgrading Just" $stubDir/2609b4dcf6.sh
+    sleep 0.5
+    callDisplay
+    style=win
+    prt_info
+    gum style "Just is now installed."
+    sleep 1
+fi
+#END RUN MODULE

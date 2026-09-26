@@ -59,7 +59,7 @@ gum join "$sideA" "$sideB" --horizontal
 export libDir=/opt/practical-wayland/lib
 export modDir=/opt/practical-wayland/scripts/modules
 export stubDir=/opt/practical-wayland/scripts/stubs
-export optionsDir=/opt/practical-wayland/scripts/options
+export mgrDir=/opt/practical-wayland/scripts/manager
 export tmpDir=/opt/practical-wayland/tmp
 #END VARIABLE DEFINITIONS
 
@@ -217,7 +217,7 @@ echo
 deMenuOutput=$(gum choose --limit=1 --header="Please Select A Desktop Environment to Install:" "Noctalia" "Niri w/ Ashell" "LXQt w/ Niri" "Back")
 case $deMenuOutput in
     "Noctalia")
-        $optionsDir/2609d8b228.sh
+        $mgrDir/2609d8b228.sh
     ;;
     "Niri w/ Ashell")
         clear
