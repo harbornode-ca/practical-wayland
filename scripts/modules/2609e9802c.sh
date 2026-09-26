@@ -82,12 +82,10 @@ clear
 MenuTitle="Practical Wayland Tools"
 MenuSubTitle="Noctalia - Installation"
 banner
-statusBox
 }
 #END NOCTALIATITLE FUNCTION
-while IFS=',' read -r step cmdString; do
-    clear
-    noctaliaTitle
-    statusBox
-    $cmdString
-done
+
+noctaliaTitle
+statusBox
+
+
