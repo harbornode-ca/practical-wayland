@@ -110,3 +110,15 @@ export chkListTotal=${#chkList[@]}
 echo "chkListTotal = $chkListTotal"
 sleep 2
 runChecklist
+
+
+
+declare -i count
+let count=0
+while [ $count -lt $chkListTotal ]; do
+    chkStep[$count]+=$(echo $chkList[$count] | cut -d',' -f 1)
+    chkStatus[$count]+=$(echo $chkList[$count] | cut -d',' -f 2)
+    chkAction[$count]+=$(echo $chkList[$count] | cut -d',' -f 3)
+    chkInProgress[$count]+=$(echo $chkList[$count] | cut -d',' -f 4)
+    ((count++))
+done

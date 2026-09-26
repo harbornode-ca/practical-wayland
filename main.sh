@@ -1,5 +1,6 @@
 #!/bin/bash
-#main.sh - Main menu
+#main.sh - Noctalia Installation Management Script
+#Author: kevrevun - kevin@kevrev.run
 
 #START OSTYPE FUNCTION
 #Uses fastfetch to get the OS type and prints it to the terminal.

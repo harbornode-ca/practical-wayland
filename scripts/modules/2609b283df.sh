@@ -1,5 +1,6 @@
 #!/bin/bash
 #2609b283df.sh - Check for Rust Installation and Install/Update if needed
+#Author: kevrevun - kevin@kevrev.run
 
 #START CMD FAIL FUNCTION
 cmdFail () {
@@ -49,17 +50,17 @@ count=0
 while [ $count -lt $chkTotal ]; do
     IFS=',' read -r step status action inProgress <<< "${chkList[$count]}"
     if [ "$status" -eq 0 -a "$inProgress" -eq 0 ]; then
-        chkStatus["$count"]="[ ] $action"
+        chkStatus["$count"]="[ ] $action \n"
     elif [ "$status" -eq 1 -a "$inProgress" -eq 0 ]; then
-      chkStatus["$count"]="[x] $action"
+      chkStatus["$count"]="[x] $action \n"
     elif [ "$status" -eq 0 -a "$inProgress" -eq 1 ]; then
-      chkStatus["$count"]="[>] $action"
+      chkStatus["$count"]="[>] $action \n"
     else
-      chkStatus["$count"]="[E] $action"
+      chkStatus["$count"]="[E] $action \n"
     fi
     ((count++))      
 done
-printf "%s\n" "${chkStatus[@]}" | gum style --foreground=11 --border-foreground=3 --border="rounded" --align=left --padding="1 1" --no-strip-ansi 
+gum style --foreground=11 --border-foreground=3 --width="$halfBoxWidth" --margin="0 0" --border="rounded" --align=left --padding="1 1" "${chkStatus[@]}"
 }
 #END STATUSBOX FUNCTION
 
