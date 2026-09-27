@@ -2,43 +2,29 @@
 #2609b283df.sh - Check for Rust Installation and Install/Update if needed
 #Author: kevrevun - kevin@kevrev.run
 
-#START CMD FAIL FUNCTION
-cmdFail () {
-if [ $exitStat -ne 0 ]; then
-    style=lose
-    prt_info    
-    gum style "$errMsg"
-    sleep 1
-    echo
-    style=msg
-    prt_info
-    gum style "This script will now exit"
-    sleep 1
-    clear
-    exit 1
-else
-    style=win
-    prt_info
-    gum style "$successMsg"
-    sleep 0.5
-fi
-# These variables need to be set directly after a process ends to capture the $? value 
-# and output a message, cmdFail runs function.
-# exitStat=$?
-# errMsg="ERROR MESSAGE"
-# successMsg="SUCCESS MESSAGE"
-# cmdFail
-}
-#END CMD FAIL FUNCTION
-
 #START GUM STYLE FUNCTION
-prtInfo (){
+prtInfo () {
 case $style in
-    info) export FOREGROUND=7;;
-    msg) export FOREGROUND=11;;
-    lose) export FOREGROUND=1;;
-    win) export FOREGROUND=2;;
-    *) export FOREGROUND=7;;
+    info) 
+        FOREGROUND=7
+        MARGIN="1 2"
+        ;;
+    msg) 
+        FOREGROUND=11;
+        MARGIN="1 2"
+        ;;
+    lose)   
+        FOREGROUND=1;
+        MARGIN="1 2"
+        ;;
+    win) 
+        FOREGROUND=2;
+        MARGIN="1 2"
+        ;;
+    *) 
+        FOREGROUND=7;
+        MARGIN="1 2"
+        ;;
 esac
 }
 #END GUM STYLE FUNCTION
@@ -50,7 +36,7 @@ gum style --foreground=11 --border-foreground=3 --border="double" --align=center
 }
 #END BANNER FUNCTION
 
-#START NOCTALIATITLE FUNCTIONv
+#START NOCTALIATITLE FUNCTION
 noctaliaTitle () {
 clear
 MenuTitle="Practical Wayland Tools"
@@ -58,3 +44,57 @@ MenuSubTitle="Noctalia - Installation"
 banner
 }
 #END NOCTALIATITLE FUNCTION
+
+stepList () {
+while IFS= read -r line; do
+    chkStep+=("$line")
+done < "$tmpDir/steps.list"
+}
+
+#START CALL DISPLAY FUNCTION
+callDisplay() {
+# Calls the display module to update the display
+noctaliaTitle
+printf "%s\n" "${chkStep[@]}" | gum style --foreground=11 --border-foreground=3 --border="rounded" --align=left --width="$halfBoxWidth" --margin="1 1" --padding="1 1"
+}
+#END CALL DISPLAY FUNCTION
+
+stepList
+callDisplay
+style=info
+prtInfo
+gum style "Setting up Rust Toolchain..."
+sleep 1.5
+callDisplay
+if [ -d "$HOME/.cargo" ]; then
+    style=info
+    prtInfo
+    gum style "Rust Toolchain is already installed"
+    sleep 1.5
+    callDisplay
+    gum style "Confirming Rust Toolchain is up to date"
+    sleep 1.5
+    gum spin --title "Updating Rust Toolchain" $stubDir/2609ebcd21.sh
+    sleep 1
+    callDisplay
+    style=win
+    prtInfo
+    gum style "Rust Toolchain is up to date."
+    sleep 1.5
+else
+    style=info
+    prtInfo
+    gum style "Rust Toolchain is not installed"
+    sleep 1
+    callDisplay
+    gum style "Installing Rust Toolchain"
+    sleep 1.5
+    callDisplay
+    gum spin --title "Installing Rust Toolchain" $stubDir/2609fd1bba.sh
+    sleep 1
+    callDisplay
+    style=win
+    prtInfo
+    gum style "Rust Toolchain is now installed."
+    sleep 1.5
+fi

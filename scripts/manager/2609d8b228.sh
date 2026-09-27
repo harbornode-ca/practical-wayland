@@ -2,57 +2,32 @@
 #2609d8b228.sh - Noctalia Installation Management Script
 #Author: kevrevun - kevin@kevrev.run
 
-#START CMD FAIL FUNCTION
-cmdFail () {
-if [ $exitStat -ne 0 ]; then
-    style=lose
-    prt_info    
-    gum style "$errMsg"
-    sleep 1
-    echo
-    style=msg
-    prt_info
-    gum style "This script will now exit"
-    sleep 1
-    clear
-    exit 1
-else
-    style=win
-    prt_info
-    gum style "$successMsg"
-    sleep 0.5
-fi
-# These variables need to be set directly after a process ends to capture the $? value 
-# and output a message, cmdFail runs function.
-# exitStat=$?
-# errMsg="ERROR MESSAGE"
-# successMsg="SUCCESS MESSAGE"
-# cmdFail
-}
-#END CMD FAIL FUNCTION
-
 #START GUM STYLE FUNCTION
-prtInfo (){
+prtInfo () {
 case $style in
     info) 
-        FOREGROUND=7;
+        FOREGROUND=7
+        MARGIN="1 2"
         ;;
     msg) 
         FOREGROUND=11;
+        MARGIN="1 2"
         ;;
-    lose) 
+    lose)   
         FOREGROUND=1;
+        MARGIN="1 2"
         ;;
     win) 
         FOREGROUND=2;
+        MARGIN="1 2"
         ;;
     *) 
         FOREGROUND=7;
+        MARGIN="1 2"
         ;;
 esac
 }
 #END GUM STYLE FUNCTION
-chkListTotal=$(wc -l < "$libDir/noctalia.steps")
 
 #START BANNER FUNCTION
 # $MenuTitle & $MenuSubTitle are set in the scripts called by this menu
@@ -74,11 +49,137 @@ banner
 callDisplay() {
 # Calls the display module to update the display
 noctaliaTitle
+printf "%s\n" "${chkStep[@]}" | gum style --foreground=11 --border-foreground=3 --border="rounded" --align=left --width="$halfBoxWidth" --margin="1 1" --padding="1 1"
 }
 #END CALL DISPLAY FUNCTION
 
-chkList=()
+#Steps file: N=Not Started, C=Completed, I=In Progress
+#Load noctalia.steps file into an array
+declare -a chkList
 while IFS= read -r line; do
     chkList+=("$line")
 done < "$libDir/noctalia.steps"
+
+#Declare integer and store total number of install steps
+declare -i totalList
+export totalList=${#chkList[@]}
+#Commented line for debugging purposes.
+#echo "Total Items: $totalList"
+
+#Commented out section for debugging purposes
+# Echos contents of chkList array one by one
+#let count=0
+#while [ $count -lt $totalList ]; do
+#    echo ${chkList[$count]}
+#    ((count++))
+#done
+
+# Split comma separated file into arrays
+declare -a chkStatus
+declare -a chkDesc
+chkStatus=()
+chkDesc=()
+let stepCount=0
+while IFS=',' read -r chkStatus chkDesc; do
+    chkStatus+=("$chkStatus")
+    chkDesc+=("$chkDesc")
+    ((stepCount++))
+done < "$libDir/noctalia.steps"
+
+declare -a chkStep
+declare -i stepCount
+stepList () {
+chkStep=()
+let stepCount=0
+while [ $stepCount -lt $totalList ]; do
+    if [ "${chkStatus[$stepCount]}" == "N" ]; then
+        chkStep+=("[ ] ${chkDesc[$stepCount]}")
+    elif [ "${chkStatus[$stepCount]}" == "C" ]; then
+        chkStep+=("[X] ${chkDesc[$stepCount]}")
+    elif [ "${chkStatus[$stepCount]}" == "I" ]; then
+        chkStep+=("[>] ${chkDesc[$stepCount]}")
+    else
+        chkStep+=("[?] ${chkDesc[$stepCount]}")
+    fi
+    ((stepCount++))
+done
+#Export the chkStep array to be used in other functions
+}
+
+#Write status to a checklist file
+chkWrite () {
+> "$tmpDir/steps.list"
+for item in "${chkStep[@]}"; do
+echo "$item" >> "$tmpDir/steps.list"
+done
+}
+
+# Echos contents of chkStep array one by one
+#chkDisplay () {
+#for step in "${chkStep[@]}"; do
+#    echo "$step"
+#done
+#}
+
+#chkProgress function - Start
+#Change status to "I" (In Progress) for next "N" (Not Started) step
+declare -i eachStep
+chkProgress() {
+let eachStep=0
+while [ $eachStep -lt $totalList ]; do
+    if [ "${chkStatus[$eachStep]}" == "N" ]; then
+        chkStatus[$eachStep]="I"
+        nowStep=$eachStep
+        break
+    else
+        ((eachStep++))
+    fi
+done
+} #chkProgress function - End
+
+#chkComplete function - Start
+#Change status to "C" (Completed) for current "I" (In Progress) step
+declare -i endTotal
+let endTotal=$totalList-1
+chkComplete() {
+let eachStep=0
+while [ $eachStep -lt $totalList ]; do
+    if [ "${chkStatus[$eachStep]}" == "I" ]; then
+        chkStatus[$eachStep]="C" 
+        break
+    else
+        if [ $eachStep -eq $endTotal ]; then
+            break
+        fi
+        ((eachStep++))
+    fi
+done
+} #chkComplete function - End
+
+#Progress Steps
+#Generate install steps into list with stepList function
+#Diplay check list with callDisplay function
+#Run Module and update status with chkComplete function
+#Script should exit when eachStep variable reaches endTotal value
+
+
+stepList
+chkProgress
+stepList
+callDisplay
+chkWrite
+#Step 1/9 - Check for Rust Toolchain
+$modDir/2609b283df.sh
+sleep 2
+chkComplete
+stepList
+chkProgress
+stepList
+callDisplay
+chkWrite
+#Step 2/9 - Install Just
+$modDir/2906d9f593.sh   
+sleep 2
+chkComplete
+stepList
 callDisplay

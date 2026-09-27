@@ -7,4 +7,3 @@
 | **N** | Not Started |
 | **C** | Completed |
 | **I** | In Progress |
-| **E** | Error |

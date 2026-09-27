@@ -1,4 +1,3 @@
-N,Check for Rust Toolchain
 N,Check for Just command
 N,Add Noctalia Repository
 N,Install Noctalia Packages
@@ -8,3 +7,4 @@ N,Compile niri compositor
 N,Install niri compositor
 N,Install niri runtime packages
 N,Set default configuration
+N,Check for Rust Toolchain
