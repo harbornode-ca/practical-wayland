@@ -1,6 +1,4 @@
 libdrm2
-libdrm-amdgpu1
-gpu-viewer
 libegl1
 libegl-mesa0
 libgbm1
