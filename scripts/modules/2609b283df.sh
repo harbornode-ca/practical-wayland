@@ -32,45 +32,16 @@ fi
 #END CMD FAIL FUNCTION
 
 #START GUM STYLE FUNCTION
-prt_info (){
+prtInfo (){
 case $style in
-    info) export FOREGROUND=7; export BOLD=true;;
-    msg) export FOREGROUND=3;;
-    lose) export FOREGROUND=1; export BOLD=true;;
-    win) export FOREGROUND=2; export BOLD=true;;
-    *) export FOREGROUND=7; export BOLD=true;;
+    info) export FOREGROUND=7;;
+    msg) export FOREGROUND=11;;
+    lose) export FOREGROUND=1;;
+    win) export FOREGROUND=2;;
+    *) export FOREGROUND=7;;
 esac
 }
 #END GUM STYLE FUNCTION
-
-#START STATUSBOX FUNCTION
-#statusBox creates a box with a checklist for installation steps
-statusBox () {
-count=0
-while [ $count -lt $chkTotal ]; do
-    IFS=',' read -r step status action inProgress <<< "${chkList[$count]}"
-    if [ "$status" -eq 0 -a "$inProgress" -eq 0 ]; then
-        chkStatus["$count"]="[ ] $action \n"
-    elif [ "$status" -eq 1 -a "$inProgress" -eq 0 ]; then
-      chkStatus["$count"]="[x] $action \n"
-    elif [ "$status" -eq 0 -a "$inProgress" -eq 1 ]; then
-      chkStatus["$count"]="[>] $action \n"
-    else
-      chkStatus["$count"]="[E] $action \n"
-    fi
-    ((count++))      
-done
-gum style --foreground=11 --border-foreground=3 --width="$halfBoxWidth" --margin="0 0" --border="rounded" --align=left --padding="1 1" "${chkStatus[@]}"
-}
-#END STATUSBOX FUNCTION
-
-#START CALL DISPLAY FUNCTION
-callDisplay() {
-# Calls the display module to update the display
-    noctaliaTitle
-    statusBox
-}
-#END CALL DISPLAY FUNCTION
 
 #START BANNER FUNCTION
 # $MenuTitle & $MenuSubTitle are set in the scripts called by this menu
@@ -79,7 +50,7 @@ gum style --foreground=11 --border-foreground=3 --border="double" --align=center
 }
 #END BANNER FUNCTION
 
-#START NOCTALIATITLE FUNCTION
+#START NOCTALIATITLE FUNCTIONv
 noctaliaTitle () {
 clear
 MenuTitle="Practical Wayland Tools"
@@ -87,32 +58,3 @@ MenuSubTitle="Noctalia - Installation"
 banner
 }
 #END NOCTALIATITLE FUNCTION
-
-#START RUN MODULE
-gum style "Checking for existing installation of Rust"
-sleep 1.5
-callDisplay
-if [ -d "$HOME/.cargo" ]; then
-    style=info
-    prtInfo
-    gum style "Rust is already installed"
-    sleep 1
-    callDisplay
-    gum spin --title "Making sure that the Rust Toolkit is up to date" $stubDir/2609ebcd21.sh
-    sleep 0.5
-    callDisplay
-    gum style "Rust Toolkit is now up to date."
-    sleep 1
-else 
-    style=info
-    prtInfo
-    gum style "Rust not installed"
-    sleep 1
-    callDisplay
-    gum spin --title "Installing Rust" $stubDir/2609fd1bba.sh
-    sleep 0.5
-    callDisplay
-    gum style "Rust is now installed."
-    sleep 1
-fi
-#END RUN MODULE

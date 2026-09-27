@@ -123,17 +123,32 @@ export GUM_SPIN_TITLE="Processing..."
 export GUM_SPIN_SPINNER_FOREGROUND=3
 export GUM_SPIN_TITLE_FOREGROUND=7
 export GUM_SPIN_SPINNER="dot"
-export GUM_SPIN_PADDING="1 0"
+export GUM_SPIN_PADDING="1 1"
 #END GUM SPIN VARIABLES
 
 #START GUM STYLE FUNCTION
 prtInfo (){
 case $style in
-    info) export FOREGROUND=7;;
-    msg) export FOREGROUND=11;;
-    lose) export FOREGROUND=1;;
-    win) export FOREGROUND=2;;
-    *) export FOREGROUND=7;;
+    info) 
+    export FOREGROUND=7
+    export MARGIN="1 1"
+    ;;
+    msg) 
+    export FOREGROUND=11
+    export MARGIN="1 1"
+    ;;
+    lose) 
+    export FOREGROUND=1
+    export MARGIN="1 1"
+    ;;
+    win) 
+    export FOREGROUND=2
+    export MARGIN="1 1"
+    ;;
+    *) 
+    export FOREGROUND=7
+    export MARGIN="1 1"
+    ;;
 esac
 }
 #END GUM STYLE FUNCTION
