@@ -1,4 +1,7 @@
 N,Check for Just command
+N,Install GPU Drivers
+N,Add bitmap font support
+N,Install & Configure Fonts
 N,Add Noctalia Repository
 N,Install Noctalia Packages
 N,Install niri build dependencies
@@ -6,5 +9,6 @@ N,Download niri compositor source
 N,Compile niri compositor
 N,Install niri compositor
 N,Install niri runtime packages
+N,Compile & Install Xwayland Satellite
 N,Set default configuration
 N,Check for Rust Toolchain
