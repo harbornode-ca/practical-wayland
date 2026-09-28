@@ -131,7 +131,7 @@ else
     callDisplay
     style=info
     prtInfo
-    gum style "No dedicated GPU detected. Installing Mesa basic drivers"
+    gum style "No dedicated GPU detected."
     sleep 1.5
     installMesa=true
 fi
@@ -140,7 +140,7 @@ if [ $installIntel == true ]; then
     callDisplay
     style=info
     prtInfo
-    gum style "Intel GPU Detected Installing...Intel GPU Drivers"
+    gum style "Intel GPU Detected - Installing Intel GPU Drivers"
     sleep 1.5
     callDisplay
     style=info
@@ -148,6 +148,7 @@ if [ $installIntel == true ]; then
     gum style "Installing Intel GPU drivers"
     sleep 1.5
     callDisplay
+    sudo echo
     gum spin --spinner "dots" --title "Installing Intel GPU drivers..." $stubDir/26092717e8.sh
     sleep 0.5
     callDisplay
@@ -161,7 +162,7 @@ if [ $installAMD == true ]; then
     callDisplay
     style=info
     prtInfo
-    gum style "AMD GPU Detected Installing...AMD GPU Drivers"
+    gum style "AMD GPU Detected - Installing AMD GPU Drivers"
     sleep 1.5
     callDisplay
     style=info
@@ -169,6 +170,7 @@ if [ $installAMD == true ]; then
     gum style "Installing AMD GPU drivers"
     sleep 1.5
     callDisplay
+    sudo echo
     gum spin --spinner "dots" --title "Installing AMD GPU drivers..." $stubDir/26099d37d1.sh
     sleep 0.5
     callDisplay
@@ -182,7 +184,7 @@ if [ $installNVIDIA == true ]; then
     callDisplay
     style=info
     prtInfo
-    gum style "NVIDIA GPU Detected Installing...NVIDIA GPU Drivers"
+    gum style "NVIDIA GPU Detected - Installing NVIDIA GPU Drivers"
     sleep 1.5
     callDisplay
     style=info
@@ -190,11 +192,13 @@ if [ $installNVIDIA == true ]; then
     gum style "Installing NVIDIA GPU dependencies"
     sleep 1.5
     callDisplay
+    sudo echo
     gum spin --spinner "dots" --title "Installing NVIDIA GPU dependencies..." $stubDir/26095349f2.sh
     sleep 0.5
     callDisplay
     style=win
     prtInfo
+    sudo echo
     gum style "NVIDIA driver dependencies installed successfully"
     sleep 1.5
     callDisplay
@@ -202,6 +206,7 @@ if [ $installNVIDIA == true ]; then
     prtInfo
     gum style "Adding Nvidia Driver Repository"
     sleep 1.5
+    sudo echo
     gum spin --spinner "dots" --title "Adding Nvidia Driver Repository"
     callDisplay
     style=info
@@ -209,6 +214,7 @@ if [ $installNVIDIA == true ]; then
     gum style "Installing Nvidia Driver Repository"
     sleep 1.5
     callDisplay
+    sudo echo
     gum spin --spinner "dots" --title "Installing Nvidia Driver Repository" $stubDir/26094beae9.sh
     sleep 0.5
     callDisplay
@@ -222,11 +228,13 @@ if [ $installNVIDIA == true ]; then
     gum style "Updating APT package cache"
     sleep 1.5
     callDisplay
+    sudo echo
     gum spin --spinner "dots" --title "Updating APT package cache" $stubDir/2609d6354b.sh
     sleep 0.5
     callDisplay
     style=win
     prtInfo
+    sudo echo
     gum style "APT package cache updated successfully"
     sleep 1.5
     callDisplay
@@ -241,6 +249,7 @@ if [ $installNVIDIA == true ]; then
     gum style "Installing NVIDIA Driver Packages"
     sleep 1.5
     callDisplay
+    sudo echo
     gum spin --spinner "dots" --title "Installing NVIDIA Driver Packages" $stubDir/2609d6d318.sh
     sleep 0.5
     callDisplay
@@ -258,6 +267,7 @@ if [ $installMesa == true ]; then
     gum style "Installing Mesa basic drivers"
     sleep 1.5
     callDisplay
+    sudo echo
     gum spin --spinner "dots" --title "Installing Mesa basic drivers..." $stubDir/2609605982.sh
     style=win
     prtInfo
