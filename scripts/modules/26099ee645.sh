@@ -80,7 +80,11 @@ prtInfo
 gum style "Checking for AMD GPU adapters..."
 sleep 1.5
 amdGPU=$(lspci | grep -i vga | grep -i "AMD")
-
+callDisplay
+style=info
+prtInfo
+gum style "Checking for NVIDIA GPU adapters..."
+sleep 1.5
 nvidiaGPU=$(lspci | grep -i vga | grep -i "NVIDIA")
 callDisplay
 style=info
