@@ -187,7 +187,7 @@ stepList
 callDisplay
 chkWrite
 #Step 3/14 - Install GPU Drivers
-#WIP GPU detection and installation script
+$modDir/26099ee645.sh
 sleep 2
 chkComplete
 stepList

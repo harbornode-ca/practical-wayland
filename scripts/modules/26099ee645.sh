@@ -153,7 +153,7 @@ if [ $installIntel == true ]; then
     prtInfo
     gum style "Installing Intel GPU drivers"
     sleep 1.5
-    sudo gum spin --spinner "dots" --title "Installing Intel GPU drivers..." DEBIAN_FRONTEND=noninteractive apt install $depIntel -y 2>&1
+    gum spin --spinner "dots" --title "Installing Intel GPU drivers..."
     style=msg
     prtInfo
     gum style "Intel driver installation completed successfully"
