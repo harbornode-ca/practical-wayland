@@ -32,5 +32,4 @@ libvkd3d-utils1
 libvdpau1
 libwayland-egl1
 rocm-opencl-icd
-ocl-icd-libopencl1
 radeontop

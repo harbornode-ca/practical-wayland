@@ -2,5 +2,5 @@
 #2609605982.sh - Installs Mesa basic GPU drivers and packages.
 #Author: kevrevun - kevin@kevrev.run
 
-depMesa=$(cat $aptDir/gpuMesa.apt)
+depMesa=$(cat /opt/practical-wayland/lib/apt/gpuMesa.apt)
 sudo DEBIAN_FRONTEND=noninteractive apt install $depMesa -y

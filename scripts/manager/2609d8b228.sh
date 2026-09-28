@@ -29,6 +29,16 @@ esac
 }
 #END GUM STYLE FUNCTION
 
+#START VARIABLE DEFINITIONS
+export libDir=/opt/practical-wayland/lib
+export modDir=/opt/practical-wayland/scripts/modules
+export stubDir=/opt/practical-wayland/scripts/stubs
+export mgrDir=/opt/practical-wayland/scripts/manager
+export tmpDir=/opt/practical-wayland/tmp
+export aptDir=/opt/practical-wayland/lib/apt
+export urlDir=/opt/practical-wayland/lib/urls
+#END VARIABLE DEFINITIONS
+
 #START BANNER FUNCTION
 # $MenuTitle & $MenuSubTitle are set in the scripts called by this menu
 banner () {
@@ -169,7 +179,7 @@ stepList
 callDisplay
 chkWrite
 #Step 1/14 - Check for Rust Toolchain
-$modDir/2609b283df.sh
+#$modDir/2609b283df.sh
 sleep 2
 chkComplete
 stepList
@@ -178,7 +188,7 @@ stepList
 callDisplay
 chkWrite
 #Step 2/14 - Install Just
-$modDir/2906d9f593.sh   
+#$modDir/2906d9f593.sh   
 sleep 2
 chkComplete
 stepList

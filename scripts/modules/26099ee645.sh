@@ -30,6 +30,16 @@ esac
 }
 #END GUM STYLE FUNCTION
 
+#START VARIABLE DEFINITIONS
+export libDir=/opt/practical-wayland/lib
+export modDir=/opt/practical-wayland/scripts/modules
+export stubDir=/opt/practical-wayland/scripts/stubs
+export mgrDir=/opt/practical-wayland/scripts/manager
+export tmpDir=/opt/practical-wayland/tmp
+export aptDir=/opt/practical-wayland/lib/apt
+export urlDir=/opt/practical-wayland/lib/urls
+#END VARIABLE DEFINITIONS
+
 #START BANNER FUNCTION
 # $MenuTitle & $MenuSubTitle are set in the scripts called by this menu
 banner () {
@@ -86,16 +96,6 @@ prtInfo
 gum style "Checking for NVIDIA GPU adapters..."
 sleep 1.5
 nvidiaGPU=$(lspci | grep -i vga | grep -i "NVIDIA")
-callDisplay
-style=info
-prtInfo
-gum style "The following NVIDIA GPU adapters were detected"
-sleep 1.5
-callDisplay
-style=info
-prtInfo
-gum style "$nvidiaGPU"
-sleep 1.5
 #Setup install GPU flags to false (Default)
 installIntel=false
 installAMD=false
@@ -104,44 +104,32 @@ installMesa=false
 #Check which GPU types are present and set the appropriate flag
 #Check for Intel GPU
 if [ -n "$intelGPU" ]; then
-    callDisplay
-    style=info
-    prtInfo
-    gum style "Intel GPU detected"
-    sleep 1.5
     installIntel=true
 #Check for AMD GPU
 elif [ -n "$amdGPU" ]; then
-    callDisplay
-    style=info
-    prtInfo
-    gum style "AMD GPU detected"
-    sleep 1.5
     installAMD=true
 #Check for NVIDIA GPU
 elif [ -n "$nvidiaGPU" ]; then
-    callDisplay
-    style=info
-    prtInfo
-    gum style "NVIDIA GPU detected"
-    sleep 1.5
     installNVIDIA=true
 #No dedicated GPU detected. Installing Mesa basic drivers
 else
-    callDisplay
-    style=info
-    prtInfo
-    gum style "No dedicated GPU detected."
-    sleep 1.5
     installMesa=true
 fi
 #Install Intel GPU drivers
-if [ $installIntel == true ]; then
+if [ $installIntel = true ]; then
     callDisplay
     style=info
     prtInfo
     gum style "Intel GPU Detected - Installing Intel GPU Drivers"
     sleep 1.5
+    callDisplay
+    style=info
+    prtInfo
+    gum style "Updating APT package cache"
+    sleep 1.5
+    callDisplay
+    sudo echo
+    gum spin --spinner="dot" --title="Updating APT package cache" $stubDir/2609d6354b.sh
     callDisplay
     style=info
     prtInfo
@@ -167,6 +155,14 @@ if [ $installAMD == true ]; then
     callDisplay
     style=info
     prtInfo
+    gum style "Updating APT package cache"
+    sleep 1.5
+    callDisplay
+    sudo echo
+    gum spin --spinner="dot" --title="Updating APT package cache" $stubDir/2609d6354b.sh
+    callDisplay
+    style=info
+    prtInfo
     gum style "Installing AMD GPU drivers"
     sleep 1.5
     callDisplay
@@ -180,7 +176,7 @@ if [ $installAMD == true ]; then
     sleep 1.5
 fi
 #Install NVIDIA GPU drivers
-if [ $installNVIDIA == true ]; then
+if [ $installNVIDIA = true ]; then
     callDisplay
     style=info
     prtInfo
@@ -189,11 +185,19 @@ if [ $installNVIDIA == true ]; then
     callDisplay
     style=info
     prtInfo
+    gum style "Updating APT package cache"
+    sleep 1.5
+    callDisplay
+    sudo echo
+    gum spin --spinner="dot" --title="Updating APT package cache" $stubDir/2609d6354b.sh
+    callDisplay
+    style=info
+    prtInfo
     gum style "Installing NVIDIA GPU dependencies"
     sleep 1.5
     callDisplay
     sudo echo
-    gum spin --spinner "dots" --title "Installing NVIDIA GPU dependencies..." $stubDir/26095349f2.sh
+    gum spin --spinner="dot" --title="Installing NVIDIA GPU dependencies..." $stubDir/26095349f2.sh
     sleep 0.5
     callDisplay
     style=win
@@ -207,7 +211,7 @@ if [ $installNVIDIA == true ]; then
     gum style "Adding Nvidia Driver Repository"
     sleep 1.5
     sudo echo
-    gum spin --spinner "dots" --title "Adding Nvidia Driver Repository"
+    gum spin --spinner="dot" --title="Adding Nvidia Driver Repository"
     callDisplay
     style=info
     prtInfo
@@ -215,7 +219,7 @@ if [ $installNVIDIA == true ]; then
     sleep 1.5
     callDisplay
     sudo echo
-    gum spin --spinner "dots" --title "Installing Nvidia Driver Repository" $stubDir/26094beae9.sh
+    gum spin --spinner="dot" --title="Installing Nvidia Driver Repository" $stubDir/26094beae9.sh
     sleep 0.5
     callDisplay
     style=win
@@ -229,7 +233,7 @@ if [ $installNVIDIA == true ]; then
     sleep 1.5
     callDisplay
     sudo echo
-    gum spin --spinner "dots" --title "Updating APT package cache" $stubDir/2609d6354b.sh
+    gum spin --spinner="dot" --title="Updating APT package cache" $stubDir/2609d6354b.sh
     sleep 0.5
     callDisplay
     style=win
@@ -250,7 +254,7 @@ if [ $installNVIDIA == true ]; then
     sleep 1.5
     callDisplay
     sudo echo
-    gum spin --spinner "dots" --title "Installing NVIDIA Driver Packages" $stubDir/2609d6d318.sh
+    gum spin --spinner="dot" --title="Installing NVIDIA Driver Packages" $stubDir/2609d6d318.sh
     sleep 0.5
     callDisplay
     style=win
@@ -260,28 +264,37 @@ if [ $installNVIDIA == true ]; then
     # The package is signed if secure boot it the key may need to be added via mokutil. Will try install on Nvidia system to confirm if it is needed.
 fi
 #Install Mesa basic drivers
-if [ $installMesa == true ]; then
+if [ $installMesa = true ]; then
     callDisplay
     style=info
     prtInfo
-    gum style "Installing Mesa basic drivers"
+    gum style "Mesa basic drivers - Installing"
+    sleep 1.5
+    callDisplay
+    style=info
+    prtInfo
+    gum style "Updating APT package cache"
     sleep 1.5
     callDisplay
     sudo echo
-    gum spin --spinner "dots" --title "Installing Mesa basic drivers..." $stubDir/2609605982.sh
+    gum spin --spinner="dot" --title="Updating APT package cache" $stubDir/2609d6354b.sh
+    callDisplay
+    style=info
+    prtInfo
+    gum style "Installing Mesa video drivers"
+    sleep 1.5
+    callDisplay
+    sudo echo
+    gum spin --spinner="dot" --title="Installing Mesa video drivers..." $stubDir/2609605982.sh
+    sleep 0.5
+    callDisplay
     style=win
     prtInfo
-    gum style "Mesa basic driver installation completed successfully"
+    gum style "Mesa video drivers installed successfully"
     sleep 1.5
 fi
 #Show completion messages
 callDisplay
 style=win
 prtInfo
-gum style "GPU driver(s) installation complete. A reboot is required to apply changes"
-sleep 2
-callDisplay
-style=win
-prtInfo
-gum style "Once the system reboots please run the main setup.sh script in your home directory to continue."
-sleep 2
+gum style "GPU driver installation(s) completed successfully!"
