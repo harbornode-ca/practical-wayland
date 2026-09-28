@@ -62,6 +62,8 @@ export modDir=/opt/practical-wayland/scripts/modules
 export stubDir=/opt/practical-wayland/scripts/stubs
 export mgrDir=/opt/practical-wayland/scripts/manager
 export tmpDir=/opt/practical-wayland/tmp
+export aptDir=/opt/practical-wayland/lib/apt
+export urlDir=/opt/practical-wayland/lib/urls
 #END VARIABLE DEFINITIONS
 
 

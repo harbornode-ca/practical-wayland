@@ -68,28 +68,19 @@ style=info
 prtInfo
 gum style "Checking for GPU types..."
 sleep 1.5
+callDisplay
+style=info
+prtInfo
+gum style "Checking for Intel GPU adapters..."
+sleep 1.5
 intelGPU=$(lspci | grep -i vga | grep -i "Intel")
 callDisplay
 style=info
 prtInfo
-gum style "The following Intel GPU adapters were detected"
-sleep 1.5
-callDisplay
-style=info
-prtInfo
-gum style "$intelGPU"
+gum style "Checking for AMD GPU adapters..."
 sleep 1.5
 amdGPU=$(lspci | grep -i vga | grep -i "AMD")
-callDisplay
-style=info
-prtInfo
-gum style "The following AMD GPU adapters were detected"
-sleep 1.5
-callDisplay
-style=info
-prtInfo
-gum style "$amdGPU"
-sleep 1.5
+
 nvidiaGPU=$(lspci | grep -i vga | grep -i "NVIDIA")
 callDisplay
 style=info
@@ -148,13 +139,15 @@ if [ $installIntel == true ]; then
     gum style "Intel GPU Detected Installing...Intel GPU Drivers"
     sleep 1.5
     callDisplay
-    depIntel=$(cat $swAptDir/gpuIntel.apt)
     style=info
     prtInfo
     gum style "Installing Intel GPU drivers"
     sleep 1.5
-    gum spin --spinner "dots" --title "Installing Intel GPU drivers..."
-    style=msg
+    callDisplay
+    gum spin --spinner "dots" --title "Installing Intel GPU drivers..." $stubDir/26092717e8.sh
+    sleep 0.5
+    callDisplay
+    style=win
     prtInfo
     gum style "Intel driver installation completed successfully"
     sleep 1.5
@@ -167,15 +160,15 @@ if [ $installAMD == true ]; then
     gum style "AMD GPU Detected Installing...AMD GPU Drivers"
     sleep 1.5
     callDisplay
-    depAMD=$(cat $swAptDir/gpuAMD.apt)
     style=info
     prtInfo
     gum style "Installing AMD GPU drivers"
     sleep 1.5
     callDisplay
-    sudo gum spin --spinner "dots" --title "Installing AMD GPU drivers..." DEBIAN_FRONTEND=noninteractive apt install $depAMD -y 2>&1
+    gum spin --spinner "dots" --title "Installing AMD GPU drivers..." $stubDir/26099d37d1.sh
+    sleep 0.5
     callDisplay
-    style=msg
+    style=win
     prtInfo
     gum style "AMD driver installation completed successfully"
     sleep 1.5
@@ -188,61 +181,66 @@ if [ $installNVIDIA == true ]; then
     gum style "NVIDIA GPU Detected Installing...NVIDIA GPU Drivers"
     sleep 1.5
     callDisplay
-    depNVIDIA=$(cat $swAptDir/gpuNVIDIA.apt)
     style=info
     prtInfo
     gum style "Installing NVIDIA GPU dependencies"
     sleep 1.5
     callDisplay
-    sudo gum spin --spinner "dots" --title "Installing NVIDIA GPU dependencies..." DEBIAN_FRONTEND=noninteractive apt install $depNVIDIA -y 2>&1
+    gum spin --spinner "dots" --title "Installing NVIDIA GPU dependencies..." $stubDir/26095349f2.sh
+    sleep 0.5
     callDisplay
-    style=msg
+    style=win
     prtInfo
-    gum style "NVIDIA driver installation completed successfully"
+    gum style "NVIDIA driver dependencies installed successfully"
     sleep 1.5
-    urlNVIDIA=$(cat $installDir/nvidia.url)
     callDisplay
     style=info
     prtInfo
     gum style "Adding Nvidia Driver Repository"
     sleep 1.5
-    gum spin --spinner "dots" --title "Adding Nvidia Driver Repository" wget -nv -O $tmpDir/cuda.deb $urlNVIDIA
+    gum spin --spinner "dots" --title "Adding Nvidia Driver Repository"
     callDisplay
     style=info
     prtInfo
     gum style "Installing Nvidia Driver Repository"
     sleep 1.5
     callDisplay
-    sudo dpkg -i $tmpDir/cuda.deb
+    gum spin --spinner "dots" --title "Installing Nvidia Driver Repository" $stubDir/26094beae9.sh
+    sleep 0.5
+    callDisplay
+    style=win
+    prtInfo
+    gum style "Nvidia Driver repository installed successfully"
+    sleep 1.5
     callDisplay
     style=info
     prtInfo
     gum style "Updating APT package cache"
     sleep 1.5
     callDisplay
-    sudo gum spin --spinner "dots" --title "Updating APT package cache" DEBIAN_FRONTEND=noninteractive apt update
+    gum spin --spinner "dots" --title "Updating APT package cache" $stubDir/2609d6354b.sh
+    sleep 0.5
+    callDisplay
+    style=win
+    prtInfo
+    gum style "APT package cache updated successfully"
+    sleep 1.5
     callDisplay
     style=info
     prtInfo
     gum style "Cleaning up temporary files"
     sleep 1.5
-    rm -fv $tmpDir/cuda.deb
-    callDisplay
-    style=info
-    prtInfo
-    gum style "Installing Nvidia Dependancies"
-    sleep 1.5
-    callDisplay
-    sudo DEBIAN_FRONTEND=noninteractive apt install $depNVIDIA -y
+    rm -f $tmpDir/cuda.deb
     callDisplay
     style=info
     prtInfo
     gum style "Installing NVIDIA Driver Packages"
     sleep 1.5
     callDisplay
-    sudo DEBIAN_FRONTEND=noninteractive apt install nvidia-open -y
+    gum spin --spinner "dots" --title "Installing NVIDIA Driver Packages" $stubDir/2609d6d318.sh
+    sleep 0.5
     callDisplay
-    style=info
+    style=win
     prtInfo
     gum style "NVIDIA Driver installation completed successfully"
     sleep 1.5
@@ -256,15 +254,8 @@ if [ $installMesa == true ]; then
     gum style "Installing Mesa basic drivers"
     sleep 1.5
     callDisplay
-    depMesa=$(cat $swAptDir/gpuMesa.apt)
-    style=info
-    prtInfo
-    gum style "Installing Mesa basic drivers"
-    sleep 1.5
-    callDisplay
-    sudo gum spin --spinner "dots" --title "Installing Mesa basic drivers..." DEBIAN_FRONTEND=noninteractive apt install $depMesa -y 2>&1
-    callDisplay
-    style=msg
+    gum spin --spinner "dots" --title "Installing Mesa basic drivers..." $stubDir/2609605982.sh
+    style=win
     prtInfo
     gum style "Mesa basic driver installation completed successfully"
     sleep 1.5
