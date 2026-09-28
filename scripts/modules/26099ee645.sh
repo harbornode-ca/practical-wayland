@@ -60,12 +60,10 @@ printf "%s\n" "${chkStep[@]}" | gum style --foreground=11 --border-foreground=3 
 }
 #END CALL DISPLAY FUNCTION
 
-
-stepList
-callDisplay
-
 #Check for GPU types via lspci command
 #Display output and set flags based on GPU type
+stepList
+callDisplay
 style=info
 prtInfo
 gum style "Checking for GPU types..."
