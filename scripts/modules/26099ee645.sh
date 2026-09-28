@@ -269,11 +269,14 @@ if [ $installMesa == true ]; then
     gum style "Mesa basic driver installation completed successfully"
     sleep 1.5
 fi
+#Show completion messages
 callDisplay
 style=win
 prtInfo
 gum style "GPU driver(s) installation complete. A reboot is required to apply changes"
+sleep 2
 callDisplay
 style=win
 prtInfo
 gum style "Once the system reboots please run the main setup.sh script in your home directory to continue."
+sleep 2
