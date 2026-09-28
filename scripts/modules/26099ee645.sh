@@ -103,14 +103,11 @@ style=info
 prtInfo
 gum style "$nvidiaGPU"
 sleep 1.5
-
-
 #Setup install GPU flags to false (Default)
 installIntel=false
 installAMD=false
 installNVIDIA=false
 installMesa=false
-
 #Check which GPU types are present and set the appropriate flag
 #Check for Intel GPU
 if [ -n "$intelGPU" ]; then
@@ -145,8 +142,6 @@ else
     sleep 1.5
     installMesa=true
 fi
-
-
 #Install Intel GPU drivers
 if [ $installIntel == true ]; then
     callDisplay
@@ -166,7 +161,6 @@ if [ $installIntel == true ]; then
     gum style "Intel driver installation completed successfully"
     sleep 1.5
 fi
-
 #Install AMD GPU drivers
 if [ $installAMD == true ]; then
     callDisplay
@@ -188,7 +182,6 @@ if [ $installAMD == true ]; then
     gum style "AMD driver installation completed successfully"
     sleep 1.5
 fi
-
 #Install NVIDIA GPU drivers
 if [ $installNVIDIA == true ]; then
     callDisplay
@@ -257,7 +250,7 @@ if [ $installNVIDIA == true ]; then
     sleep 1.5
     # The package is signed if secure boot it the key may need to be added via mokutil. Will try install on Nvidia system to confirm if it is needed.
 fi
-
+#Install Mesa basic drivers
 if [ $installMesa == true ]; then
     callDisplay
     style=info
@@ -278,7 +271,6 @@ if [ $installMesa == true ]; then
     gum style "Mesa basic driver installation completed successfully"
     sleep 1.5
 fi
-
 callDisplay
 style=win
 prtInfo
