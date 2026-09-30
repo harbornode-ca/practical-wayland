@@ -76,12 +76,10 @@ style=info
 prtInfo
 gum style "Adding bitmap font support for Glyph support in TUI and GUIs"
 sleep 1
-callDisplay
 style=info
 prtInfo
 gum style "Checking for disabled bitmap fonts..."
 sleep 1
-callDisplay
 while IFS= read -r file; do
     if [ -f "$file" ]; then
         style=info
@@ -95,35 +93,28 @@ while IFS= read -r file; do
         sleep 1
     fi
 done < $libDir/fontconfig-rm.list
-callDisplay
 style=info
 prtInfo
 gum style "Adding bitmap fontconfig file to the font configuration directory"
 sleep 1
-callDisplay
 while IFS="," read -r src dest; do
-    callDisplay
     style=info
     prtInfo
     gum style "Creating hardlink from $src to $dest"
     sleep 0.5
     sudo ln -f "$src" "$dest"
 done < $libDir/fontconfig-add.csv
-callDisplay
 style=info
 prtInfo
 gum spin --title "Updating APT package cache" $stubDir/2609d6354b.sh
 sleep 1
-callDisplay
 style=info
 prtInfo
 gum style "Installing symbol fonts (Noto Color Emoji, Nerd Symbols, FontAwesome)"
 sleep 1.5
-callDisplay
 sudo echo
 gum spin --title "Installing symbol fonts..." $stubDir/260942925a.sh
 sleep 0.5
-callDisplay
 style=win
 prtInfo
 gum style "Bitmap Font support and symbol fonts installed successfully."

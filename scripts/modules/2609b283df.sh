@@ -75,18 +75,15 @@ style=info
 prtInfo
 gum style "Setting up Rust Toolchain..."
 sleep 1.5
-callDisplay
 if [ -d "$HOME/.cargo" ]; then
     style=info
     prtInfo
     gum style "Rust Toolchain is already installed"
     sleep 1.5
-    callDisplay
     gum style "Confirming Rust Toolchain is up to date"
     sleep 1.5
     gum spin --title "Updating Rust Toolchain" $stubDir/2609ebcd21.sh
     sleep 1
-    callDisplay
     style=win
     prtInfo
     gum style "Rust Toolchain is up to date."
@@ -96,13 +93,10 @@ else
     prtInfo
     gum style "Rust Toolchain is not installed"
     sleep 1
-    callDisplay
     gum style "Installing Rust Toolchain"
     sleep 1.5
-    callDisplay
     gum spin --title "Installing Rust Toolchain" $stubDir/2609fd1bba.sh
     sleep 1
-    callDisplay
     style=win
     prtInfo
     gum style "Rust Toolchain is now installed."

@@ -75,19 +75,15 @@ style=info
 prtInfo
 gum style "Setting up Just..."
 sleep 1.5
-callDisplay
 if [ -f "$HOME/.cargo/bin/just" ]; then
     style=info
     prtInfo
     gum style "Just is already installed"
     sleep 1
-    callDisplay
     gum style "Making sure that Just is up to date"
     sleep 1
-    callDisplay
     gum spin --title "Upgrading Just" $stubDir/2609b4dcf6.sh
     sleep 0.5
-    callDisplay
     style=win
     prtInfo
     gum style "Just is now up to date."
@@ -97,13 +93,10 @@ else
     prtInfo
     gum style "Just is not installed"
     sleep 1
-    callDisplay
     gum style "Installing Just"
     sleep 1
-    callDisplay
     gum spin --title "Installing Just" $stubDir/2609b4dcf6.sh
     sleep 0.5
-    callDisplay
     style=win
     prtInfo
     gum style "Just is now installed."
