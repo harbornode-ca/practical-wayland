@@ -178,7 +178,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 1/14 - Check for Rust Toolchain
+#Step 1/13 - Check for Rust Toolchain
 #$modDir/2609b283df.sh
 sleep 2
 chkComplete
@@ -187,7 +187,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 2/14 - Install Just
+#Step 2/13 - Install Just
 #$modDir/2906d9f593.sh   
 sleep 2
 chkComplete
@@ -196,8 +196,8 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 3/14 - Install GPU Drivers
-$modDir/26099ee645.sh
+#Step 3/13 - Install GPU Drivers
+#$modDir/26099ee645.sh
 sleep 2
 chkComplete
 stepList
@@ -205,8 +205,8 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 4/14 - Add Bitmap Font Support
-#WIP Add bitmap font packages and configuration
+#Step 4/13 - Add Bitmap Font Support
+$modDir/2609de7bae.sh
 sleep 2
 chkComplete
 stepList
@@ -214,16 +214,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 5/14 - Install & Configure Fonts
-#WIP Install and configure font packages
-sleep 2
-chkComplete
-stepList
-chkProgress
-stepList
-callDisplay
-chkWrite
-#Step 6/14 - Add Noctalia Repository
+#Step 5/13 - Add Noctalia Repository
 #WIP Add Noctalia repository and update apt packages
 sleep 2
 chkComplete
@@ -232,7 +223,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 7/14 - Install Noctalia Packages
+#Step 6/13 - Install Noctalia Packages
 #WIP Install Noctalia packages
 sleep 2
 chkComplete
@@ -241,7 +232,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 8/14 - Install niri build dependencies
+#Step 7/13 - Install niri build dependencies
 #WIP Install niri build dependencies
 sleep 2
 chkComplete
@@ -250,7 +241,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 9/14 - Download niri compositor source
+#Step 8/13 - Download niri compositor source
 #WIP Download niri compositor source
 sleep 2
 chkComplete
@@ -259,7 +250,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 10/14 - Compile niri compositor
+#Step 9/13 - Compile niri compositor
 #WIP Compile niri compositor
 sleep 2
 chkComplete
@@ -268,7 +259,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 11/14 - Install niri compositor
+#Step 10/13 - Install niri compositor
 #WIP Install niri compositor
 sleep 2
 chkComplete
@@ -277,7 +268,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 12/14 - Install niri runtime packages
+#Step 11/13 - Install niri runtime packages
 #WIP Install niri runtime packages
 sleep 2
 chkComplete
@@ -286,7 +277,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 13/14 - Compile & Install Xwayland Satellite
+#Step 12/13 - Compile & Install Xwayland Satellite
 #WIP Compile & Install Xwayland Satellite
 sleep 2
 chkComplete
@@ -295,7 +286,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 14/14 - Set default configuration
+#Step 13/13 - Set default configuration
 #WIP Set default configuration
 sleep 2
 chkComplete

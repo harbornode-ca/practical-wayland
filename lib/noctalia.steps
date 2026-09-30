@@ -1,7 +1,6 @@
 N,Check for Just command
 N,Install GPU Drivers
-N,Add bitmap font support
-N,Install & Configure Fonts
+N,Install & Configure Bitmap Fonts
 N,Add Noctalia Repository
 N,Install Noctalia Packages
 N,Install niri build dependencies
