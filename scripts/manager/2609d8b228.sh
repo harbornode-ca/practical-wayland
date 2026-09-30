@@ -215,7 +215,7 @@ stepList
 callDisplay
 chkWrite
 #Step 5/13 - Add Noctalia Repository
-#WIP Add Noctalia repository and update apt packages
+$modDir/2609d64847.sh
 sleep 2
 chkComplete
 stepList
@@ -224,7 +224,7 @@ stepList
 callDisplay
 chkWrite
 #Step 6/13 - Install Noctalia Packages
-#WIP Install Noctalia packages
+$modDir/2609e17a87.sh
 sleep 2
 chkComplete
 stepList
