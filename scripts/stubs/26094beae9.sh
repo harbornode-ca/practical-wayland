@@ -5,3 +5,4 @@
 urlNVIDIA=$(cat $libDir/nvidia.url)
 wget -nv -O $tmpDir/cuda.deb $urlNVIDIA
 sudo dpkg -i $tmpDir/cuda.deb
+sleep 1

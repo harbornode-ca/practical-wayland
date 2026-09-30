@@ -1,5 +1,6 @@
 #!/bin/bash
 #2609fd1bba - Download and install Rust Toolkit
+#Author: kevinrevun - kevin@kevrev.run
 
 #Download rustup.sh
 wget -O $tmpDir/rustup.sh https://sh.rustup.rs

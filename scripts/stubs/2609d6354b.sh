@@ -3,3 +3,4 @@
 #Author: kevrevun - kevin@kevrev.run
 
 sudo DEBIAN_FRONTEND=noninteractive apt update
+sleep 1
