@@ -179,7 +179,7 @@ stepList
 callDisplay
 chkWrite
 #Step 1/13 - Check for Rust Toolchain
-#$modDir/2609b283df.sh
+$modDir/2609b283df.sh
 sleep 2
 chkComplete
 stepList
@@ -188,7 +188,7 @@ stepList
 callDisplay
 chkWrite
 #Step 2/13 - Install Just
-#$modDir/2906d9f593.sh   
+$modDir/2906d9f593.sh   
 sleep 2
 chkComplete
 stepList
@@ -197,7 +197,7 @@ stepList
 callDisplay
 chkWrite
 #Step 3/13 - Install GPU Drivers
-#$modDir/26099ee645.sh
+$modDir/26099ee645.sh
 sleep 2
 chkComplete
 stepList
