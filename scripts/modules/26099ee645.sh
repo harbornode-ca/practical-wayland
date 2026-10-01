@@ -1,6 +1,5 @@
 #!/bin/bash
-#26099ee645.sh - Detects GPU and installs appropriate drivers. If running in mesa basic drivers wi;l be installed.
-#Intel and AMD use the Mesa drivers and are installed via APT. NVIDIA drivers are installed through the nvidia drivers repository.
+#26099ee645.sh - Detects GPU and installs appropriate drivers. If running in VM or no display adapter detected, Mesa basic drivers will be installed.
 #Author: kevrevun - kevin@kevrev.run
 
 #START GUM STYLE FUNCTION

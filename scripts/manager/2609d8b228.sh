@@ -178,7 +178,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 1/13 - Check for Rust Toolchain
+#Step 1/15 - Check for Rust Toolchain
 $modDir/2609b283df.sh
 sleep 2
 chkComplete
@@ -187,7 +187,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 2/13 - Install Just
+#Step 2/15 - Install Just
 $modDir/2609d9f593.sh   
 sleep 2
 chkComplete
@@ -196,7 +196,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 3/13 - Install GPU Drivers
+#Step 3/15 - Install GPU Drivers
 $modDir/26099ee645.sh
 sleep 2
 chkComplete
@@ -205,7 +205,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 4/13 - Add Bitmap Font Support
+#Step 4/15 - Add Bitmap Font Support
 $modDir/2609de7bae.sh
 sleep 2
 chkComplete
@@ -214,7 +214,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 5/13 - Add Noctalia Repository
+#Step 5/15 - Add Noctalia Repository
 $modDir/2609d64847.sh
 sleep 2
 chkComplete
@@ -223,7 +223,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 6/13 - Install Noctalia Packages
+#Step 6/15 - Install Noctalia Packages
 $modDir/2609e17a87.sh
 sleep 2
 chkComplete
@@ -232,7 +232,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 7/13 - Install niri build dependencies
+#Step 7/15 - Install niri build dependencies
 $modDir/2609b42c25.sh
 sleep 2
 chkComplete
@@ -241,7 +241,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 8/13 - Download niri compositor source
+#Step 8/15 - Download niri compositor source
 $modDir/2609a43318.sh
 sleep 2
 chkComplete
@@ -250,7 +250,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 9/13 - Compile niri compositor
+#Step 9/15 - Compile niri compositor
 $modDir/2609844a99.sh
 sleep 2
 chkComplete
@@ -259,7 +259,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 10/13 - Install niri compositor
+#Step 10/15 - Install niri compositor
 $modDir/26097109d8.sh
 sleep 2
 chkComplete
@@ -268,7 +268,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 11/13 - Install niri runtime packages
+#Step 11/15 - Install niri runtime packages
 $modDir/26101c7d52.sh
 sleep 2
 chkComplete
@@ -277,8 +277,8 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 12/13 - Compile & Install Xwayland Satellite
-#WIP Compile & Install Xwayland Satellite
+#Step 12/15 - Download Xwayland Satellite Source Code
+$modDir/2610c79f61.sh
 sleep 2
 chkComplete
 stepList
@@ -286,9 +286,26 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 13/13 - Set default configuration
-#WIP Set default configuration
+#Step 15/15 - Install Xwayland Satellite dependencies
+$modDir/2610c79c7f.sh
+sleep 2
+chkComplete
+stepList
+chkProgress
+callDisplay
+chkWrite
+#Step 14/15 - Compile Xwayland Satellite
+$modDir/26104ba01e.sh
+sleep 2
+chkComplete
+stepList
+chkProgress
+callDisplay
+chkWrite
+#Step 15/15 - Install Xwayland Satellite
+$modDir/2610293ad9.sh
 sleep 2
 chkComplete
 stepList
 callDisplay
+

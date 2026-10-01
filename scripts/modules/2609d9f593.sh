@@ -1,5 +1,5 @@
 #!/bin/bash
-#2609d64847.sh - Adds the Noctalia repository to the system
+#2609d9f593.sh - Checks if Just is installed and installs or updates it
 #Author: kevrevun - kevin@kevrev.run
 
 #START GUM STYLE FUNCTION
@@ -73,40 +73,32 @@ stepList
 callDisplay
 style=info
 prtInfo
-gum style "Setting up Noctalia Repository"
-sleep 1
-echo
-style=info
-prtInfo
-gum style "Downloading keyring"
-sleep 1
-sudo echo
-gum spin --spinner="dot" --title="Downloading keyring..." $stubDir/26095f8e6f.sh
-style=win
-prtInfo
-gum style "Noctalia keyring downloaded successfully"
-sleep 1
-style=info
-prtInfo
-gum style "Installing Noctalia Keyring"
+gum style "Setting up Just..."
 sleep 1.5
-sudo echo
-gum spin --spinner="dot" --title="Installing Noctalia Keyring..." $stubDir/26091d5155.sh
-style=win
-prtInfo
-gum style "Noctalia keyring installed successfully"
-sleep 1
-style=info
-prtInfo
-gum style "Setting up Noctalia sources file"
-sleep 1.5
-sudo echo
-gum spin --spinner="dot" --title="Setting up Noctalia sources file..." $stubDir/26098505c2.sh
-style=win
-prtInfo
-gum style "Noctalia sources file set up successfully"
-sleep 1
-style=win
-prtInfo
-gum style "Noctalia Repository set up successfully."
-sleep 1
+if [ -f "$HOME/.cargo/bin/just" ]; then
+    style=info
+    prtInfo
+    gum style "Just is already installed"
+    sleep 1
+    gum style "Making sure that Just is up to date"
+    sleep 1
+    gum spin --title "Upgrading Just" $stubDir/2609b4dcf6.sh
+    sleep 0.5
+    style=win
+    prtInfo
+    gum style "Just is now up to date."
+    sleep 1
+else
+    style=info
+    prtInfo
+    gum style "Just is not installed"
+    sleep 1
+    gum style "Installing Just"
+    sleep 1
+    gum spin --title "Installing Just" $stubDir/2609b4dcf6.sh
+    sleep 0.5
+    style=win
+    prtInfo
+    gum style "Just is now installed."
+    sleep 1
+fi

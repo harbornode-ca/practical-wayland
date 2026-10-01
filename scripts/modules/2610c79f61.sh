@@ -1,6 +1,6 @@
 #!/bin/bash
-#2609d64847.sh - Adds the Noctalia repository to the system
-#Author: kevrevun - kevin@kevrev.run
+#2609a43318.sh - Download Xwayland-satellite source code
+#Author: kevinrevun - kevin@kevrev.run
 
 #START GUM STYLE FUNCTION
 prtInfo () {
@@ -71,42 +71,13 @@ printf "%s\n" "${chkStep[@]}" | gum style --foreground=11 --border-foreground=3 
 
 stepList
 callDisplay
-style=info
-prtInfo
-gum style "Setting up Noctalia Repository"
-sleep 1
-echo
-style=info
-prtInfo
-gum style "Downloading keyring"
-sleep 1
-sudo echo
-gum spin --spinner="dot" --title="Downloading keyring..." $stubDir/26095f8e6f.sh
-style=win
-prtInfo
-gum style "Noctalia keyring downloaded successfully"
 sleep 1
 style=info
 prtInfo
-gum style "Installing Noctalia Keyring"
-sleep 1.5
-sudo echo
-gum spin --spinner="dot" --title="Installing Noctalia Keyring..." $stubDir/26091d5155.sh
-style=win
-prtInfo
-gum style "Noctalia keyring installed successfully"
+gum style "Downloading Xwayland-satellite source code"
 sleep 1
-style=info
-prtInfo
-gum style "Setting up Noctalia sources file"
-sleep 1.5
-sudo echo
-gum spin --spinner="dot" --title="Setting up Noctalia sources file..." $stubDir/26098505c2.sh
+gum spin --spinner=dot --title="Downloading Xwayland-satellite source code" $stubDir/261091fafd.sh
 style=win
 prtInfo
-gum style "Noctalia sources file set up successfully"
-sleep 1
-style=win
-prtInfo
-gum style "Noctalia Repository set up successfully."
+gum style "Xwayland-satellite source code downloaded successfully"
 sleep 1

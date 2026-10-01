@@ -1,7 +1,7 @@
 #!/bin/bash
-#Adds bitmap font support for Glyph support in TUI and GUIs
-#Installs Noto Color Emoji font and Nerd Symbols font for emojis and symbols.
-#fa CLI font tool (FontAwesome) to be added in a future script with installation of a few useful fonts.
+#2609de7bae.sh - Adds bitmap font support for Glyph support in TUI and GUIs
+#Author: kevrevun - kevin@kevrev.run
+
 #START GUM STYLE FUNCTION
 
 prtInfo () {

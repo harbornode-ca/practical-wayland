@@ -1,5 +1,5 @@
 #!/bin/bash
-#2609a43318.sh - Install Niri Compositor from GitHub
+#2609a43318.sh - Install niri from build directory.
 #Author: kevinrevun - kevin@kevrev.run
 
 #START GUM STYLE FUNCTION

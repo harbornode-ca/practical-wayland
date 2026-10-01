@@ -1,9 +1,11 @@
 #!/bin/bash
-#This script adds the new noctalia repository and installs the Noctalia Desktop Environment stack.
-#This includes the noctalia package which is the main shell, the noctalia-greeter the login manager, 
-#umbriel which is the compositor/WM, and xdg-desktop-portal-umbriel for desktop portal support.
-#This will be installed with niri as Umbriel is still suffering from stability issues.
-#This will be monitored and updated once Umbriel is deemed stable enough for daily use.
+#2609e17a87.sh - Adds the Noctalia repository to the system and installs the Noctalia Desktop Environment stack.
+#Author: kevrevun - kevin@kevrev.run
+
+#Note: niri is currently being installed as the primary compositor/WM.
+#Umbriel is still suffering from stability issues. I will be monitoring
+#the situation and will update this script once Umbriel is deemed stable enough
+#for daily use.
 
 #START GUM STYLE FUNCTION
 prtInfo () {

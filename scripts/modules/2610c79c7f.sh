@@ -1,6 +1,6 @@
 #!/bin/bash
-#2906d9f593.sh - Install/Update Just
-#Author: kevrevun - kevin@kevrev.run
+#2610c79c7f.sh - Install Xwayland Satellite dependencies
+#Author: kevinrevun - kevin@kevrev.run
 
 #START GUM STYLE FUNCTION
 prtInfo () {
@@ -71,34 +71,24 @@ printf "%s\n" "${chkStep[@]}" | gum style --foreground=11 --border-foreground=3 
 
 stepList
 callDisplay
+sleep 1
 style=info
 prtInfo
-gum style "Setting up Just..."
-sleep 1.5
-if [ -f "$HOME/.cargo/bin/just" ]; then
-    style=info
-    prtInfo
-    gum style "Just is already installed"
-    sleep 1
-    gum style "Making sure that Just is up to date"
-    sleep 1
-    gum spin --title "Upgrading Just" $stubDir/2609b4dcf6.sh
-    sleep 0.5
-    style=win
-    prtInfo
-    gum style "Just is now up to date."
-    sleep 1
-else
-    style=info
-    prtInfo
-    gum style "Just is not installed"
-    sleep 1
-    gum style "Installing Just"
-    sleep 1
-    gum spin --title "Installing Just" $stubDir/2609b4dcf6.sh
-    sleep 0.5
-    style=win
-    prtInfo
-    gum style "Just is now installed."
-    sleep 1
-fi
+gum style "Updating APT package cache"
+sleep 1
+sudo echo
+gum spin --spinner=dot --title="Updating APT package cache" $stubDir/2609d6354b.sh
+style=win
+prtInfo
+gum style "APT package cache updated successfully"
+sleep 1
+style=info
+prtInfo
+gum style "Installing Xwayland-satellite Dependencies"
+sleep 1
+gum spin --spinner=dot --title="Installing Xwayland-satellite Dependencies" $stubDir/26102d7312.sh
+sleep 1
+style=win
+prtInfo
+gum style "Completed installation of Xwayland-satellite Dependencies"
+sleep 1
