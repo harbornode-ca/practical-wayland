@@ -1,6 +1,6 @@
-target/release/niri,/usr/local/bin/
-resources/niri-session,/usr/local/bin/
-resources/niri.desktop,/usr/local/share/wayland-sessions/
-resources/niri-portals.conf,/usr/local/share/xdg-desktop-portal/
+target/release/niri,/usr/bin/
+resources/niri-session,/usr/bin/
+resources/niri.desktop,/usr/share/wayland-sessions/
+resources/niri-portals.conf,/usr/share/xdg-desktop-portal/
 resources/niri.service,/etc/systemd/user/
 resources/niri-shutdown.target,/etc/systemd/user/
