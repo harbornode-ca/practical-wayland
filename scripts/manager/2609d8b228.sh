@@ -188,7 +188,7 @@ stepList
 callDisplay
 chkWrite
 #Step 2/13 - Install Just
-$modDir/2906d9f593.sh   
+$modDir/2609d9f593.sh   
 sleep 2
 chkComplete
 stepList
