@@ -76,7 +76,7 @@ style=info
 prtInfo
 gum style "Installing niri"
 sleep 1
-sudo echo
+sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
 gum spin --spinner=dot --title="Installing niri" $stubDir/26090b01e3.sh
 sleep 1
 style=win

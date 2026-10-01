@@ -112,7 +112,7 @@ style=info
 prtInfo
 gum style "Installing symbol fonts (Noto Color Emoji, Nerd Symbols, FontAwesome)"
 sleep 1.5
-sudo echo
+sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
 gum spin --title "Installing symbol fonts..." $stubDir/260942925a.sh
 sleep 0.5
 style=win

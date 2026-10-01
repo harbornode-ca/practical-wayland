@@ -80,7 +80,7 @@ style=info
 prtInfo
 gum style "Updating APT packages cache"
 sleep 1
-sudo echo
+sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
 gum spin --spinner="dot" --title="Updating APT packages cache..." $stubDir/2609d6354b.sh
 style=win
 prtInfo
@@ -90,7 +90,7 @@ style=info
 prtInfo
 gum style "Installing packages from Noctalia repository"
 sleep 1
-sudo echo
+sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
 gum spin --spinner="dot" --title="Installing packages from Noctalia repository..." $stubDir/26098b85e9.sh
 style=win
 prtInfo

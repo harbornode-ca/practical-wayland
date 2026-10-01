@@ -80,7 +80,7 @@ style=info
 prtInfo
 gum style "Downloading keyring"
 sleep 1
-sudo echo
+sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
 gum spin --spinner="dot" --title="Downloading keyring..." $stubDir/26095f8e6f.sh
 style=win
 prtInfo
@@ -90,7 +90,7 @@ style=info
 prtInfo
 gum style "Installing Noctalia Keyring"
 sleep 1.5
-sudo echo
+sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
 gum spin --spinner="dot" --title="Installing Noctalia Keyring..." $stubDir/26091d5155.sh
 style=win
 prtInfo
@@ -99,8 +99,7 @@ sleep 1
 style=info
 prtInfo
 gum style "Setting up Noctalia sources file"
-sleep 1.5
-sudo echo
+sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
 gum spin --spinner="dot" --title="Setting up Noctalia sources file..." $stubDir/26098505c2.sh
 style=win
 prtInfo
