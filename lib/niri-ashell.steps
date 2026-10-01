@@ -1,0 +1,13 @@
+N,Check for Just command
+N,Install GPU Drivers
+N,Install & Configure Bitmap Fonts
+N,Download lemurs Login Manager Source
+N,Compile lemurs Login Manager
+N,Install lemurs Login Manager
+N,Download niri compositor source
+N,Compile niri compositor
+N,Install niri compositor
+N,Install niri runtime packages
+N,Compile & Install Xwayland Satellite
+N,
+N,Check for Rust Toolchain

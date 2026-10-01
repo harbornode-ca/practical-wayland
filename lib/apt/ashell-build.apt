@@ -1,2 +1,7 @@
-#**NOT IMPLEMENTED - DO NOT USE
-
+clang
+wayland-protocols
+libxkbcommon-dev
+libwayland-dev
+dbus
+libpipewire-0.3-dev
+libpulse-dev
