@@ -74,10 +74,11 @@ callDisplay
 sleep 1
 style=info
 prtInfo
-gum style "Downloading niri source code"
+gum style "Building niri"
 sleep 1
-gum spin --spinner=dot --title="Downloading niri source code" $stubDir/26093ecf51.sh
+gum spin --spinner=dot --title="Building niri" $stubDir/2609e06e52.sh
+sleep 1
 style=win
 prtInfo
-gum style "Niri source code downloaded successfully"
+gum style "Niri built successfully"
 sleep 1
