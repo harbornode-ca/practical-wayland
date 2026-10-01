@@ -84,11 +84,11 @@ gum style "APT package cache updated successfully"
 sleep 1
 style=info
 prtInfo
-gum style "Installing niri Build Dependencies"
+gum style "Installing niri Runtime Dependencies"
 sleep 1
-gum spin --spinner=dot --title="Installing niri Build Dependencies" $stubDir/2609f9417f.sh
+gum spin --spinner=dot --title="Installing niri Runtime Dependencies" $stubDir/2610109e66.sh
 sleep 1
 style=win
 prtInfo
-gum style "Completed installation of niri Build Dependencies"
+gum style "Completed installation of niri Runtime Dependencies"
 sleep 1

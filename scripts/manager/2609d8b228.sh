@@ -233,7 +233,7 @@ stepList
 callDisplay
 chkWrite
 #Step 7/13 - Install niri build dependencies
-#WIP Install niri build dependencies
+$modDir/2609b42c25.sh
 sleep 2
 chkComplete
 stepList
@@ -242,7 +242,7 @@ stepList
 callDisplay
 chkWrite
 #Step 8/13 - Download niri compositor source
-#WIP Download niri compositor source
+$modDir/2609a43318.sh
 sleep 2
 chkComplete
 stepList
@@ -251,7 +251,7 @@ stepList
 callDisplay
 chkWrite
 #Step 9/13 - Compile niri compositor
-#WIP Compile niri compositor
+$modDir/2609844a99.sh
 sleep 2
 chkComplete
 stepList
@@ -260,7 +260,7 @@ stepList
 callDisplay
 chkWrite
 #Step 10/13 - Install niri compositor
-#WIP Install niri compositor
+$modDir/26097109d8.sh
 sleep 2
 chkComplete
 stepList
@@ -269,7 +269,7 @@ stepList
 callDisplay
 chkWrite
 #Step 11/13 - Install niri runtime packages
-#WIP Install niri runtime packages
+$modDir/26101c7d52.sh
 sleep 2
 chkComplete
 stepList
