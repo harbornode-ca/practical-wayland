@@ -1,12 +1,12 @@
-N,Install/Update Just
+N,Check for Installation of Just
 N,Install GPU Drivers
 N,Install/Configure Bitmap Fonts
 N,Add Noctalia Repository
-N,Install Noctalia
-N,Install niri Build Dependencies
-N,Download niri Source Code
-N,Compile niri from Source
-N,Install niri Binaries and Configuration Files
+N,Install Noctalia Desktop Stack
+N,Install niri WN Build Dependencies
+N,Download niri WM Source
+N,Compile niri WM from source
+N,Install niri WM binaries and configuration
 N,Install niri Runtime Packages
 N,Download xwayland-satellite Source Code
 N,Install xwayland-satellite Dependencies
