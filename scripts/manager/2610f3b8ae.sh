@@ -251,7 +251,7 @@ stepList
 callDisplay
 chkWrite
 #Step 9/20 - Install niri WM Build Dependencies
-#
+$modDir/2609b42c25.sh
 sleep 2
 chkComplete
 stepList
@@ -260,7 +260,7 @@ stepList
 callDisplay
 chkWrite
 #Step 10/20 - Download niri WM Source
-#
+$modDir/2609a43318.sh
 sleep 2
 chkComplete
 stepList
@@ -269,7 +269,7 @@ stepList
 callDisplay
 chkWrite
 #Step 11/20 - Install niri runtime packages
-#
+$modDir/2609844a99.sh
 sleep 2
 chkComplete
 stepList
@@ -278,7 +278,7 @@ stepList
 callDisplay
 chkWrite
 #Step 12/20 - Compile niri WM from source
-#
+$modDir/26097109d8.sh
 sleep 2
 chkComplete
 stepList
@@ -287,7 +287,7 @@ stepList
 callDisplay
 chkWrite
 #Step 13/20 - Install niri WM binaries and configuration
-#
+$modDir/26101c7d52.sh
 sleep 2
 chkComplete
 stepList
@@ -295,7 +295,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 14/20 - Install Xwayland Satellite Dependencies
-#
+$modDir/2610c79c7f.sh
 sleep 2
 chkComplete
 stepList
@@ -303,7 +303,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 15/20 - Download Xwayland Satellite Source Code
-#
+$modDir/2610c79f61.sh
 sleep 2
 chkComplete
 stepList
@@ -311,7 +311,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 16/20 - Compile Xwayland Satellite from Source
-#
+$modDir/26104ba01e.sh
 sleep 2
 chkComplete
 stepList
@@ -319,7 +319,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 17/20 - Install Xwayland Satellite binary
-#
+$modDir/2610293ad9.sh
 sleep 2
 chkComplete
 stepList
