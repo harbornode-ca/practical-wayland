@@ -180,7 +180,7 @@ stepList
 callDisplay
 chkWrite
 #Step 1/14 - Check for Rust Toolchain
-$lxqtDir/00-927f5cc8.sh
+$lxqtDir/00-4699a235.sh
 sleep 2
 chkComplete
 stepList
@@ -189,7 +189,7 @@ stepList
 callDisplay
 chkWrite
 #Step 2/14 - Install Just
-$lxqtDir/01-034b4248.sh  
+$lxqtDir/01-4699a235.sh
 sleep 2
 chkComplete
 stepList
@@ -198,7 +198,7 @@ stepList
 callDisplay
 chkWrite
 #Step 3/14 - Install GPU Drivers
-$lxqtDir/02-88df1820.sh
+$lxqtDir/02-4699a235.sh
 sleep 2
 chkComplete
 stepList
@@ -207,7 +207,7 @@ stepList
 callDisplay
 chkWrite
 #Step 4/14 - Add Bitmap Font Support
-$lxqtDir/03-9445c33d.sh
+$lxqtDir/03-4699a235.sh
 sleep 2
 chkComplete
 stepList
@@ -216,7 +216,7 @@ stepList
 callDisplay
 chkWrite
 #Step 5/14 - Install niri build dependencies
-$lxqtDir/04-4a3a827f.sh
+$lxqtDir/04-4699a235.sh
 sleep 2
 chkComplete
 stepList
@@ -225,7 +225,7 @@ stepList
 callDisplay
 chkWrite
 #Step 6/14 - Download niri compositor source
-$lxqtDir/05-ac4ec974.sh
+$lxqtDir/05-4699a235.sh
 sleep 2
 chkComplete
 stepList
@@ -234,7 +234,7 @@ stepList
 callDisplay
 chkWrite
 #Step 7/14 - Compile niri compositor
-$lxqtDir/06-da8dd808.sh
+$lxqtDir/06-4699a235.sh
 sleep 2
 chkComplete
 stepList
@@ -243,7 +243,7 @@ stepList
 callDisplay
 chkWrite
 #Step 8/14 - Install niri compositor
-$lxqtDir/07-203a8df5.sh
+$lxqtDir/07-4699a235.sh
 sleep 2
 chkComplete
 stepList
@@ -252,7 +252,7 @@ stepList
 callDisplay
 chkWrite
 #Step 9/14 - Install niri runtime packages
-$lxqtDir/08-52f10569.sh
+$lxqtDir/08-4699a235.sh
 sleep 2
 chkComplete
 stepList
@@ -261,7 +261,7 @@ stepList
 callDisplay
 chkWrite
 #Step 10/14 - Install Xwayland Satellite dependencies
-$lxqtDir/09-f66acffa.sh
+$lxqtDir/09-4699a235.sh
 sleep 2
 chkComplete
 stepList
@@ -270,7 +270,7 @@ stepList
 callDisplay
 chkWrite
 #Step 11/14 - Download Xwayland Satellite Source Code
-$lxqtDir/10-8d58adad.sh
+$lxqtDir/10-4699a235.sh
 sleep 2
 chkComplete
 stepList
@@ -278,7 +278,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 12/14 - Compile Xwayland Satellite
-$lxqtDir/11-4b528ba9.sh
+$lxqtDir/11-4699a235.sh
 sleep 2
 chkComplete
 stepList
@@ -286,13 +286,13 @@ chkProgress
 callDisplay
 chkWrite
 #Step 13/14 - Install Xwayland Satellite
-$lxqtDir/12-a3ad5092.sh
+$lxqtDir/12-4699a235.sh
 sleep 2
 chkComplete
 stepList
 callDisplay
 #Step 14/14 - Install LXQt from Debian Repositories
-$lxqtDir/13-e621d32a.sh
+$lxqtDir/13-4699a235.sh
 sleep 2
 chkComplete
 stepList

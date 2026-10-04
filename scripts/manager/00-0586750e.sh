@@ -180,7 +180,7 @@ stepList
 callDisplay
 chkWrite
 #Step 1/15 - Check for Rust Toolchain
-$nocDir/00-eba05261.sh
+$nocDir/00-f629a749.sh
 sleep 2
 chkComplete
 stepList
@@ -189,7 +189,7 @@ stepList
 callDisplay
 chkWrite
 #Step 2/15 - Install Just
-$nocDir/01-c7af066a.sh
+$nocDir/01-f629a749.sh
 sleep 2
 chkComplete
 stepList
@@ -198,7 +198,7 @@ stepList
 callDisplay
 chkWrite
 #Step 3/15 - Install GPU Drivers
-$nocDir/02-2576b656.sh
+$nocDir/02-f629a749.sh
 sleep 2
 chkComplete
 stepList
@@ -207,7 +207,7 @@ stepList
 callDisplay
 chkWrite
 #Step 4/15 - Add Bitmap Font Support
-$nocDir/03-81935209.sh
+$nocDir/03-f629a749.sh
 sleep 2
 chkComplete
 stepList
@@ -216,7 +216,7 @@ stepList
 callDisplay
 chkWrite
 #Step 5/15 - Add Noctalia Repository
-$nocDir/04-0ceed1cc.sh
+$nocDir/04-f629a749.sh
 sleep 2
 chkComplete
 stepList
@@ -225,7 +225,7 @@ stepList
 callDisplay
 chkWrite
 #Step 6/15 - Install Noctalia Packages
-$nocDir/05-a347a9b3.sh
+$nocDir/05-f629a749.sh
 sleep 2
 chkComplete
 stepList
@@ -234,7 +234,7 @@ stepList
 callDisplay
 chkWrite
 #Step 7/15 - Install niri build dependencies
-$nocDir/06-a5b83538.sh
+$nocDir/06-f629a749.sh
 sleep 2
 chkComplete
 stepList
@@ -243,7 +243,7 @@ stepList
 callDisplay
 chkWrite
 #Step 8/15 - Download niri compositor source
-$nocDir/07-7a294a0c.sh
+$nocDir/07-f629a749.sh
 sleep 2
 chkComplete
 stepList
@@ -252,7 +252,7 @@ stepList
 callDisplay
 chkWrite
 #Step 9/15 - Compile niri compositor
-$nocDir/08-ff625f27.sh
+$nocDir/08-f629a749.sh
 sleep 2
 chkComplete
 stepList
@@ -261,7 +261,7 @@ stepList
 callDisplay
 chkWrite
 #Step 10/15 - Install niri compositor
-$nocDir/09-9cd17891.sh
+$nocDir/09-f629a749.sh
 sleep 2
 chkComplete
 stepList
@@ -270,7 +270,7 @@ stepList
 callDisplay
 chkWrite
 #Step 11/15 - Install niri runtime packages
-$nocDir/10-63f76700.sh
+$nocDir/10-f629a749.sh
 sleep 2
 chkComplete
 stepList
@@ -279,7 +279,7 @@ stepList
 callDisplay
 chkWrite
 #Step 12/15 - Install Xwayland Satellite dependencies
-$nocDir/11-d016246d.sh
+$nocDir/11-f629a749.sh
 sleep 2
 chkComplete
 stepList
@@ -288,7 +288,7 @@ stepList
 callDisplay
 chkWrite
 #Step 13/15 - Download Xwayland Satellite Source Code
-$nocDir/12-4eb32039.sh
+$nocDir/12-f629a749.sh
 sleep 2
 chkComplete
 stepList
@@ -296,7 +296,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 14/15 - Compile Xwayland Satellite
-$nocDir/13-092ecda4.sh
+$nocDir/13-f629a749.sh
 sleep 2
 chkComplete
 stepList
@@ -304,7 +304,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 15/15 - Install Xwayland Satellite
-$nocDir/14-3f50b9dd.sh
+$nocDir/14-f629a749.sh
 sleep 2
 chkComplete
 stepList

@@ -37,7 +37,7 @@ export mgrDir=/opt/practical-wayland/scripts/manager
 export tmpDir=/opt/practical-wayland/tmp
 export aptDir=/opt/practical-wayland/lib/apt
 export urlDir=/opt/practical-wayland/lib/urls
-export ashellDir=/opt/practical-wayland/scripts/02-0586750e
+$export ashellDir=/opt/practical-wayland/scripts/02-0586750e
 #END VARIABLE DEFINITIONS
 
 #START BANNER FUNCTION
@@ -180,7 +180,7 @@ stepList
 callDisplay
 chkWrite
 #Step 1/20 - Check for Rust Toolchain
-$modDir/2609b283df.sh
+$$ashellDir/00-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -189,7 +189,7 @@ stepList
 callDisplay
 chkWrite
 #Step 2/20 - Check for Installation of Just
-$modDir/2609d9f593.sh   
+$ashellDir/01-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -198,7 +198,7 @@ stepList
 callDisplay
 chkWrite
 #Step 3/20 - Install GPU Drivers
-$modDir/26099ee645.sh
+$ashellDir/02-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -207,7 +207,7 @@ stepList
 callDisplay
 chkWrite
 #Step 4/20 - Install & Configure Bitmap Fonts
-$modDir/2609de7bae.sh
+$ashellDir/03-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -216,7 +216,7 @@ stepList
 callDisplay
 chkWrite
 #Step 5/20 - Install Lemurs Dependencies
-#
+$ashellDir/04-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -225,7 +225,7 @@ stepList
 callDisplay
 chkWrite
 #Step 6/20 - Download Lemurs Login Manager Source
-#
+$ashellDir/05-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -234,7 +234,7 @@ stepList
 callDisplay
 chkWrite
 #Step 7/20 - Compile Lemurs Login Manager from sources
-#
+$ashellDir/06-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -243,7 +243,7 @@ stepList
 callDisplay
 chkWrite
 #Step 8/20 - Install Lemurs Login Manager binaries and configuration
-#
+$ashellDir/07-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -252,7 +252,7 @@ stepList
 callDisplay
 chkWrite
 #Step 9/20 - Install niri WM Build Dependencies
-$modDir/2609b42c25.sh
+$ashellDir/08-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -261,7 +261,7 @@ stepList
 callDisplay
 chkWrite
 #Step 10/20 - Download niri WM Source
-$modDir/2609a43318.sh
+$ashellDir/09-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -270,7 +270,7 @@ stepList
 callDisplay
 chkWrite
 #Step 11/20 - Install niri runtime packages
-$modDir/2609844a99.sh
+$ashellDir/10-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -279,7 +279,7 @@ stepList
 callDisplay
 chkWrite
 #Step 12/20 - Compile niri WM from source
-$modDir/26097109d8.sh
+$ashellDir/11-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -288,7 +288,7 @@ stepList
 callDisplay
 chkWrite
 #Step 13/20 - Install niri WM binaries and configuration
-$modDir/26101c7d52.sh
+$ashellDir/12-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -296,7 +296,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 14/20 - Install Xwayland Satellite Dependencies
-$modDir/2610c79c7f.sh
+$ashellDir/13-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -304,7 +304,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 15/20 - Download Xwayland Satellite Source Code
-$modDir/2610c79f61.sh
+$ashellDir/14-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -312,7 +312,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 16/20 - Compile Xwayland Satellite from Source
-$modDir/26104ba01e.sh
+$ashellDir/15-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -320,7 +320,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 17/20 - Install Xwayland Satellite binary
-$modDir/2610293ad9.sh
+$ashellDir/16-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -328,7 +328,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 18/20 - Install Ashell Dependencies
-#
+$ashellDir/17-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -336,7 +336,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 19/20 - Install Ashell from Source
-#
+$ashellDir/18-dbec762b.sh
 sleep 2
 chkComplete
 stepList
@@ -344,7 +344,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 20/20 - Install Ashell binaries and configuration
-#
+$ashellDir/19-dbec762b.sh
 sleep 2
 stepList
 chkComplete
