@@ -214,25 +214,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 5/15 - Add Noctalia Repository
-$modDir/2609d64847.sh
-sleep 2
-chkComplete
-stepList
-chkProgress
-stepList
-callDisplay
-chkWrite
-#Step 6/15 - Install Noctalia Packages
-$modDir/2609e17a87.sh
-sleep 2
-chkComplete
-stepList
-chkProgress
-stepList
-callDisplay
-chkWrite
-#Step 7/15 - Install niri build dependencies
+#Step 5/15 - Install niri build dependencies
 $modDir/2609b42c25.sh
 sleep 2
 chkComplete
@@ -241,7 +223,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 8/15 - Download niri compositor source
+#Step 6/15 - Download niri compositor source
 $modDir/2609a43318.sh
 sleep 2
 chkComplete
@@ -250,7 +232,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 9/15 - Compile niri compositor
+#Step 7/15 - Compile niri compositor
 $modDir/2609844a99.sh
 sleep 2
 chkComplete
@@ -259,7 +241,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 10/15 - Install niri compositor
+#Step 8/15 - Install niri compositor
 $modDir/26097109d8.sh
 sleep 2
 chkComplete
@@ -268,7 +250,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 11/15 - Install niri runtime packages
+#Step 9/15 - Install niri runtime packages
 $modDir/26101c7d52.sh
 sleep 2
 chkComplete
@@ -277,7 +259,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 12/15 - Download Xwayland Satellite Source Code
+#Step 10/15 - Download Xwayland Satellite Source Code
 $modDir/2610c79f61.sh
 sleep 2
 chkComplete
@@ -286,7 +268,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 15/15 - Install Xwayland Satellite dependencies
+#Step 11/15 - Install Xwayland Satellite dependencies
 $modDir/2610c79c7f.sh
 sleep 2
 chkComplete
@@ -294,7 +276,7 @@ stepList
 chkProgress
 callDisplay
 chkWrite
-#Step 14/15 - Compile Xwayland Satellite
+#Step 12/15 - Compile Xwayland Satellite
 $modDir/26104ba01e.sh
 sleep 2
 chkComplete
@@ -302,10 +284,19 @@ stepList
 chkProgress
 callDisplay
 chkWrite
-#Step 15/15 - Install Xwayland Satellite
+#Step 13/15 - Install Xwayland Satellite
 $modDir/2610293ad9.sh
 sleep 2
 chkComplete
 stepList
 callDisplay
+#Step 14/15 - Install LXQt from Debian Repositories
+$modDir/2609d64847.sh
+sleep 2
+chkComplete
+stepList
+chkProgress
+stepList
+callDisplay
+chkWrite
 
