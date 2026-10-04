@@ -55,7 +55,7 @@ gum style --foreground=11 --border-foreground=3 --border="double" --align=center
 noctaliaTitle () {
 clear
 MenuTitle="Practical Wayland Tools"
-MenuSubTitle="LXQt - Installation"
+MenuSubTitle="LXQt w/ Niri WM - Installation"
 banner
 }
 #END NOCTALIATITLE FUNCTION
