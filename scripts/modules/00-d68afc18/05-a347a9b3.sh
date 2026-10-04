@@ -1,6 +1,11 @@
 #!/bin/bash
-#2609d9f593.sh - Checks if Just is installed and installs or updates it
+#2609e17a87.sh - Adds the Noctalia repository to the system and installs the Noctalia Desktop Environment stack.
 #Author: kevrevun - kevin@kevrev.run
+
+#Note: niri is currently being installed as the primary compositor/WM.
+#Umbriel is still suffering from stability issues. I will be monitoring
+#the situation and will update this script once Umbriel is deemed stable enough
+#for daily use.
 
 #START GUM STYLE FUNCTION
 prtInfo () {
@@ -37,6 +42,7 @@ export mgrDir=/opt/practical-wayland/scripts/manager
 export tmpDir=/opt/practical-wayland/tmp
 export aptDir=/opt/practical-wayland/lib/apt
 export urlDir=/opt/practical-wayland/lib/urls
+export nocDir=/opt/scripts/modules/00-d68afc18
 #END VARIABLE DEFINITIONS
 
 #START BANNER FUNCTION
@@ -73,32 +79,25 @@ stepList
 callDisplay
 style=info
 prtInfo
-gum style "Setting up Just..."
-sleep 1.5
-if [ -f "$HOME/.cargo/bin/just" ]; then
-    style=info
-    prtInfo
-    gum style "Just is already installed"
-    sleep 1
-    gum style "Making sure that Just is up to date"
-    sleep 1
-    gum spin --title "Upgrading Just" $stubDir/2609b4dcf6.sh
-    sleep 0.5
-    style=win
-    prtInfo
-    gum style "Just is now up to date."
-    sleep 1
-else
-    style=info
-    prtInfo
-    gum style "Just is not installed"
-    sleep 1
-    gum style "Installing Just"
-    sleep 1
-    gum spin --title "Installing Just" $stubDir/2609b4dcf6.sh
-    sleep 0.5
-    style=win
-    prtInfo
-    gum style "Just is now installed."
-    sleep 1
-fi
+gum style "Updating APT packages cache"
+sleep 1
+sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
+gum spin --spinner="dot" --title="Updating APT packages cache..." $stubDir/2609d6354b.sh
+style=win
+prtInfo
+gum style "APT packages cache updated successfully"
+sleep 1
+style=info
+prtInfo
+gum style "Installing packages from Noctalia repository"
+sleep 1
+sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
+gum spin --spinner="dot" --title="Installing packages from Noctalia repository..." $stubDir/26098b85e9.sh
+style=win
+prtInfo
+gum style "Noctalia packages installed successfully"
+sleep 1
+style=win
+prtInfo
+gum style "Noctalia repository set up and packages installed successfully."
+sleep 1

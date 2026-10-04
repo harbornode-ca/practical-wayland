@@ -1,6 +1,6 @@
 #!/bin/bash
-#2609844a99.sh - Compiling niri source code
-#Author: kevinrevun - kevin@kevrev.run
+#2609d64847.sh - Adds the Noctalia repository to the system
+#Author: kevrevun - kevin@kevrev.run
 
 #START GUM STYLE FUNCTION
 prtInfo () {
@@ -37,6 +37,7 @@ export mgrDir=/opt/practical-wayland/scripts/manager
 export tmpDir=/opt/practical-wayland/tmp
 export aptDir=/opt/practical-wayland/lib/apt
 export urlDir=/opt/practical-wayland/lib/urls
+export nocDir=/opt/scripts/modules/00-d68afc18
 #END VARIABLE DEFINITIONS
 
 #START BANNER FUNCTION
@@ -71,14 +72,41 @@ printf "%s\n" "${chkStep[@]}" | gum style --foreground=11 --border-foreground=3 
 
 stepList
 callDisplay
+style=info
+prtInfo
+gum style "Setting up Noctalia Repository"
+sleep 1
+echo
+style=info
+prtInfo
+gum style "Downloading keyring"
+sleep 1
+sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
+gum spin --spinner="dot" --title="Downloading keyring..." $stubDir/26095f8e6f.sh
+style=win
+prtInfo
+gum style "Noctalia keyring downloaded successfully"
 sleep 1
 style=info
 prtInfo
-gum style "Building niri"
+gum style "Installing Noctalia Keyring"
+sleep 1.5
+sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
+gum spin --spinner="dot" --title="Installing Noctalia Keyring..." $stubDir/26091d5155.sh
+style=win
+prtInfo
+gum style "Noctalia keyring installed successfully"
 sleep 1
-gum spin --spinner=dot --title="Building niri" $stubDir/2609e06e52.sh
+style=info
+prtInfo
+gum style "Setting up Noctalia sources file"
+sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
+gum spin --spinner="dot" --title="Setting up Noctalia sources file..." $stubDir/26098505c2.sh
+style=win
+prtInfo
+gum style "Noctalia sources file set up successfully"
 sleep 1
 style=win
 prtInfo
-gum style "Niri built successfully"
+gum style "Noctalia Repository set up successfully."
 sleep 1

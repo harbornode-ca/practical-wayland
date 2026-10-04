@@ -1,8 +1,9 @@
 #!/bin/bash
-#26101c7d52.sh - Install niri Runtime Dependencies
-#Author: kevinrevun - kevin@kevrev.run
+#2609de7bae.sh - Adds bitmap font support for Glyph support in TUI and GUIs
+#Author: kevrevun - kevin@kevrev.run
 
 #START GUM STYLE FUNCTION
+
 prtInfo () {
 case $style in
     info) 
@@ -37,6 +38,7 @@ export mgrDir=/opt/practical-wayland/scripts/manager
 export tmpDir=/opt/practical-wayland/tmp
 export aptDir=/opt/practical-wayland/lib/apt
 export urlDir=/opt/practical-wayland/lib/urls
+export nocDir=/opt/scripts/modules/00-d68afc18
 #END VARIABLE DEFINITIONS
 
 #START BANNER FUNCTION
@@ -71,24 +73,50 @@ printf "%s\n" "${chkStep[@]}" | gum style --foreground=11 --border-foreground=3 
 
 stepList
 callDisplay
+style=info
+prtInfo
+gum style "Adding bitmap font support for Glyph support in TUI and GUIs"
 sleep 1
 style=info
 prtInfo
-gum style "Updating APT package cache"
+gum style "Checking for disabled bitmap fonts..."
 sleep 1
+while IFS= read -r file; do
+    if [ -f "$file" ]; then
+        style=info
+        prtInfo
+        gum style "Fontconfig File $file found"
+        sleep 1
+        style=info
+        prtInfo
+        gum style "Removing fontconfig file $file"
+        sudo rm -f "$file"
+        sleep 1
+    fi
+done < $libDir/fontconfig-rm.list
+style=info
+prtInfo
+gum style "Adding bitmap fontconfig file to the font configuration directory"
+sleep 1
+while IFS="," read -r src dest; do
+    style=info
+    prtInfo
+    gum style "Creating hardlink from $src to $dest"
+    sleep 0.5
+    sudo ln -f "$src" "$dest"
+done < $libDir/fontconfig-add.csv
+style=info
+prtInfo
+gum spin --title "Updating APT package cache" $stubDir/2609d6354b.sh
+sleep 1
+style=info
+prtInfo
+gum style "Installing symbol fonts (Noto Color Emoji, Nerd Symbols, FontAwesome)"
+sleep 1.5
 sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
-gum spin --spinner=dot --title="Updating APT package cache" $stubDir/2609d6354b.sh
+gum spin --title "Installing symbol fonts..." $stubDir/260942925a.sh
+sleep 0.5
 style=win
 prtInfo
-gum style "APT package cache updated successfully"
-sleep 1
-style=info
-prtInfo
-gum style "Installing niri Runtime Dependencies"
-sleep 1
-gum spin --spinner=dot --title="Installing niri Runtime Dependencies" $stubDir/2610109e66.sh
-sleep 1
-style=win
-prtInfo
-gum style "Completed installation of niri Runtime Dependencies"
-sleep 1
+gum style "Bitmap Font support and symbol fonts installed successfully."
+sleep 1 

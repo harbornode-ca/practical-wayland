@@ -1,5 +1,5 @@
 #!/bin/bash
-#2610c79c7f.sh - Install Xwayland Satellite dependencies
+#2609844a99.sh - Compiling niri source code
 #Author: kevinrevun - kevin@kevrev.run
 
 #START GUM STYLE FUNCTION
@@ -37,6 +37,7 @@ export mgrDir=/opt/practical-wayland/scripts/manager
 export tmpDir=/opt/practical-wayland/tmp
 export aptDir=/opt/practical-wayland/lib/apt
 export urlDir=/opt/practical-wayland/lib/urls
+export nocDir=/opt/scripts/modules/00-d68afc18
 #END VARIABLE DEFINITIONS
 
 #START BANNER FUNCTION
@@ -74,21 +75,11 @@ callDisplay
 sleep 1
 style=info
 prtInfo
-gum style "Updating APT package cache"
+gum style "Building niri"
 sleep 1
-sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
-gum spin --spinner=dot --title="Updating APT package cache" $stubDir/2609d6354b.sh
-style=win
-prtInfo
-gum style "APT package cache updated successfully"
-sleep 1
-style=info
-prtInfo
-gum style "Installing Xwayland-satellite Dependencies"
-sleep 1
-gum spin --spinner=dot --title="Installing Xwayland-satellite Dependencies" $stubDir/26102d7312.sh
+gum spin --spinner=dot --title="Building niri" $stubDir/2609e06e52.sh
 sleep 1
 style=win
 prtInfo
-gum style "Completed installation of Xwayland-satellite Dependencies"
+gum style "Niri built successfully"
 sleep 1

@@ -1,11 +1,6 @@
 #!/bin/bash
-#2609e17a87.sh - Adds the Noctalia repository to the system and installs the Noctalia Desktop Environment stack.
-#Author: kevrevun - kevin@kevrev.run
-
-#Note: niri is currently being installed as the primary compositor/WM.
-#Umbriel is still suffering from stability issues. I will be monitoring
-#the situation and will update this script once Umbriel is deemed stable enough
-#for daily use.
+#2609a43318.sh - Install niri from build directory.
+#Author: kevinrevun - kevin@kevrev.run
 
 #START GUM STYLE FUNCTION
 prtInfo () {
@@ -42,6 +37,7 @@ export mgrDir=/opt/practical-wayland/scripts/manager
 export tmpDir=/opt/practical-wayland/tmp
 export aptDir=/opt/practical-wayland/lib/apt
 export urlDir=/opt/practical-wayland/lib/urls
+export nocDir=/opt/scripts/modules/00-d68afc18
 #END VARIABLE DEFINITIONS
 
 #START BANNER FUNCTION
@@ -76,27 +72,15 @@ printf "%s\n" "${chkStep[@]}" | gum style --foreground=11 --border-foreground=3 
 
 stepList
 callDisplay
-style=info
-prtInfo
-gum style "Updating APT packages cache"
-sleep 1
-sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
-gum spin --spinner="dot" --title="Updating APT packages cache..." $stubDir/2609d6354b.sh
-style=win
-prtInfo
-gum style "APT packages cache updated successfully"
 sleep 1
 style=info
 prtInfo
-gum style "Installing packages from Noctalia repository"
+gum style "Installing niri"
 sleep 1
 sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
-gum spin --spinner="dot" --title="Installing packages from Noctalia repository..." $stubDir/26098b85e9.sh
-style=win
-prtInfo
-gum style "Noctalia packages installed successfully"
+gum spin --spinner=dot --title="Installing niri" $stubDir/26090b01e3.sh
 sleep 1
 style=win
 prtInfo
-gum style "Noctalia repository set up and packages installed successfully."
+gum style "Niri installed successfully"
 sleep 1

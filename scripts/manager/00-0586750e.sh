@@ -37,6 +37,7 @@ export mgrDir=/opt/practical-wayland/scripts/manager
 export tmpDir=/opt/practical-wayland/tmp
 export aptDir=/opt/practical-wayland/lib/apt
 export urlDir=/opt/practical-wayland/lib/urls
+export nocDir=/opt/scripts/modules/00-d68afc18
 #END VARIABLE DEFINITIONS
 
 #START BANNER FUNCTION
@@ -179,7 +180,7 @@ stepList
 callDisplay
 chkWrite
 #Step 1/15 - Check for Rust Toolchain
-$modDir/2609b283df.sh
+$nocDir/00-eba05261.sh
 sleep 2
 chkComplete
 stepList
@@ -188,7 +189,7 @@ stepList
 callDisplay
 chkWrite
 #Step 2/15 - Install Just
-$modDir/2609d9f593.sh   
+$nocDir/01-c7af066a.sh
 sleep 2
 chkComplete
 stepList
@@ -197,7 +198,7 @@ stepList
 callDisplay
 chkWrite
 #Step 3/15 - Install GPU Drivers
-$modDir/26099ee645.sh
+$nocDir/02-2576b656.sh
 sleep 2
 chkComplete
 stepList
@@ -206,7 +207,7 @@ stepList
 callDisplay
 chkWrite
 #Step 4/15 - Add Bitmap Font Support
-$modDir/2609de7bae.sh
+$nocDir/03-81935209.sh
 sleep 2
 chkComplete
 stepList
@@ -215,7 +216,7 @@ stepList
 callDisplay
 chkWrite
 #Step 5/15 - Add Noctalia Repository
-$modDir/2609d64847.sh
+$nocDir/04-0ceed1cc.sh
 sleep 2
 chkComplete
 stepList
@@ -224,7 +225,7 @@ stepList
 callDisplay
 chkWrite
 #Step 6/15 - Install Noctalia Packages
-$modDir/2609e17a87.sh
+$nocDir/05-a347a9b3.sh
 sleep 2
 chkComplete
 stepList
@@ -233,7 +234,7 @@ stepList
 callDisplay
 chkWrite
 #Step 7/15 - Install niri build dependencies
-$modDir/2609b42c25.sh
+$nocDir/06-a5b83538.sh
 sleep 2
 chkComplete
 stepList
@@ -242,7 +243,7 @@ stepList
 callDisplay
 chkWrite
 #Step 8/15 - Download niri compositor source
-$modDir/2609a43318.sh
+$nocDir/07-7a294a0c.sh
 sleep 2
 chkComplete
 stepList
@@ -251,7 +252,7 @@ stepList
 callDisplay
 chkWrite
 #Step 9/15 - Compile niri compositor
-$modDir/2609844a99.sh
+$nocDir/08-ff625f27.sh
 sleep 2
 chkComplete
 stepList
@@ -260,7 +261,7 @@ stepList
 callDisplay
 chkWrite
 #Step 10/15 - Install niri compositor
-$modDir/26097109d8.sh
+$nocDir/09-9cd17891.sh
 sleep 2
 chkComplete
 stepList
@@ -269,7 +270,7 @@ stepList
 callDisplay
 chkWrite
 #Step 11/15 - Install niri runtime packages
-$modDir/26101c7d52.sh
+$nocDir/10-63f76700.sh
 sleep 2
 chkComplete
 stepList
@@ -277,8 +278,8 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 12/15 - Download Xwayland Satellite Source Code
-$modDir/2610c79f61.sh
+#Step 12/15 - Install Xwayland Satellite dependencies
+$nocDir/11-d016246d.sh
 sleep 2
 chkComplete
 stepList
@@ -286,8 +287,8 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 15/15 - Install Xwayland Satellite dependencies
-$modDir/2610c79c7f.sh
+#Step 13/15 - Download Xwayland Satellite Source Code
+$nocDir/12-4eb32039.sh
 sleep 2
 chkComplete
 stepList
@@ -295,7 +296,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 14/15 - Compile Xwayland Satellite
-$modDir/26104ba01e.sh
+$nocDir/13-092ecda4.sh
 sleep 2
 chkComplete
 stepList
@@ -303,7 +304,7 @@ chkProgress
 callDisplay
 chkWrite
 #Step 15/15 - Install Xwayland Satellite
-$modDir/2610293ad9.sh
+$nocDir/14-3f50b9dd.sh
 sleep 2
 chkComplete
 stepList

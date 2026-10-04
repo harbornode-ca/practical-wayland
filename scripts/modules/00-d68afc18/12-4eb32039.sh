@@ -1,5 +1,5 @@
 #!/bin/bash
-#2609a43318.sh - Download niri source code from Github
+#2609a43318.sh - Download Xwayland-satellite source code
 #Author: kevinrevun - kevin@kevrev.run
 
 #START GUM STYLE FUNCTION
@@ -37,6 +37,7 @@ export mgrDir=/opt/practical-wayland/scripts/manager
 export tmpDir=/opt/practical-wayland/tmp
 export aptDir=/opt/practical-wayland/lib/apt
 export urlDir=/opt/practical-wayland/lib/urls
+export nocDir=/opt/scripts/modules/00-d68afc18
 #END VARIABLE DEFINITIONS
 
 #START BANNER FUNCTION
@@ -74,10 +75,10 @@ callDisplay
 sleep 1
 style=info
 prtInfo
-gum style "Downloading niri source code"
+gum style "Downloading Xwayland-satellite source code"
 sleep 1
-gum spin --spinner=dot --title="Downloading niri source code" $stubDir/26093ecf51.sh
+gum spin --spinner=dot --title="Downloading Xwayland-satellite source code" $stubDir/261091fafd.sh
 style=win
 prtInfo
-gum style "Niri source code downloaded successfully"
+gum style "Xwayland-satellite source code downloaded successfully"
 sleep 1

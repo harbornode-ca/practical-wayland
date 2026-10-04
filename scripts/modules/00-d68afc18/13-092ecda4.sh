@@ -1,5 +1,5 @@
 #!/bin/bash
-#2609a43318.sh - Install niri from build directory.
+#26104ba01e.sh - Compile xwayland-satellite from source code.
 #Author: kevinrevun - kevin@kevrev.run
 
 #START GUM STYLE FUNCTION
@@ -37,6 +37,7 @@ export mgrDir=/opt/practical-wayland/scripts/manager
 export tmpDir=/opt/practical-wayland/tmp
 export aptDir=/opt/practical-wayland/lib/apt
 export urlDir=/opt/practical-wayland/lib/urls
+export nocDir=/opt/scripts/modules/00-d68afc18
 #END VARIABLE DEFINITIONS
 
 #START BANNER FUNCTION
@@ -74,12 +75,11 @@ callDisplay
 sleep 1
 style=info
 prtInfo
-gum style "Installing niri"
+gum style "Compiling Xwayland-satellite"
 sleep 1
-sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
-gum spin --spinner=dot --title="Installing niri" $stubDir/26090b01e3.sh
+gum spin --spinner=dot --title="Compiling Xwayland-satellite" $stubDir/2610577c3d.sh
 sleep 1
 style=win
 prtInfo
-gum style "Niri installed successfully"
+gum style "Xwayland-satellite compiled successfully"
 sleep 1
