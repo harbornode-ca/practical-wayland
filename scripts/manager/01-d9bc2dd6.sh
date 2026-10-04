@@ -259,8 +259,8 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 10/14 - Download Xwayland Satellite Source Code
-$modDir/2610c79f61.sh
+#Step 11/14 - Install Xwayland Satellite dependencies
+$modDir/2610c79c7f.sh
 sleep 2
 chkComplete
 stepList
@@ -268,8 +268,8 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 11/14 - Install Xwayland Satellite dependencies
-$modDir/2610c79c7f.sh
+#Step 10/14 - Download Xwayland Satellite Source Code
+$modDir/2610c79f61.sh
 sleep 2
 chkComplete
 stepList
