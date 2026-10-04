@@ -232,34 +232,19 @@ MenuTitle="Practical Wayland Tools"
 MenuSubTitle="Desktop Environment Menu"
 banner
 echo
-deMenuOutput=$(gum choose --limit=1 --header="Please Select A Desktop Environment to Install:" "Noctalia" "Niri w/ Ashell" "LXQt w/ Niri" "Back")
+deMenuOutput=$(gum choose --limit=1 --header="Please Select A Desktop Environment to Install:" "Noctalia" "LXQt w/ Niri" "Niri w/ Ashell" "Back")
 case $deMenuOutput in
     "Noctalia")
-        $mgrDir/2609d8b228.sh
+        $mgrDir/01-0586750e.sh
+        mainMenu
     ;;
     "Niri w/ Ashell")
-        clear
-        MenuTitle="Practical Wayland Tools"
-        MenuSubTitle="Desktop Environment Menu"
-        banner
-        style=msg
-        prtInfo
-        gum style "Not Yet Implemented"
-        gum style "Returning to Main Menu"
-        sleep 2
-        deMenu
+        $mgrDir/02-d9bc2dd6.sh
+        mainMenu
     ;;
     "LXQt w/ Niri")
-        clear
-        MenuTitle="Practical Wayland Tools"
-        MenuSubTitle="Desktop Environment Menu"
-        banner
-        style=msg
-        prtInfo
-        gum style "Not Yet Implemented"
-        gum style "Returning to Main Menu"
-        sleep 2
-        deMenu
+        $mgrDir/03-41372597.sh
+        mainMenu
     ;;
     "Back")
         clear
