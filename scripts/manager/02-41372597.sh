@@ -37,6 +37,7 @@ export mgrDir=/opt/practical-wayland/scripts/manager
 export tmpDir=/opt/practical-wayland/tmp
 export aptDir=/opt/practical-wayland/lib/apt
 export urlDir=/opt/practical-wayland/lib/urls
+export ashellDir=/opt/practical-wayland/scripts/02-0586750e
 #END VARIABLE DEFINITIONS
 
 #START BANNER FUNCTION
