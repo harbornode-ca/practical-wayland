@@ -178,7 +178,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 1/15 - Check for Rust Toolchain
+#Step 1/14 - Check for Rust Toolchain
 $modDir/2609b283df.sh
 sleep 2
 chkComplete
@@ -187,7 +187,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 2/15 - Install Just
+#Step 2/14 - Install Just
 $modDir/2609d9f593.sh   
 sleep 2
 chkComplete
@@ -196,7 +196,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 3/15 - Install GPU Drivers
+#Step 3/14 - Install GPU Drivers
 $modDir/26099ee645.sh
 sleep 2
 chkComplete
@@ -205,7 +205,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 4/15 - Add Bitmap Font Support
+#Step 4/14 - Add Bitmap Font Support
 $modDir/2609de7bae.sh
 sleep 2
 chkComplete
@@ -214,7 +214,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 5/15 - Install niri build dependencies
+#Step 5/14 - Install niri build dependencies
 $modDir/2609b42c25.sh
 sleep 2
 chkComplete
@@ -223,7 +223,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 6/15 - Download niri compositor source
+#Step 6/14 - Download niri compositor source
 $modDir/2609a43318.sh
 sleep 2
 chkComplete
@@ -232,7 +232,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 7/15 - Compile niri compositor
+#Step 7/14 - Compile niri compositor
 $modDir/2609844a99.sh
 sleep 2
 chkComplete
@@ -241,7 +241,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 8/15 - Install niri compositor
+#Step 8/14 - Install niri compositor
 $modDir/26097109d8.sh
 sleep 2
 chkComplete
@@ -250,7 +250,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 9/15 - Install niri runtime packages
+#Step 9/14 - Install niri runtime packages
 $modDir/26101c7d52.sh
 sleep 2
 chkComplete
@@ -259,7 +259,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 10/15 - Download Xwayland Satellite Source Code
+#Step 10/14 - Download Xwayland Satellite Source Code
 $modDir/2610c79f61.sh
 sleep 2
 chkComplete
@@ -268,7 +268,7 @@ chkProgress
 stepList
 callDisplay
 chkWrite
-#Step 11/15 - Install Xwayland Satellite dependencies
+#Step 11/14 - Install Xwayland Satellite dependencies
 $modDir/2610c79c7f.sh
 sleep 2
 chkComplete
@@ -276,7 +276,7 @@ stepList
 chkProgress
 callDisplay
 chkWrite
-#Step 12/15 - Compile Xwayland Satellite
+#Step 12/14 - Compile Xwayland Satellite
 $modDir/26104ba01e.sh
 sleep 2
 chkComplete
@@ -284,14 +284,14 @@ stepList
 chkProgress
 callDisplay
 chkWrite
-#Step 13/15 - Install Xwayland Satellite
+#Step 13/14 - Install Xwayland Satellite
 $modDir/2610293ad9.sh
 sleep 2
 chkComplete
 stepList
 callDisplay
-#Step 14/15 - Install LXQt from Debian Repositories
-$modDir/2609d64847.sh
+#Step 14/14 - Install LXQt from Debian Repositories
+#
 sleep 2
 chkComplete
 stepList
