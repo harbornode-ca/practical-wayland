@@ -73,3 +73,18 @@ noctaliaTitle
 printf "%s\n" "${chkStep[@]}" | gum style --foreground=11 --border-foreground=3 --border="rounded" --align=left --width="$halfBoxWidth" --margin="1 1" --padding="1 1"
 }
 #END CALL DISPLAY FUNCTION
+
+stepList
+callDisplay
+sleep 1
+style=info
+prtInfo
+gum style "Installing Lemurs"
+sleep 1
+sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
+gum spin --spinner=dot --title="Installing Lemurs" $stubDir/261012d5ad.sh
+sleep 1
+style=win
+prtInfo
+gum style "Lemurs installed successfully"
+sleep 1
