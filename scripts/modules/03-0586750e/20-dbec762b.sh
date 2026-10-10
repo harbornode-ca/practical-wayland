@@ -73,26 +73,3 @@ noctaliaTitle
 printf "%s\n" "${chkStep[@]}" | gum style --foreground=11 --border-foreground=3 --border="rounded" --align=left --width="$halfBoxWidth" --margin="1 1" --padding="1 1"
 }
 #END CALL DISPLAY FUNCTION
-
-stepList
-callDisplay
-style=info
-prtInfo
-gum style "Updating APT packages cache"
-sleep 1
-sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
-gum spin --spinner="dot" --title="Updating APT packages cache..." $stubDir/2609d6354b.sh
-style=win
-prtInfo
-gum style "APT packages cache updated successfully"
-sleep 1
-style=info
-prtInfo
-gum style "Installing Ashell dependancies"
-sleep 1
-sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
-gum spin --spinner="dot" --title="Installing Ashell dependancies..." $stubDir/2610fdb2bb.sh
-style=win
-prtInfo
-gum style "Ashell dependancies installed successfully."
-sleep 1

@@ -15,6 +15,6 @@ N,Download Xwayland Satellite Source Code
 N,Compile Xwayland Satellite from Source
 N,Install Xwayland Satellite Binary
 N,Install Ashell Dependencies
-N,Install Ashell from Source
+N,Download Ashell source code
+N,Compile Ashell from Source
 N,Install Ashell binaries and configuration
-N,Check for Rust Toolchain
