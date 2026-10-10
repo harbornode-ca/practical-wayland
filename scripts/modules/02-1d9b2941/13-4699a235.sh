@@ -95,7 +95,7 @@ prtInfo
 gum style "Installing LXQt Packages..."
 sleep 1
 sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
-gum spin --spinner="dot" --title="Installing LXQt Packages..." $stubDir/26098b85e9.sh
+gum spin --spinner="dot" --title="Installing LXQt Packages..." $stubDir/26104a6d6a.sh
 style=win
 prtInfo
 gum style "LXQt packages installed successfully"
