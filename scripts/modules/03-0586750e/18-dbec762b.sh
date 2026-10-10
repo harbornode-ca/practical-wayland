@@ -73,3 +73,16 @@ noctaliaTitle
 printf "%s\n" "${chkStep[@]}" | gum style --foreground=11 --border-foreground=3 --border="rounded" --align=left --width="$halfBoxWidth" --margin="1 1" --padding="1 1"
 }
 #END CALL DISPLAY FUNCTION
+
+stepList
+callDisplay
+sleep 1
+style=info
+prtInfo
+gum style "Downloading Ashell source code"
+sleep 1
+gum spin --spinner=dot --title="Downloading Ashell source code" $stubDir/26104a5836.sh
+style=win
+prtInfo
+gum style "Ashell source code downloaded successfully"
+sleep 1
