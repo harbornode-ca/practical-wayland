@@ -238,11 +238,11 @@ case $deMenuOutput in
         $mgrDir/01-0586750e.sh
         mainMenu
     ;;
-    "Niri w/ Ashell")
+    "LXQt w/ Niri")
         $mgrDir/02-d9bc2dd6.sh
         mainMenu
     ;;
-    "LXQt w/ Niri")
+    "Niri w/ Ashell")
         $mgrDir/03-41372597.sh
         mainMenu
     ;;

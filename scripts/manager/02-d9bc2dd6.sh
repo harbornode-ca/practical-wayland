@@ -100,7 +100,7 @@ while IFS=',' read -r chkStatus chkDesc; do
     chkStatus+=("$chkStatus")
     chkDesc+=("$chkDesc")
     ((stepCount++))
-done < "$libDir/noctalia.steps"
+done < "$libDir/niri-lxqt.steps"
 
 declare -a chkStep
 declare -i stepCount
