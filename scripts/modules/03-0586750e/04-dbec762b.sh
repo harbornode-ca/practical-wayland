@@ -1,6 +1,5 @@
 #!/bin/bash
-#2609a43318.sh - Download niri source code from Github
-#Author: kevinrevun - kevin@kevrev.run
+#
 
 #START GUM STYLE FUNCTION
 prtInfo () {
@@ -80,10 +79,21 @@ callDisplay
 sleep 1
 style=info
 prtInfo
-gum style "Downloading niri source code"
+gum style "Updating APT package cache"
 sleep 1
-gum spin --spinner=dot --title="Downloading niri source code" $stubDir/26093ecf51.sh
+sudo gum style --foreground=11 --margin="1 2" "Sudo access sucessful"
+gum spin --spinner=dot --title="Updating APT package cache" $stubDir/2609d6354b.sh
 style=win
 prtInfo
-gum style "Niri source code downloaded successfully"
+gum style "APT package cache updated successfully"
+sleep 1
+style=info
+prtInfo
+gum style "Installing Lemurs Dependencies"
+sleep 1
+gum spin --spinner=dot --title="Installing Lemurs Dependencies" $stubDir/2610d13ab8.sh
+sleep 1
+style=win
+prtInfo
+gum style "Completed installation of niri Build Dependencies"
 sleep 1

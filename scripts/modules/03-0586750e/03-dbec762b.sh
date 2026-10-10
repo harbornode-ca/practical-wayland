@@ -32,16 +32,18 @@ esac
 
 #START VARIABLE DEFINITIONS
 export libDir=/opt/practical-wayland/lib
-export modDir=/opt/practical-wayland/scripts/modules
-export stubDir=/opt/practical-wayland/scripts/stubs/00-shared
-export stub01Dir=/opt/practical-wayland/scripts/stubs/01-ec4b9530
-export stub02Dir=/opt/practical-wayland/scripts/stubs/02-1d9b2941
-export stub03Dir=/opt/practical-wayland/scripts/stubs/03-0586750e
-export mgrDir=/opt/practical-wayland/scripts/manager
-export tmpDir=/opt/practical-wayland/tmp
 export aptDir=/opt/practical-wayland/lib/apt
 export urlDir=/opt/practical-wayland/lib/urls
-export ashellDir=/opt/practical-wayland/scripts/03-0586750e
+export mgrDir=/opt/practical-wayland/scripts/manager
+export modDir=/opt/practical-wayland/scripts/modules
+export tmpDir=/opt/practical-wayland/tmp
+export stubDir=/opt/practical-wayland/scripts/stubs/00-shared
+export stub01Dir=/opt/practical-wayland/scripts/stubs/01-d68afc18
+export stub02Dir=/opt/practical-wayland/scripts/stubs/02-1d9b2941
+export stub03Dir=/opt/practical-wayland/scripts/stubs/03-0586750e
+export nocDir=/opt/practical-wayland/scripts/modules/01-d68afc18
+export lxqtDir=/opt/practical-wayland/scripts/modules/02-1d9b2941
+export ashellDir=/opt/practical-wayland/scripts/modules/03-0586750e
 #END VARIABLE DEFINITIONS
 
 #START BANNER FUNCTION
