@@ -73,3 +73,17 @@ noctaliaTitle
 printf "%s\n" "${chkStep[@]}" | gum style --foreground=11 --border-foreground=3 --border="rounded" --align=left --width="$halfBoxWidth" --margin="1 1" --padding="1 1"
 }
 #END CALL DISPLAY FUNCTION
+
+stepList
+callDisplay
+sleep 1
+style=info
+prtInfo
+gum style "Building Ashell"
+sleep 1
+gum spin --spinner=dot --title="Building Ashell" $stubDir/2610b8c37c.sh
+sleep 1
+style=win
+prtInfo
+gum style "Ashell built successfully"
+sleep 1
