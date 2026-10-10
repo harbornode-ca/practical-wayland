@@ -1,20 +1,21 @@
-N,Check for Installation of Just
+N,Install/Update Just
 N,Install GPU Drivers
 N,Install & Configure Bitmap Fonts
 N,Install Lemurs Dependencies
-N,Download Lemurs Login Manager Source
-N,Compile Lemurs Login Manager from source
-N,Install Lemurs Login Manager binaries and configuration
+N,Download Lemurs Login Manager
+N,Compile Lemurs Login Manager
+N,Install Lemurs Login Manager
 N,Install niri WM Build Dependencies
-N,Download niri WM Source
-N,Compile niri WM from source
-N,Install niri WM binaries and configuration
+N,Download niri WM
+N,Compile niri WM
+N,Install niri WM
 N,Install niri Runtime Packages
 N,Install Xwayland Satellite Dependencies
-N,Download Xwayland Satellite Source Code
-N,Compile Xwayland Satellite from Source
-N,Install Xwayland Satellite Binary
+N,Download Xwayland Satellite
+N,Compile Xwayland Satellite
+N,Install Xwayland Satellite
 N,Install Ashell Dependencies
-N,Download Ashell source code
-N,Compile Ashell from Source
-N,Install Ashell binaries and configuration
+N,Download Ashell
+N,Compile Ashell
+N,Install Ashell
+N,Install/Update Rust Toolchain
