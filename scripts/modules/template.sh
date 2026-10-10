@@ -39,6 +39,8 @@ export mgrDir=/opt/practical-wayland/scripts/manager
 export tmpDir=/opt/practical-wayland/tmp
 export aptDir=/opt/practical-wayland/lib/apt
 export urlDir=/opt/practical-wayland/lib/urls
+export nocDir=/opt/scripts/modules/01-d68afc18
+export lxqtDir=/opt/practical-wayland/scripts/02-1d9b2941
 export ashellDir=/opt/practical-wayland/scripts/03-0586750e
 #END VARIABLE DEFINITIONS
 
