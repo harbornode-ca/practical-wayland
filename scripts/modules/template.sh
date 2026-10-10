@@ -1,61 +1,73 @@
 #!/bin/bash
 #Script Information
 
-#START CMD FAIL FUNCTION
-cmdFail () {
-if [ $exitStat -ne 0 ]; then
-    style=lose
-    prt_info    
-    gum style "$errMsg"
-    sleep 1
-    echo
-    style=msg
-    prt_info
-    gum style "This script will now exit"
-    sleep 1
-    clear
-    exit 1
-else
-    style=win
-    prt_info
-    gum style "$successMsg"
-    sleep 0.5
-fi
-# These variables need to be set directly after a process ends to capture the $? value 
-# and output a message, cmdFail runs function.
-# exitStat=$?
-# errMsg="ERROR MESSAGE"
-# successMsg="SUCCESS MESSAGE"
-# cmdFail
-}
-#END CMD FAIL FUNCTION
-
 #START GUM STYLE FUNCTION
-prtInfo (){
+prtInfo () {
 case $style in
-    info) export FOREGROUND=7;;
-    msg) export FOREGROUND=11;;
-    lose) export FOREGROUND=1;;
-    win) export FOREGROUND=2;;
-    *) export FOREGROUND=7;;
+    info) 
+        FOREGROUND=7
+        MARGIN="1 2"
+        ;;
+    msg) 
+        FOREGROUND=11;
+        MARGIN="1 2"
+        ;;
+    lose)   
+        FOREGROUND=1;
+        MARGIN="1 2"
+        ;;
+    win) 
+        FOREGROUND=2;
+        MARGIN="1 2"
+        ;;
+    *) 
+        FOREGROUND=7;
+        MARGIN="1 2"
+        ;;
 esac
 }
 #END GUM STYLE FUNCTION
+
+#START VARIABLE DEFINITIONS
+export libDir=/opt/practical-wayland/lib
+export modDir=/opt/practical-wayland/scripts/modules
+export stubDir=/opt/practical-wayland/scripts/stubs/00-shared
+export stub01Dir=/opt/practical-wayland/scripts/stubs/01-ec4b9530
+export stub02Dir=/opt/practical-wayland/scripts/stubs/02-1d9b2941
+export stub03Dir=/opt/practical-wayland/scripts/stubs/03-0586750e
+export mgrDir=/opt/practical-wayland/scripts/manager
+export tmpDir=/opt/practical-wayland/tmp
+export aptDir=/opt/practical-wayland/lib/apt
+export urlDir=/opt/practical-wayland/lib/urls
+export ashellDir=/opt/practical-wayland/scripts/03-0586750e
+#END VARIABLE DEFINITIONS
+
+#START BANNER FUNCTION
+# $MenuTitle & $MenuSubTitle are set in the scripts called by this menu
+banner () {
+gum style --foreground=11 --border-foreground=3 --border="double" --align=center --width="$halfBoxWidth" --margin="1 $halfBoxMargin" --padding="0 0" "$MenuTitle" "$MenuSubTitle"
+}
+#END BANNER FUNCTION
+
+#START NOCTALIATITLE FUNCTION
+noctaliaTitle () {
+clear
+MenuTitle="Practical Wayland Tools"
+MenuSubTitle="Niri w/ Ashell Installation"
+banner
+}
+#END NOCTALIATITLE FUNCTION
+
+stepList () {
+while IFS= read -r line; do
+    chkStep+=("$line")
+done < "$tmpDir/steps.list"
+}
 
 #START CALL DISPLAY FUNCTION
 callDisplay() {
-$modDir/2609802c.sh
+# Calls the display module to update the display
+noctaliaTitle
+printf "%s\n" "${chkStep[@]}" | gum style --foreground=11 --border-foreground=3 --border="rounded" --align=left --width="$halfBoxWidth" --margin="1 1" --padding="1 1"
 }
 #END CALL DISPLAY FUNCTION
-
-#START GUM STYLE FUNCTION
-prt_info (){
-case $style in
-    info) export FOREGROUND=7; export BOLD=true;;
-    msg) export FOREGROUND=3;;
-    lose) export FOREGROUND=1; export BOLD=true;;
-    win) export FOREGROUND=2; export BOLD=true;;
-    *) export FOREGROUND=7; export BOLD=true;;
-esac
-}
-#END GUM STYLE FUNCTION
